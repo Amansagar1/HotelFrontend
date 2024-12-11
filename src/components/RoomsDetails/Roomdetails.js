@@ -9,18 +9,18 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [showModal, setShowModal] = useState(false);
     // const [error, setError] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 
-    useEffect(() => {
-        // Check if user is authenticated (replace with actual auth logic)
-        const checkAuth = async () => {
-            const session = await fetch("/api/auth/session").then((res) => res.json());
-            setIsAuthenticated(session?.user ? true : false);
-        };
+    // useEffect(() => {
+    //     // Check if user is authenticated (replace with actual auth logic)
+    //     const checkAuth = async () => {
+    //         const session = await fetch("/api/auth/session").then((res) => res.json());
+    //         setIsAuthenticated(session?.user ? true : false);
+    //     };
 
-        checkAuth()
-    });
+    //     checkAuth()
+    // });
     const handleCloseModal = () => {
         setShowModal(false);
     };
@@ -80,11 +80,12 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
         );
     };
     const handleBookNow = () => {
-        if (!isAuthenticated) {
-            router.push("/login"); // Redirect to login page if not authenticated
-        } else {
-            setShowModal(true); // Show the modal when authenticated
-        }
+        // if (!isAuthenticated) {
+        //     router.push("/login"); // Redirect to login page if not authenticated
+        // } else {
+        //     // Show the modal when authenticated
+        // }
+        setShowModal(true);
     };
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
