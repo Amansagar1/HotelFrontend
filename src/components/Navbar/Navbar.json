@@ -1,0 +1,23 @@
+[
+    {
+      "label": "HOME",
+      "href": "/"
+    },
+    {
+      "label": "ROOMS",
+      "href": "/rooms"
+    },
+    {
+      "label": "AMENITIES",
+      "href": "/amenities"
+    },
+    {
+      "label": "ABOUT US",
+      "href": "/aboutus"
+    },
+    {
+      "label": "CONTACT",
+      "href": "/contact"
+    }
+  ]
+  

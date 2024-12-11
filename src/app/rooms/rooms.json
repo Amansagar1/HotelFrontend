@@ -1,0 +1,108 @@
+{
+  "rooms": [
+    {
+      "title": "Deluxe Family Room",
+      "price": "₹3,422/night",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.16_5e94e5d3.jpg",
+      "rating": 5,
+      "description": "Spacious and luxurious family room with modern amenities.",
+      "features": [
+        "Free Wi-Fi",
+        "Breakfast included",
+        "City view"
+      ]
+    },
+    {
+      "title": "Super Deluxe Room",
+      "price": "₹4,484/night",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.16_5e94e5d3.jpg",
+      "rating": 4,
+      "description": "A spacious room with amenities for maximum comfort.",
+      "features": [
+        "Free Wi-Fi",
+        "Breakfast for one",
+        "Lake view"
+      ]
+    },
+    {
+      "title": "Executive Suite",
+      "price": "₹5,499/night",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg",
+      "rating": 5,
+      "description": "Executive suite with exclusive amenities and great city views.",
+      "features": [
+        "Free Wi-Fi",
+        "Free parking",
+        "Breakfast included"
+      ]
+    },
+    {
+      "title": "Single Room",
+      "price": "₹2,299/night",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg",
+      "rating": 3,
+      "description": "Cozy single room ideal for solo travelers.",
+      "features": [
+        "Free Wi-Fi",
+        "No breakfast",
+        "Street view"
+      ]
+    },
+    {
+      "title": "Double Room",
+      "price": "₹3,199/night",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg",
+      "rating": 4,
+      "description": "Comfortable room with double bed and complimentary amenities.",
+      "features": [
+        "Free Wi-Fi",
+        "Breakfast included",
+        "Garden view"
+      ]
+    },
+    {
+      "title": "Suite Room",
+      "price": "₹6,000/night",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg",
+      "rating": 5,
+      "description": "Spacious suite with luxury amenities and an exceptional view.",
+      "features": [
+        "Free Wi-Fi",
+        "Breakfast included",
+        "Pool view"
+      ]
+    }
+  ],
+  "facilities": [
+    {
+      "title": "Spa & Wellness Center",
+      "description": "Relax and rejuvenate at our world-class spa.",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg"
+    },
+    {
+      "title": "Fitness Center",
+      "description": "Stay fit with our state-of-the-art equipment.",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg"
+    },
+    {
+      "title": "Swimming Pool",
+      "description": "Enjoy a refreshing swim in our outdoor pool.",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg"
+    },
+    {
+      "title": "Restaurant & Bar",
+      "description": "Experience gourmet dining at our in-house restaurant.",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg"
+    },
+    {
+      "title": "Conference Room",
+      "description": "Ideal for meetings and events.",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg"
+    },
+    {
+      "title": "Free Parking",
+      "description": "Ample parking space for all guests.",
+      "image": "/images/WhatsApp Image 2024-11-05 at 20.44.17_10df680e.jpg"
+    }
+  ]
+}

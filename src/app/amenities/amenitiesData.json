@@ -1,0 +1,185 @@
+{
+  "heroSection": {
+    "backgroundImage": "/images/img1.jpg",
+    "title": "Amenities",
+    "breadcrumbs": [
+      { "label": "Home", "url": "/" },
+      { "label": "Amenities", "url": "/amenities" }
+    ]
+  },
+  "roomTypes": [
+    {
+      "id": 1,
+      "name": "Deluxe Room",
+      "price": "3800",
+      "occupancy": "Max 2 guests",
+      "size": "150 sq ft",
+      "quantity": 12,
+      "description": "Overlooking the airport and equipped with tea or coffee maker. The air-conditioned rooms come with a 2-seater sofa, TV, and private bathrooms including shower and free toiletries. Features include comfortable accommodation with amenities such as cable television, telephone, and modern fittings in attached washrooms with hot and cold water. 24-hour room service is available.",
+      "amenities": [
+        "Air Conditioning",
+        "Intercom",
+        "Wi-Fi",
+        "Bathroom",
+        "Coffee/Tea Kettle",
+        "Housekeeping",
+        "Chairs",
+        "Closet",
+        "Hangers",
+        "Mirror",
+        "Safe",
+        "Smart TV",
+        "Cushions",
+        "Blanket",
+        "Pillows",
+        "Mosquito Repellent",
+        "Smoke Alarm",
+        "Shower",
+        "Toiletries",
+        "Hot & Cold Water",
+        "Dustbins",
+        "Toilet Paper",
+        "Towels",
+        "Reading Lamp",
+        "Fan"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Super Deluxe Room",
+      "price": "4600",
+      "occupancy": "Max 3 guests",
+      "size": "180 sq ft",
+      "quantity": 2,
+      "description": "Super Deluxe Room provides a serene atmosphere and comfort at a nominal price. Features include air conditioning, cable television, telephone, modern attached washrooms with hot and cold water, and 24-hour room service.",
+      "amenities": [
+        "Daily Housekeeping",
+        "Bathroom",
+        "Air Conditioning",
+        "Seating Area",
+        "Blackout Curtains",
+        "Free Wi-Fi",
+        "Intercom",
+        "Locker Closet",
+        "Coffee/Tea Kettle",
+        "Smart TV",
+        "Cushions",
+        "Woollen Blanket",
+        "Pillows",
+        "Sofa",
+        "Smoke Alarm",
+        "Mosquito Repellent",
+        "Shower",
+        "Geyser/Water Heater",
+        "Toiletries",
+        "Toilet Paper",
+        "Towels",
+        "Reading Lamp",
+        "Fan",
+        "Paid Laundry",
+        "Large Windows",
+        "Coffee Table",
+        "Dustbins",
+        "24-hour Room Service",
+        "24-hour In-room Dining"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Family Room",
+      "price": "5800",
+      "occupancy": "Max 5 guests",
+      "size": "250 sq ft",
+      "quantity": 3,
+      "description": "Family Room provides a serene atmosphere and comfort for the entire family in one room. The hotel offers comfortable accommodation with air conditioning, cable television, telephone, modern washrooms, and 24-hour room service.",
+      "amenities": [
+        "Air Conditioning",
+        "Wi-Fi",
+        "Housekeeping",
+        "Seating Area",
+        "Blackout Curtains",
+        "Free Wi-Fi",
+        "Intercom",
+        "Locker Closet",
+        "Coffee/Tea Kettle",
+        "Smart TV",
+        "Cushions",
+        "Quilted Blanket",
+        "Pillows",
+        "Sofa",
+        "1 Double Bed",
+        "1 Single Bed",
+        "Smoke Alarm",
+        "Mosquito Repellent",
+        "Shower",
+        "Geyser/Water Heater",
+        "Toiletries",
+        "Toilet Paper",
+        "Towels",
+        "Reading Lamp",
+        "Fan",
+        "Paid Laundry",
+        "Large Windows",
+        "Coffee Table",
+        "Dustbins"
+      ]
+    }
+  ],
+  "amenitiesSection": {
+    "title": "Hotel Amenities",
+    "amenities": [
+      { "id": 1, "name": "Free Wi-Fi", "description": "High-speed internet access throughout the hotel.", "icon": "wifi" },
+      { "id": 2, "name": "Parking", "description": "Complimentary secure parking available.", "icon": "parking" },
+      { "id": 3, "name": "Room Service", "description": "24-hour room service for dining in the comfort of your room.", "icon": "room_service" }
+    ]
+  },
+  "diningOptionsSection": {
+    "title": "Dining Options",
+    "diningOptions": [
+      {
+        "id": 1,
+        "title": "Restaurant One",
+        "description": "A fine-dining experience with international cuisine.",
+        "timing": "6:00 AM - 10:00 PM",
+        "location": "Ground Floor"
+      },
+      {
+        "id": 2,
+        "title": "Cafe Lounge",
+        "description": "A casual lounge for snacks and beverages.",
+        "timing": "9:00 AM - 11:00 PM",
+        "location": "First Floor"
+      },
+      {
+        "id": 3,
+        "title": "Party Hall",
+        "description": "A vibrant space designed for casual gatherings and celebrations.",
+        "timing": "9:00 AM - 11:00 PM",
+        "location": "First Floor"
+      }
+    ]
+  },
+  "restaurantsSection": {
+    "title": "Our Restaurants",
+    "restaurants": [
+      {
+        "id": 1,
+        "name": "The Gourmet Table",
+        "description": "A luxurious experience with signature dishes.",
+        "timing": "12:00 PM - 11:00 PM",
+        "openDays": "All Days"
+      },
+      {
+        "id": 2,
+        "name": "Sea Breeze",
+        "description": "A seaside restaurant offering fresh seafood.",
+        "timing": "10:00 AM - 10:00 PM",
+        "openDays": "All Days"
+      }
+    ]
+  },
+  "cancellationPolicy": {
+    "title": "Cancellation Policy",
+    "details": "Free cancellation 2 days before check-in date. Cancellations are only allowed before the Check-In Time. All times mentioned are in destination time."
+  }
+}

@@ -1,0 +1,197 @@
+{
+    "amenitiesSection": {
+        "title": "Hotel Amenities",
+        "amenities": [
+            {
+                "name": "Free Wi-Fi",
+                "description": "High-speed internet access throughout the hotel.",
+                "icon": "wifi"
+            },
+            {
+                "name": "Parking",
+                "description": "Complimentary secure parking available.",
+                "icon": "parking"
+            },
+            {
+                "name": "Room Service",
+                "description": "24-hour room service for dining in the comfort of your room.",
+                "icon": "room_service"
+            },
+            {
+                "name": "Air Conditioning",
+                "description": "Comfortable air-conditioned rooms.",
+                "icon": "ac_unit"
+            },
+            {
+                "name": "Intercom",
+                "description": "In-room intercom system for communication.",
+                "icon": "phone"
+            },
+            {
+                "name": "Wi-Fi",
+                "description": "Wireless internet access available throughout the property.",
+                "icon": "wifi"
+            },
+            {
+                "name": "Bathroom",
+                "description": "Private bathrooms equipped with hot and cold water.",
+                "icon": "bathtub"
+            },
+            {
+                "name": "Coffee/Tea Kettle",
+                "description": "Kettle provided for tea and coffee making.",
+                "icon": "local_cafe"
+            },
+            {
+                "name": "Housekeeping",
+                "description": "Daily housekeeping service available.",
+                "icon": "cleaning_services"
+            },
+            {
+                "name": "Chairs",
+                "description": "Comfortable chairs for your convenience.",
+                "icon": "chair"
+            },
+            {
+                "name": "Closet",
+                "description": "In-room closet for storage.",
+                "icon": "archive"
+            },
+            {
+                "name": "Hangers",
+                "description": "Clothes hangers available in closets.",
+                "icon": "checkroom"
+            },
+            {
+                "name": "Mirror",
+                "description": "Full-length mirrors available in rooms.",
+                "icon": "mirror"
+            },
+            {
+                "name": "Safe",
+                "description": "In-room safe for valuables.",
+                "icon": "lock"
+            },
+            {
+                "name": "Smart TV",
+                "description": "Smart television with access to streaming services.",
+                "icon": "tv"
+            },
+            {
+                "name": "Cushions",
+                "description": "Extra cushions for added comfort.",
+                "icon": "weekend"
+            },
+            {
+                "name": "Blanket",
+                "description": "Warm blankets available for comfort.",
+                "icon": "bed"
+            },
+            {
+                "name": "Pillows",
+                "description": "Comfortable pillows available.",
+                "icon": "bedtime"
+            },
+            {
+                "name": "Mosquito Repellent",
+                "description": "Mosquito repellent provided in rooms.",
+                "icon": "bug_report"
+            },
+            {
+                "name": "Smoke Alarm",
+                "description": "Smoke detection system in rooms for safety.",
+                "icon": "smoke_free"
+            },
+            {
+                "name": "Shower",
+                "description": "Private shower facilities in bathrooms.",
+                "icon": "shower"
+            },
+            {
+                "name": "Toiletries",
+                "description": "Basic toiletries provided in bathrooms.",
+                "icon": "bathroom"
+            },
+            {
+                "name": "Hot & Cold Water",
+                "description": "Constant hot and cold water supply.",
+                "icon": "thermostat"
+            },
+            {
+                "name": "Dustbins",
+                "description": "Dustbins available for waste disposal.",
+                "icon": "delete"
+            },
+            {
+                "name": "Toilet Paper",
+                "description": "Toilet paper provided in bathrooms.",
+                "icon": "cleaning_services"
+            },
+            {
+                "name": "Towels",
+                "description": "Fresh towels provided daily.",
+                "icon": "towel"
+            },
+            {
+                "name": "Reading Lamp",
+                "description": "A reading lamp available beside the bed.",
+                "icon": "lightbulb"
+            },
+            {
+                "name": "Fan",
+                "description": "Ceiling fan provided in rooms for ventilation.",
+                "icon": "fan"
+            },
+            {
+                "name": "Seating Area",
+                "description": "In-room seating area with comfortable chairs.",
+                "icon": "weekend"
+            },
+            {
+                "name": "Blackout Curtains",
+                "description": "Blackout curtains to block light for a good night's sleep.",
+                "icon": "block"
+            },
+            {
+                "name": "Locker Closet",
+                "description": "Secure locker closet for storing personal belongings.",
+                "icon": "lock"
+            },
+            {
+                "name": "Sofa",
+                "description": "Comfortable sofa in the room for relaxation.",
+                "icon": "sofa"
+            },
+            {
+                "name": "Large Windows",
+                "description": "Rooms with large windows for natural light.",
+                "icon": "window"
+            },
+            {
+                "name": "Coffee Table",
+                "description": "Coffee table in the seating area.",
+                "icon": "table_chart"
+            },
+            {
+                "name": "Paid Laundry",
+                "description": "Paid laundry service available.",
+                "icon": "laundry"
+            },
+            {
+                "name": "Geyser/Water Heater",
+                "description": "Geyser or water heater provided for hot water.",
+                "icon": "water"
+            },
+            {
+                "name": "24-hour Room Service",
+                "description": "Room service available around the clock.",
+                "icon": "room_service"
+            },
+            {
+                "name": "24-hour In-room Dining",
+                "description": "In-room dining available 24 hours.",
+                "icon": "restaurant"
+            }
+        ]
+    }
+}

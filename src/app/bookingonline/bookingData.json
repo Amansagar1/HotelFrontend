@@ -1,0 +1,53 @@
+{
+    "heroSection": {
+      "title": "FIND ROOM",
+      "backgroundImage": "/img1.jpg"
+    },
+    "checkAvailabilitySection": {
+      "title": "CHECK AVAILABILITY",
+      "fields": [
+        { "label": "Check In", "type": "date", "name": "checkIn" },
+        { "label": "Check Out", "type": "date", "name": "checkOut" },
+        { "label": "Rooms", "type": "number", "name": "rooms" },
+        { "label": "Guests", "type": "number", "name": "guests" }
+      ],
+      "buttonLabel": "Continue"
+    },
+    "roomTypes": [
+      {
+        "id": 1,
+        "title": "Double Suite Rooms",
+        "image": "/images/img2.jpg",
+        "description": "A luxurious room with a large bed, perfect for couples."
+      },
+      {
+        "id": 2,
+        "title": "Deluxe Family Rooms",
+        "image": "/images/img3.jpg",
+        "description": "Spacious room with a table and chairs, ideal for families."
+      },
+      {
+        "id": 3,
+        "title": "Superior Bed Rooms",
+        "image": "/images/img4.jpg",
+        "description": "A cozy room with a lounge feel, perfect for relaxation."
+      }
+    ],
+    "contactSection": {
+      "title": "CONTACT WITH US",
+      "details": [
+        { "label": "Call Us", "value": "+1234567890" },
+        { "label": "Send Email", "value": "contact@hotel.com" },
+        { "label": "Our Location", "value": "123 Hotel St., City, Country" }
+      ],
+      "form": {
+        "fields": [
+          { "label": "Name", "type": "text", "name": "name" },
+          { "label": "Email", "type": "email", "name": "email" },
+          { "label": "Message", "type": "textarea", "name": "message" }
+        ],
+        "buttonLabel": "Send Message"
+      }
+    }
+  }
+  

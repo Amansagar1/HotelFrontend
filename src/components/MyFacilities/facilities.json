@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Room Services",
+    "icon": "FaConciergeBell",
+    "image": "/images/img5.jpg",
+    "description": "24/7 Room Service"
+  },
+  {
+    "id": 2,
+    "name": "Wi-Fi Internet",
+    "icon": "FaWifi",
+    "image": "/images/img4.jpg",
+    "description": "High-speed Wi-Fi throughout the hotel"
+  },
+  {
+    "id": 3,
+    "name": "Smart Key",
+    "icon": "FaKey",
+    "image": "/images/img3.jpg",
+    "description": "Smart key access for your convenience"
+  },
+  {
+    "id": 4,
+    "name": "Breakfast",
+    "icon": "FaUtensils",
+    "image": "/images/img2.jpg",
+    "description": "Complimentary breakfast"
+  },
+  {
+    "id": 5,
+    "name": "Swimming Pool",
+    "icon": "FaSwimmingPool",
+    "image": "/images/img1.jpg",
+    "description": "Relax and unwind in our swimming pool"
+  }
+]

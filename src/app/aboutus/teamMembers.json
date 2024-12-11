@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Ravi Kumar",
+    "role": "General Manager",
+    "image": "/images/img3.jpg"
+  },
+  {
+    "name": "Priya Nair",
+    "role": "Product Manager",
+    "image": "/images/img2.jpg"
+  },
+  {
+    "name": "Ananya Reddy",
+    "role": "Operations Manager",
+    "image": "/images/img1.jpg"
+  }
+]
