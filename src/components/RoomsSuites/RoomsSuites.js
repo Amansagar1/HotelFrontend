@@ -52,18 +52,19 @@ const RoomsSuites = () => {
         ) : (
           // Cards Container
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
-            {rooms.map((room, index) => (
-              <Card
-                key={index}
-                image={room.image}  // Use image from API
-                title={room.type}  // Adjust the title field from API (room.type)
-                description={room.description}  // Adjust the description field from API
-                price={room.price}  // Adjust the price field from API
-                beds={room.beds}  // Adjust the beds field from API
-                rating={room.rating}  // Adjust the rating field from API
-              />
-            ))}
-          </div>
+          {rooms.map((room, index) => (
+            <Card
+              key={index}
+              image={room.image}  // Use image from API
+              title={room.type}  // Adjust the title field from API (room.type)
+              description={room.description}  // Adjust the description field from API
+              price={`₹${room.price}/-`}  // Add rupee symbol and "/-" to the price
+              beds={room.beds}  // Adjust the beds field from API
+              rating={room.rating}  // Adjust the rating field from API
+            />
+          ))}
+        </div>
+        
         )}
       </div>
     </div>

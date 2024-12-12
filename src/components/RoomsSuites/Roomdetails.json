@@ -1,26 +1,167 @@
 [
   {
-    "title": "Double Suite Rooms",
-    "description": "The Double Suite Rooms at Hotel Sudarshan offer 1500 SQ.FT of spacious, luxurious living, complete with premium amenities. Each room features a king-size bed, exquisite furniture, and a dedicated workspace. Ideal for both business and leisure travelers looking for comfort and elegance. The suites also offer a breathtaking view of the city skyline.",
-    "price": "₹4,500/- | Night",
-    "beds": "2 King Size Beds",
-    "rating": 5,
-    "image": "/images/img1.jpg"
+    "type": "Super Deluxe Room",
+    "size": "180 sq ft",
+    "occupancy": 3,
+    "description": "The Super Deluxe Room at Hotel Sudarshan provide the ultimate comfort for guests. These rooms span 1500 SQ.FT and are designed with modern furnishings and luxurious bedding. Perfect for couples or solo travelers seeking a serene environment, each room comes with all the essential amenities for a premium stay..",
+    "price": 2500,
+    "beds": 2,
+    "rating": 4.8,
+    "image": "family_room_image.jpg",
+    "amenities": {
+      "roomFeatures": [
+        "Air Conditioning",
+        "Seating Area",
+        "Housekeeping",
+        "Wi-Fi",
+        "Bathroom",
+        "Coffee/Tea Kettle"
+      ],
+      "bedsAndBlankets": [
+        "Cushions",
+        "Mirror",
+        "Hangers",
+        "Quilted Blanket",
+        "Pillows",
+        "1 Double Bed",
+        "1 Single Bed"
+      ],
+      "safetyAndSecurity": [
+        "Safe",
+        "Smoke Alarm",
+        "Mosquito repellent"
+      ],
+      "mediaAndEntertainment": [
+        "Smart TV"
+      ],
+      "bathroom": [
+        "Geyser/Water Heater",
+        "Toiletries",
+        "Mirror",
+        "Hot & Cold Water"
+      ],
+      "otherFacilities": [
+        "Fan",
+        "Dustbins",
+        "Toilet Paper",
+        "Paid Laundry",
+        "Large Windows",
+        "Closet"
+      ]
+    },
+    "wifi": true,
+    "roomService": true
   },
+  
+  
+  
   {
-    "title": "Deluxe Family Rooms",
-    "description": "Our Deluxe Family Rooms provide a perfect combination of luxury and comfort for families. With 1500 SQ.FT of space, each room is designed to ensure maximum relaxation, offering a king-size bed and a cozy seating area. The room also features modern amenities, ensuring a seamless stay for all family members. Enjoy the stunning views of the hotel gardens from the window.",
-    "price": "₹4,000/- | Night",
-    "beds": "2 King Size Beds",
-    "rating": 5,
-    "image": "/images/img2.jpg"
+    "type": "Deluxe Room",
+    "size": "150 sq ft",
+    "occupancy": 4,
+    "description": "The Double Suite Rooms at Hotel Sudarshan offer 1500 SQ.FT of spacious, luxurious living, complete with premium amenities. Each room features a king-size bed, exquisite furniture, and a dedicated workspace. Ideal for both business and leisure travelers looking for comfort and elegance. The suites also offer a breathtaking view of the city skyline...",
+    "price": 2500,
+    "beds": 2,
+    "rating": 4.8,
+    "image": "/images/img3.jpg",
+    "amenities": {
+        "roomFeatures": [
+            "Air Conditioning",
+            "Seating Area",
+            "Housekeeping",
+            "Wi-Fi",
+            "Bathroom",
+            "Coffee/Tea Kettle"
+        ],
+        "bedsAndBlankets": [
+            "Cushions",
+            "Mirror",
+            "Hangers",
+            "Quilted Blanket",
+            "Pillows",
+            "1 Double Bed",
+            "1 Single Bed"
+        ],
+        "safetyAndSecurity": [
+            "Safe",
+            "Smoke Alarm",
+            "Mosquito repellent"
+        ],
+        "mediaAndEntertainment": [
+            "Smart TV"
+        ],
+        "bathroom": [
+            "Geyser/Water Heater",
+            "Toiletries",
+            "Mirror",
+            "Hot & Cold Water"
+        ],
+        "otherFacilities": [
+            "Fan",
+            "Dustbins",
+            "Toilet Paper",
+            "Paid Laundry",
+            "Large Windows",
+            "Closet"
+        ]
+    },
+    "wifi": true,
+    "roomService": true
   },
+  
+  
   {
-    "title": "Superior Bed Rooms",
-    "description": "The Superior Bed Rooms at Hotel Sudarshan provide the ultimate comfort for guests. These rooms span 1500 SQ.FT and are designed with modern furnishings and luxurious bedding. Perfect for couples or solo travelers seeking a serene environment, each room comes with all the essential amenities for a premium stay.",
-    "price": "₹3,500/- | Night",
-    "beds": "1 King Size Bed",
-    "rating": 5,
-    "image": "/images/img3.jpg"
+    "type": "Family Room",
+      "size": "250 sq ft",
+    "occupancy": 4,
+    "description": "Our Deluxe Family Rooms provide a perfect combination of luxury and comfort for families. With 1500 SQ.FT of space, each room is designed to ensure maximum relaxation, offering a king-size bed and a cozy seating area. The room also features modern amenities, ensuring a seamless stay for all family members. Enjoy the stunning views of the hotel gardens from the window..",
+    "price": 2500,
+    "beds": 2,
+    "rating": 4.8,
+    "image": "/images/img1.jpg",
+    "amenities": {
+      "roomFeatures": [
+        "Air Conditioning",
+        "Seating Area",
+        "Housekeeping",
+        "Wi-Fi",
+        "Bathroom",
+        "Coffee/Tea Kettle"
+      ],
+      "bedsAndBlankets": [
+        "Cushions",
+        "Mirror",
+        "Hangers",
+        "Quilted Blanket",
+        "Pillows",
+        "1 Double Bed",
+        "1 Single Bed"
+      ],
+      "safetyAndSecurity": [
+        "Safe",
+        "Smoke Alarm",
+        "Mosquito repellent"
+      ],
+      "mediaAndEntertainment": [
+        "Smart TV"
+      ],
+      "bathroom": [
+        "Geyser/Water Heater",
+        "Toiletries",
+        "Mirror",
+        "Hot & Cold Water"
+      ],
+      "otherFacilities": [
+        "Fan",
+        "Dustbins",
+        "Toilet Paper",
+        "Paid Laundry",
+        "Large Windows",
+        "Closet"
+      ]
+    },
+    "wifi": true,
+    "roomService": true
   }
+  
 ]
