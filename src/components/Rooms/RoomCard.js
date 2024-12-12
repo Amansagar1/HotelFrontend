@@ -1,27 +1,18 @@
-
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import Image from "next/image";
-// import Modal from "react-modal"; // Importing react-modal
-import RoomDetailsPage from "../RoomsDetails/Roomdetails"; 
+import RoomDetailsPage from "../RoomsDetails/Roomdetails";
 
 const RoomCard = ({ room }) => {
-  // const [showDetails, setShowDetails] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  // const handleShowDetails = () => {
-  //   setShowDetails(!showDetails); // Toggle room details visibility
-  // };
-
-
-  // const openModal = () => {
-  //   setModalIsOpen(true); // Open the modal when clicking 'Show Room Details'
-  // };
-
-  // const closeModal = () => {
-  //   setModalIsOpen(false); // Close the modal when clicking 'Close'
-  // };
 
   return (
-    <div className="bg-white shadow-lg rounded-md overflow-hidden flex flex-col group relative">
+    <div className="bg-white shadow-lg rounded-md overflow-hidden flex flex-col group relative w-full">
+
+      <div className="absolute flex w-full items-center justify-end p-4">
+        <p className=" text-white bg-yellow-600 rounded-lg  text-sm w-20 items-center justify-center flex  p-1 ">
+          {room.price ? `₹${room.price}` + " /-" : "N/A /-"}
+        </p>
+      </div>
       {/* Image */}
       <Image
         src={"/images/img1.jpg"}
@@ -35,11 +26,10 @@ const RoomCard = ({ room }) => {
       <div className="p-4">
         {/* Title and Availability Status */}
         <div className="text-xl font-semibold flex justify-between items-center">
-          {room.title}
+          {room.name}
           <span
-            className={`text-xs px-2 py-1 rounded-full ${
-              room.available ? "bg-green-500" : "bg-red-500"
-            } text-white`}
+            className={`text-xs px-2 py-1 rounded-full ${room.available ? "bg-green-500" : "bg-red-500"
+              } text-white`}
           >
             {room.available ? "Available" : "Booked"}
           </span>
@@ -84,18 +74,21 @@ const RoomCard = ({ room }) => {
         </div>
 
         {/* Button to show room details */}
-       <div className=" w-full flex bg-blue-500 text-white rounded-md shadow-md mt-2 items-center justify-center">
-       <button className="p-2 " onClick={() => setShowPopup(true)}>View Room</button>
-       </div>
-    <RoomDetailsPage
-      isVisible={showPopup}
-      onClose={() => setShowPopup(false)}
-      room={room}
-    />
-    </div>
+        <button
+          onClick={() => setShowPopup(true)}
+          className="p-2 w-full flex bg-blue-500 text-white rounded-md shadow-md mt-2 items-center justify-center"
+        >
+          View Room
+        </button>
+
+        <RoomDetailsPage
+          isVisible={showPopup}
+          onClose={() => setShowPopup(false)}
+          room={room}
+        />
+      </div>
     </div>
   );
 };
 
 export default RoomCard;
-
