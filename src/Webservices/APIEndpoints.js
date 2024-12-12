@@ -29,7 +29,9 @@ const EndPoints = {
 
     PUT_SUPERDELUXE_ROOM :()=> BASE_URL+ `/super-deluxe-rooms/${id}`,
 
+   LOGIN_USER :()=> BASE_URL+ `/auth/login`,
    
+   REGISTER_USER :()=> BASE_URL+ `/auth/register`,
 
 };
 

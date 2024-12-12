@@ -312,3 +312,62 @@ export async function PutFamilyRoom(id, deluxeRoomData) {
     throw error;  // Rethrow error for further handling
   }
 }
+
+
+
+
+//---login--//
+export const loginUser = (loginData) => {
+  return fetch(EndPoints.LOGIN_USER(), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(loginData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        return Promise.reject('Failed to login');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Store token and user data in localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user)); // Save user data
+      console.log('Login Successful:', data);
+      return data.user; // Return user data
+    })
+    .catch((error) => {
+      console.error('Login Error:', error);
+      throw error;
+    });
+};
+
+
+
+
+
+export function registerUser(userData) {
+  return fetch(EndPoints.REGISTER_USER(), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to register user');
+      }
+      return response.json(); // Return the response data as JSON
+    })
+    .then((data) => {
+      console.log('User registered successfully', data);
+      return data; // Return the success data
+    })
+    .catch((error) => {
+      console.error('Error registering user:', error);
+      throw error; // Throw error to be handled by the caller
+    });
+}
