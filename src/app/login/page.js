@@ -258,6 +258,7 @@
 // export default LoginPage;
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
+"use client";
 import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
@@ -265,6 +266,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { loginUser, registerUser } from "../../Webservices/HotelAPIController"; // Import the API functions
+import Cookies from "js-cookie"; // Import js-cookie for handling cookies
 
 const LoginPage = () => {
   const router = useRouter();
@@ -324,10 +326,15 @@ const LoginPage = () => {
 
     try {
       if (isSignUp) {
-        const userData = { fullName, email, mobileNumber, password,confirmPassword };
+        const userData = { fullName, email, mobileNumber, password, confirmPassword };
         const registrationResult = await registerUser(userData);
 
         if (registrationResult) {
+          // Save credentials in cookies
+          Cookies.set("userFullName", fullName, { expires: 7 }); // expires in 7 days
+          Cookies.set("userEmail", email, { expires: 7 });
+          Cookies.set("token", registrationResult.token, { expires: 7 }); // Assuming the API returns a token
+
           router.push("/rooms"); 
         }
       } else {
@@ -336,6 +343,11 @@ const LoginPage = () => {
         const loginResult = await loginUser(loginData);
 
         if (loginResult) {
+          // Save credentials in cookies
+          Cookies.set("userFullName", loginResult.fullName, { expires: 7 }); // Assuming loginResult contains the user's full name
+          Cookies.set("userEmail", loginResult.email, { expires: 7 });
+          Cookies.set("token", loginResult.token, { expires: 7 }); // Assuming loginResult contains the token
+
           router.push("/rooms"); 
         }
       }
