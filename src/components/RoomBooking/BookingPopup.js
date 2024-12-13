@@ -21,6 +21,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     roomId: roomDetails?._id,
     price: roomDetails?.price,
     title: roomDetails?.name,
+    available:"false",
   });
 
   const [isBooked, setIsBooked] = useState(false);

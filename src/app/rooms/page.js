@@ -189,7 +189,7 @@ const RoomPage = () => {
 
           {/* Super Deluxe Rooms */}
           <section>
-            <h2 className="text-2xl font-semibold mb-6">Super Deluxe Rooms</h2>
+            <h2 className="text-2xl font-semibold mb-6 mt-6">Super Deluxe Rooms</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredRooms.superDeluxe.length > 0 ? (
                 filteredRooms.superDeluxe.map((room) => <RoomCard key={room._id} room={room} />)
@@ -201,7 +201,7 @@ const RoomPage = () => {
 
           {/* Family Rooms */}
           <section>
-            <h2 className="text-2xl font-semibold mb-6">Family Rooms</h2>
+            <h2 className="text-2xl font-semibold mb-6 mt-6">Family Rooms</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredRooms.family.length > 0 ? (
                 filteredRooms.family.map((room) => <RoomCard key={room._id} room={room} />)

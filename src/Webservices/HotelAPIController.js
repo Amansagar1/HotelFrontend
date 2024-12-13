@@ -3,19 +3,17 @@ import EndPoints from "./APIEndpoints";
 
 
 export const getRoomsCategory = () => {
-    return axios
-      .get(EndPoints.GET_ROOMS()) 
-      .then((response) => {
-        console.log("API Response:", response.data); 
-        return { result: response.data };
-      })
-      .catch((error) => {
-        console.error("Error fetching rooms data:", error);
-        return { result: null };
-      });
-  };
-
-
+  return axios
+    .get(EndPoints.GET_ROOMS())
+    .then((response) => {
+      console.log("API Response:", response.data);
+      return { result: response.data };
+    })
+    .catch((error) => {
+      console.error("Error fetching rooms data:", error);
+      return { result: null };
+    });
+};
 
 // Get Deluxe Room data
 export const getDeluxeRoom = () => {
@@ -36,35 +34,36 @@ export const getDeluxeRoomById = async (id) => {
   try {
     const response = await axios.get(EndPoints.GET_DELUXE_ROOMSBYNUMBER(id));
     console.log(response)
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error("Error fetching Deluxe room details:", error);
-    throw error;  
+    throw error;
   }
 };
+
 
 export const getSuperDeluxeRoomById = async (id) => {
   try {
     const response = await axios.get(EndPoints.GET_SUPERDELUXE_ROOMSBYNUMBER(id));
     console.log(response)
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error("Error fetching Super Deluxe room details:", error);
-    throw error;  
+    throw error;
   }
 };
+
 
 export const getFamilyRoomById = async (id) => {
   try {
     const response = await axios.get(EndPoints.GET_FAMILY_ROOMSBYNUMBER(id));
     console.log(response)
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error("Error fetching Family room details:", error);
-    throw error;  
+    throw error;
   }
 };
-
 
 
 // Get Super Deluxe Room data
@@ -96,25 +95,25 @@ export const getFamilyDeluxeRoom = () => {
 };
 
 
-  export const getAllRoomsDetails = () => {
-    const url = EndPoints.GET_ROOMSDETAILS();
-    console.log("Requesting URL:", url);
+export const getAllRoomsDetails = () => {
+  const url = EndPoints.GET_ROOMSDETAILS();
+  console.log("Requesting URL:", url);
 
-    return axios
-        .get(url)
-        .then((response) => {
-            console.log("API Response:", response.data);
-            return { result: response.data };
-        })
-        .catch((error) => {
-            console.error("Error details:", {
-                message: error.message,
-                code: error.code,
-                config: error.config,
-                response: error.response,
-            });
-            return { result: null };
-        });
+  return axios
+    .get(url)
+    .then((response) => {
+      console.log("API Response:", response.data);
+      return { result: response.data };
+    })
+    .catch((error) => {
+      console.error("Error details:", {
+        message: error.message,
+        code: error.code,
+        config: error.config,
+        response: error.response,
+      });
+      return { result: null };
+    });
 };
 
 export const getRoomDetailsById = async (id) => {
@@ -125,9 +124,9 @@ export const getRoomDetailsById = async (id) => {
 
     if (id && id.length === 24) { // MongoDB ObjectId format (24 characters)
       // Correct API endpoint usage
-      response = await axios.get(EndPoints.GET_DELUXE_ROOMS(id)); 
-      response = await axios.get(EndPoints.GET_SUPER_DELUXE_ROOMS(id)); 
-      response = await axios.get(EndPoints.GET_FAMILY_ROOMS(id)); 
+      response = await axios.get(EndPoints.GET_DELUXE_ROOMS(id));
+      response = await axios.get(EndPoints.GET_SUPER_DELUXE_ROOMS(id));
+      response = await axios.get(EndPoints.GET_FAMILY_ROOMS(id));
     } else {
       console.error("Invalid room ID:", id); // Log invalid ID for debugging
       throw new Error("Invalid room ID");
@@ -142,44 +141,44 @@ export const getRoomDetailsById = async (id) => {
 
 
 
-  // export const getRoomDetailsById = (id) => {
-  //   return axios
-  //     .get(`${EndPoints.GET_ROOMSDETAILS()}/${id}`) // Assuming the endpoint allows fetching by ID
-  //     .then((response) => {
-  //       console.log("API Response:", response.data); // Check response data
-  //       return { result: response.data }; // Ensure the data structure is correct
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching room data:", error);
-  //       return { result: null };
-  //     });
-  // };
+// export const getRoomDetailsById = (id) => {
+//   return axios
+//     .get(`${EndPoints.GET_ROOMSDETAILS()}/${id}`) // Assuming the endpoint allows fetching by ID
+//     .then((response) => {
+//       console.log("API Response:", response.data); // Check response data
+//       return { result: response.data }; // Ensure the data structure is correct
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching room data:", error);
+//       return { result: null };
+//     });
+// };
 
 
 // ManagementAPIController.js
 // Assuming you have a Webservices/ManagementAPIController.js file
 
-export const roomBooking = async (bookingDetails) => {
-  try {
-    const response = await fetch(EndPoints.BOOKING_ROOMS(), { 
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bookingDetails),
-    });
+// export const roomBooking = async (bookingDetails) => {
+//   try {
+//     const response = await fetch(EndPoints.BOOKING_ROOMS(), { 
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(bookingDetails),
+//     });
 
-    if (!response.ok) {
-      throw new Error('Booking failed');
-    }
+//     if (!response.ok) {
+//       throw new Error('Booking failed');
+//     }
 
-    const result = await response.json(); // Assuming the backend returns JSON response
-    return result;
-  } catch (error) {
-    console.error('Error in roomBooking:', error);
-    throw error; // Rethrow error so it can be caught in handleSubmit
-  }
-};
+//     const result = await response.json(); // Assuming the backend returns JSON response
+//     return result;
+//   } catch (error) {
+//     console.error('Error in roomBooking:', error);
+//     throw error; // Rethrow error so it can be caught in handleSubmit
+//   }
+// };
 
 
 export const postBookingRoom = (bookingData) => {
@@ -213,10 +212,10 @@ export const postBookingRoom = (bookingData) => {
 export const createRoom = async (roomData) => {
   try {
     const response = await axios.post(EndPoints.POST_ROOMS(), roomData);
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error("Error creating room:", error);
-    throw error; 
+    throw error;
   }
 };
 
@@ -224,10 +223,10 @@ export const createRoom = async (roomData) => {
 export const getRoomById = async (_id) => {
   try {
     const response = await axios.get(EndPoints.GET_ROOMID(_id));
-    return response.data;  
+    return response.data;
   } catch (error) {
     console.error("Error fetching room details:", error);
-    throw error;  
+    throw error;
   }
 };
 
@@ -236,21 +235,21 @@ export const getRoomById = async (_id) => {
 export async function getAmenities() {
   try {
     const response = await fetch(EndPoints.GET_AMINITIES(), {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-      });
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-      if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-      }
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-      const data = await response.json();
-      return data;
+    const data = await response.json();
+    return data;
   } catch (error) {
-      console.error('Error fetching amenities:', error);
-      throw error;
+    console.error('Error fetching amenities:', error);
+    throw error;
   }
 }
 
@@ -261,7 +260,7 @@ export async function PutDeluxeRoom(id, deluxeRoomData) {
   try {
     const updatedRoomData = {
       ...deluxeRoomData,
-      available: false,  
+      available: false,
     };
 
     // Perform the PUT request to update the deluxe room
@@ -280,7 +279,7 @@ export async function PutSuperDeluxeRoom(id, deluxeRoomData) {
   try {
     const updatedRoomData = {
       ...deluxeRoomData,
-      available: false,  
+      available: false,
     };
 
     // Perform the PUT request to update the super deluxe room
@@ -299,7 +298,7 @@ export async function PutFamilyRoom(id, deluxeRoomData) {
   try {
     const updatedRoomData = {
       ...deluxeRoomData,
-      available: false,  
+      available: false,
     };
 
     // Perform the PUT request to update the family room
@@ -314,6 +313,26 @@ export async function PutFamilyRoom(id, deluxeRoomData) {
 }
 
 
+export const getAllBookingRooms = () => {
+  const url = EndPoints.GET_ALL_BOOKING_ROOMS();
+  console.log("Requesting URL:", url);
+
+  return axios
+    .get(url)
+    .then((response) => {
+      console.log("API Response:", response.data);
+      return { result: response.data };
+    })
+    .catch((error) => {
+      console.error("Error details:", {
+        message: error.message,
+        code: error.code,
+        config: error.config,
+        response: error.response,
+      });
+      return { result: null };
+    });
+};
 
 
 //---login--//
@@ -343,9 +362,6 @@ export const loginUser = (loginData) => {
       throw error;
     });
 };
-
-
-
 
 
 export function registerUser(userData) {

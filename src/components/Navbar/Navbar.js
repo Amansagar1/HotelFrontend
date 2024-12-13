@@ -120,7 +120,7 @@ const Navbar = () => {
             <div onClick={toggleUserCard} className="cursor-pointer flex items-center justify-center w-full">
               <div className="w-10 h-10 flex justify-center items-center rounded-full bg-gray-300 border-2 border-gray-400">
                 {user.image ? (
-                  <img className="w-full h-full object-cover" src={user.image} alt="user" />
+                  <Image className="w-full h-full object-cover" src={user.image} alt="user" />
                 ) : (
                   <span className="text-white text-lg font-semibold">
                     {getInitials(user.name)}

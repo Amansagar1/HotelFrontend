@@ -18,20 +18,26 @@ const EndPoints = {
     GET_SUPERDELUXE_ROOMSBYNUMBER: (id) => BASE_URL + `/super-deluxe-rooms/?id=${id}`,
 
     GET_FAMILY_ROOMSBYNUMBER: (id) => BASE_URL + `/family-rooms/?id=${id}`,
-    
+
     GET_AMINITIES: () => BASE_URL + `/amenities`,
-//-post function
+
+    GET_ALL_BOOKING_ROOMS: () => BASE_URL + `/bookings`,
+
+    //-post function
+
     POST_BOOKING_ROOMS: () => BASE_URL + `/bookings`,
-     
-    PUT_FAMILY_ROOM :()=> BASE_URL+ `/family-rooms/${id}`,
 
-    PUT_DELUXE_ROOM: (id) => `${BASE_URL}/deluxe-rooms/${id}`,
+    PUT_FAMILY_ROOM: () => BASE_URL + `/family-rooms/${id}`,
 
-    PUT_SUPERDELUXE_ROOM :()=> BASE_URL+ `/super-deluxe-rooms/${id}`,
+    PUT_DELUXE_ROOM: (id) => BASE_URL + `/deluxe-rooms/${id}`,
 
-   LOGIN_USER :()=> BASE_URL+ `/auth/login`,
+    PUT_SUPERDELUXE_ROOM: () => BASE_URL + `/super-deluxe-rooms/${id}`,
+
+    LOGIN_USER: () => BASE_URL + `/auth/login`,
+
+    REGISTER_USER: () => BASE_URL + `/auth/register`,
+
    
-   REGISTER_USER :()=> BASE_URL+ `/auth/register`,
 
 };
 
@@ -41,12 +47,12 @@ export default EndPoints;
 
 
 
- // GET_ROOMSDETAILS: () => BASE_URL + `/roomdetails`,
+// GET_ROOMSDETAILS: () => BASE_URL + `/roomdetails`,
 
-    // BOOKING_ROOMS: () => BASE_URL + `/book`,
+// BOOKING_ROOMS: () => BASE_URL + `/book`,
 
-    // POST_ROOMS: () => BASE_URL + `/rooms`,
+// POST_ROOMS: () => BASE_URL + `/rooms`,
 
-    // GET_ROOMID: (_id) => BASE_URL + `/rooms/:${_id} `,
+// GET_ROOMID: (_id) => BASE_URL + `/rooms/:${_id} `,
 
-    // GET_AMINITIES: () => BASE_URL + `/amenities`,
+// GET_AMINITIES: () => BASE_URL + `/amenities`,
