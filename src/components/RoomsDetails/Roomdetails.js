@@ -261,7 +261,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import BookingModal from "../RoomBooking/BookingPopup";
-import Cookies from "js-cookie"; // Import js-cookie for handling cookies
+import Cookies from "js-cookie";
 
 const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);

@@ -17,11 +17,11 @@ const FilterSidebar = ({ filters, toggleFilter }) => {
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-screen w-3/4 max-w-sm bg-gray-100 z-40 transform ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={` fixed top-0 right-0 h-screen w-3/4 max-w-sm bg-gray-100 z-40 transform ${
+          isOpen ? "translate-x-0 mt-[130px] " : "translate-x-full "
         } transition-transform duration-300 ease-in-out shadow-lg sm:relative sm:translate-x-0 sm:w-full sm:max-w-none`}
       >
-        <div className="p-4 w-64">
+        <div className="p-4 w-64 ">
           <h2 className="text-2xl font-semibold mb-4">Filter by</h2>
           {Object.keys(filters).map((category) => (
             <div key={category} className="mb-6">
@@ -50,7 +50,7 @@ const FilterSidebar = ({ filters, toggleFilter }) => {
         {/* Close button */}
         <button
           onClick={toggleDrawer}
-          className="absolute top-4 right-4 text-gray-600 text-2xl sm:hidden"
+          className="absolute top-4  right-4 text-gray-600 text-2xl sm:hidden  "
         >
           ×
         </button>

@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSession } from 'next-auth/react'; // Importing useSession to check session status
-import { signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
+import Cookies from 'js-cookie';
+import Image from "next/image";
 
-const UserCard = ({ user, isOpen }) => {
+const UserCard = ({ isOpen }) => {
+  const [userInfo, setUserInfo] = useState(null);
+  const { data: session } = useSession();
+
   // Function to generate initials from user name or fallback to email
   const getInitials = (name, email) => {
-    // If name is not available, fallback to email
     if (!name && email) {
-      const emailName = email.split('@')[0];  // Extract the part before '@'
+      const emailName = email.split('@')[0]; 
       name = emailName;
     }
 
@@ -18,18 +21,37 @@ const UserCard = ({ user, isOpen }) => {
     return `${firstNameInitial}${lastNameInitial}`;
   };
 
-  // Get session data to check if user is logged in
-  const { data: session } = useSession();
+  // Effect to check session or cookies for user data
   useEffect(() => {
-    console.log("Session updated:", session);
+    const userFullName = Cookies.get('userFullName');
+    const userEmail = Cookies.get('userEmail');
+
+    // If cookies exist, use cookies, otherwise fallback to session
+    if (userFullName && userEmail) {
+      setUserInfo({ name: userFullName, email: userEmail });
+    } else if (session && session.user) {
+      setUserInfo({ name: session.user.name, email: session.user.email });
+    }
   }, [session]);
+
+  // Handle sign out
+  const handleSignOut = () => {
+    // Clear user-related cookies when signing out
+    Cookies.remove('userFullName');
+    Cookies.remove('userEmail');
+    signOut(); // Proceed with sign out
+  };
+
+  if (!userInfo) {
+    return null; // If user info is not available, return null (or you can show a loading spinner)
+  }
 
   return (
     <div className={`bg-white shadow-lg absolute z-10 rounded-lg p-4 w-[280px] transition-all duration-300 ${isOpen ? 'max-h-[350px] opacity-100' : 'max-h-0 opacity-0'}`}>
-      <div className="">
+      <div className="flex justify-between mb-4">
         <button
-          onClick={() => signOut()} // Sign out the user
-          className="text-[12px]"
+          onClick={handleSignOut} // Sign out the user
+          className="text-sm text-red-500 hover:text-red-600"
         >
           Sign Out
         </button>
@@ -37,32 +59,32 @@ const UserCard = ({ user, isOpen }) => {
 
       <div className="flex justify-center items-center mb-4">
         {/* Profile Image Section */}
-        {user.image ? (
-          <img
-            src={user.image}
-            alt={user.name || 'User'}
+        {userInfo.image ? (
+          <Image
+            src={userInfo.image}
+            alt={userInfo.name || 'User'}
             className="w-24 h-24 rounded-full object-cover border-4 border-gray-300 shadow-lg"
           />
         ) : (
           <div className="w-24 h-24 flex justify-center items-center rounded-full bg-gray-300 border-4 border-gray-300">
             <span className="text-white text-lg font-semibold">
-              {getInitials(user.name, user.email)} {/* Pass both name and email */}
+              {getInitials(userInfo.name, userInfo.email)} {/* Pass both name and email */}
             </span>
           </div>
         )}
       </div>
 
-      <h3 className="text-lg font-semibold text-center text-gray-800">{user.name }</h3>
-      <p className="text-sm text-center text-gray-600">{user.email || 'No email provided'}</p>
+      <h3 className="text-lg font-semibold text-center text-gray-800">{userInfo.name}</h3>
+      <p className="text-sm text-center text-gray-600">{userInfo.email || 'No email provided'}</p>
 
       {/* Additional Information */}
       <div className="mt-4 text-center text-sm text-gray-500">
-        {user.jobTitle && <p>{user.jobTitle}</p>}
-        {user.phone && <p>{user.phone}</p>}
+        {userInfo.jobTitle && <p>{userInfo.jobTitle}</p>}
+        {userInfo.phone && <p>{userInfo.phone}</p>}
       </div>
 
       {/* Conditional Button Section */}
-      <div className="mt-4 flex justify-center">
+      <div className="mt-4 flex justify-center space-x-4">
         {session ? (
           // Show Book Now button if user is logged in
           <Link href="/rooms" passHref>
