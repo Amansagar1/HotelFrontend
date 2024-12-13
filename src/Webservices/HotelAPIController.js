@@ -387,3 +387,34 @@ export function registerUser(userData) {
       throw error; // Throw error to be handled by the caller
     });
 }
+
+
+// Function to send booking emails
+export const sendBookingEmails = async (bookingDetails) => {
+  const apiUrl = EndPoints.MAIL_URL; // Ensure EndPoints.MAIL_URL is defined properly
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bookingDetails), // Removed extra nesting around `bookingDetails`
+    });
+
+    // Parse the response
+    const data = await response.json();
+
+    if (!response.ok) {
+      // Log the error response
+      console.error("Failed to send emails:", data);
+      throw new Error(data.message || "Error sending emails");
+    }
+
+    console.log("Emails sent successfully:", data);
+    return data;
+  } catch (error) {
+    // Catch and log any other errors
+    console.error("Error in sendBookingEmails:", error);
+    throw error;
+  }
+};

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { postBookingRoom,PutDeluxeRoom } from "../../Webservices/HotelAPIController";  // Import your API function
 import emailjs from "emailjs-com";
-
+// import { sendBookingEmails } from "../../Webservices/HotelAPIController";
 const BookingModal = ({ isVisible, onClose, roomDetails }) => {
   const [bookingDetails, setBookingDetails] = useState({
     firstName: "",
@@ -27,6 +27,19 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
   const [isBooked, setIsBooked] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+
+  
+
+  // const sendEmails = async (bookingData) => {
+  //   try {
+  //     await sendBookingEmails(bookingData); // Call the reusable function
+  //     console.log("Emails sent successfully.");
+  //   } catch (error) {
+  //     console.error("Error sending emails:", error);
+  //   }
+  // };
+  
 
   useEffect(() => {
     console.log("Room Details:", roomDetails);
@@ -81,45 +94,54 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
   const sendEmails = async (bookingData) => {
     const userMail = {
       to_name: `${bookingData.firstName} ${bookingData.lastName}`,
-      to_email: bookingData.email,
+      to_email: bookingData.email, // User's email
       room_title: bookingData.title,
       check_in: `${bookingData.checkIn} at ${bookingData.checkInTime}`,
       check_out: `${bookingData.checkOut} at ${bookingData.checkOutTime}`,
       price: bookingData.price,
     };
-
-    const hotelMail = {
+  
+    const adminMail = {
       to_name: "Hotel Management",
-      to_email: "hotelsudarshan01@gmail.com",
-      ...bookingData,
+      to_email: "hotelsudarshan01@gmail.com", 
+      user_name: `${bookingData.firstName} ${bookingData.lastName}`,
+      user_email: bookingData.email,
+      phone: bookingData.phone,
+      room_title: bookingData.title,
+      check_in: `${bookingData.checkIn} at ${bookingData.checkInTime}`,
+      check_out: `${bookingData.checkOut} at ${bookingData.checkOutTime}`,
+      price: bookingData.price,
     };
-
+  
     try {
+      // Send email to user
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID2,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID1,
         userMail,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
       console.log("Email sent to user successfully.");
-
+  
+      // Send email to admin
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID2,
-        hotelMail,
+        adminMail,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
-      console.log("Email sent to hotel successfully.");
+      console.log("Email sent to admin successfully.");
     } catch (error) {
       console.error("Error sending emails:", error);
     }
   };
+  
 
   
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    console.log("Submitting Form Data:", bookingDetails); // Logs full form data
+    console.log("Submitting Form Data:", bookingDetails);
   
     if (!validateForm()) {
       alert("Please correct the highlighted errors.");
@@ -132,11 +154,13 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
       console.log("API Response:", response);
   
       if (response.success) {
-        // After booking, mark the room as unavailable using the roomId from bookingDetails
-        await PutDeluxeRoom(bookingDetails.roomId, roomDetails); // roomDetails is passed to BookingModal
+        // Mark the room as unavailable
+        await PutDeluxeRoom(bookingDetails.roomId, { ...roomDetails, available: false });
   
         setIsBooked(true);
         alert("Booking successful!");
+  
+        // Send emails to user and admin
         await sendEmails(bookingDetails);
       } else {
         alert(`Booking failed: ${response.message}`);

@@ -37,7 +37,8 @@ const EndPoints = {
 
     REGISTER_USER: () => BASE_URL + `/auth/register`,
 
-   
+   MAIL_URL: () => BASE_URL + `/email/send-booking-emails`,
+
 
 };
 
