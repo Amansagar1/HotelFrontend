@@ -118,6 +118,7 @@ const RoomCard = ({ room }) => {
 
   return (
     <div className="bg-white shadow-lg rounded-md overflow-hidden flex flex-col group relative w-full">
+      
       {/* Price */}
       <div className="absolute flex w-full items-center justify-end p-4">
         <p className="text-white bg-yellow-600 rounded-lg text-sm w-20 items-center justify-center flex p-1">

@@ -68,18 +68,18 @@ const RoomPage = () => {
     const applyFilters = () => {
       const { size, occupancy, amenities } = filters;
       const normalize = (str) => str.toLowerCase().replace(/\s|[-_]/g, "");
-  
+
       // Helper to parse numeric size from string
       const parseSize = (sizeString) => {
         const match = sizeString.match(/(\d+)/);
         return match ? parseInt(match[0], 10) : null;
       };
-  
+
       // Filter function
       const filterRooms = (roomList) => {
         return roomList.filter((room) => {
           let isValid = true;
-  
+
           // Normalize room properties for filtering
           const normalizedRoom = {
             amenities: room.amenities.map(normalize),
@@ -90,7 +90,7 @@ const RoomPage = () => {
             bathroom: room.bathroom.map(normalize),
             otherFacilities: room.otherFacilities.map(normalize),
           };
-  
+
           // Apply size filter
           const roomSize = parseSize(room.size);
           if (size.small || size.medium || size.large) {
@@ -101,7 +101,7 @@ const RoomPage = () => {
                 (size.large && roomSize >= 201);
             }
           }
-  
+
           // Apply occupancy filter
           if (isValid && (occupancy.single || occupancy.double || occupancy.family)) {
             isValid =
@@ -109,11 +109,11 @@ const RoomPage = () => {
               (occupancy.double && room.maxOccupancy === 2) ||
               (occupancy.family && room.maxOccupancy >= 4);
           }
-  
+
           // Apply amenities filter
           if (isValid && Object.values(amenities).some((value) => value)) {
             const selectedFilters = Object.keys(amenities).filter((key) => amenities[key]);
-  
+
             isValid = selectedFilters.some((filter) => {
               const normalizedFilter = normalize(filter);
               return (
@@ -127,11 +127,11 @@ const RoomPage = () => {
               );
             });
           }
-  
+
           return isValid;
         });
       };
-  
+
       // Filter and set rooms
       setFilteredRooms({
         deluxe: filterRooms(rooms.deluxe),
@@ -139,10 +139,10 @@ const RoomPage = () => {
         family: filterRooms(rooms.family),
       });
     };
-  
+
     applyFilters();
   }, [filters, rooms]);
-  
+
 
   const toggleFilter = (category, filter) => {
     setFilters((prev) => ({
@@ -167,7 +167,9 @@ const RoomPage = () => {
       {/* Header Banner */}
       <HeaderBanner title="Rooms & Suites" backgroundImage="/images/img2.jpg" />
 
-      <div className="flex  p-5">
+     
+
+      <div className="flex w-full p-5">
         {/* Filter Sidebar */}
         <div className="  ">
           <FilterSidebar filters={filters} toggleFilter={toggleFilter} />
