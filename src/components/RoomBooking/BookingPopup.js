@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from "react";
-import { postBookingRoom,PutDeluxeRoom } from "../../Webservices/HotelAPIController";  // Import your API function
+import { postBookingRoom, PutDeluxeRoom } from "../../Webservices/HotelAPIController";  // Import your API function
 import emailjs from "emailjs-com";
-// import { sendBookingEmails } from "../../Webservices/HotelAPIController";
+
 const BookingModal = ({ isVisible, onClose, roomDetails }) => {
   const [bookingDetails, setBookingDetails] = useState({
     firstName: "",
@@ -21,25 +20,12 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     roomId: roomDetails?._id,
     price: roomDetails?.price,
     title: roomDetails?.name,
-    available:"false",
+    available: "false",
   });
 
   const [isBooked, setIsBooked] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-
-  
-
-  // const sendEmails = async (bookingData) => {
-  //   try {
-  //     await sendBookingEmails(bookingData); // Call the reusable function
-  //     console.log("Emails sent successfully.");
-  //   } catch (error) {
-  //     console.error("Error sending emails:", error);
-  //   }
-  // };
-  
 
   useEffect(() => {
     console.log("Room Details:", roomDetails);
@@ -61,14 +47,14 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{10}$/;
-  
+
     Object.keys(bookingDetails).forEach((key) => {
       if (!bookingDetails[key] && key !== "roomPreference") {
         newErrors[key] = "This field is required.";
         console.log(`Field "${key}" is empty.`);
       }
     });
-  
+
     if (bookingDetails.email && !emailRegex.test(bookingDetails.email)) {
       newErrors.email = "Please enter a valid email address.";
       console.log(`Invalid email address: "${bookingDetails.email}"`);
@@ -83,13 +69,12 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
         `Check-in time "${bookingDetails.checkInTime}" is not earlier than check-out time "${bookingDetails.checkOutTime}".`
       );
     }
-  
+
     setErrors(newErrors);
-  
+
     console.log("Validation Errors:", newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
 
   const sendEmails = async (bookingData) => {
     const userMail = {
@@ -100,10 +85,10 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
       check_out: `${bookingData.checkOut} at ${bookingData.checkOutTime}`,
       price: bookingData.price,
     };
-  
+
     const adminMail = {
       to_name: "Hotel Management",
-      to_email: "hotelsudarshan01@gmail.com", 
+      to_email: "hotelsudarshan01@gmail.com",
       user_name: `${bookingData.firstName} ${bookingData.lastName}`,
       user_email: bookingData.email,
       phone: bookingData.phone,
@@ -112,17 +97,17 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
       check_out: `${bookingData.checkOut} at ${bookingData.checkOutTime}`,
       price: bookingData.price,
     };
-  
+
     try {
       // Send email to user
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID1,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID2,
         userMail,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
       console.log("Email sent to user successfully.");
-  
+
       // Send email to admin
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
@@ -135,33 +120,54 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
       console.error("Error sending emails:", error);
     }
   };
-  
 
-  
+  // Helper function to convert times to local time
+  const convertToLocalTime = (time) => {
+    // Parse the time input (HH:mm) into a Date object
+    const [hours, minutes] = time.split(":");
+    const localDate = new Date();
+
+    // Set the hours and minutes to the input time, keeping the current date
+    localDate.setHours(hours, minutes, 0, 0);
+
+    // Convert to the user's local time and return as ISO string or formatted string
+    return localDate.toLocaleString(); // or localDate.toISOString() if you need it in ISO format
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     console.log("Submitting Form Data:", bookingDetails);
-  
+
     if (!validateForm()) {
       alert("Please correct the highlighted errors.");
       return;
     }
-  
+
     setIsSubmitting(true);
+
+    // Convert check-in and check-out times to local time
+    const localBookingDetails = { ...bookingDetails };
+    if (localBookingDetails.checkInTime) {
+      localBookingDetails.checkInTime = convertToLocalTime(localBookingDetails.checkInTime);
+    }
+    if (localBookingDetails.checkOutTime) {
+      localBookingDetails.checkOutTime = convertToLocalTime(localBookingDetails.checkOutTime);
+    }
+
     try {
-      const response = await postBookingRoom(bookingDetails);
+      const response = await postBookingRoom(localBookingDetails);
       console.log("API Response:", response);
-  
+
       if (response.success) {
         // Mark the room as unavailable
-        await PutDeluxeRoom(bookingDetails.roomId, { ...roomDetails, available: false });
-  
+        await PutDeluxeRoom(localBookingDetails.roomId, { ...roomDetails, available: false });
+
         setIsBooked(true);
         alert("Booking successful!");
-  
+
         // Send emails to user and admin
-        await sendEmails(bookingDetails);
+        await sendEmails(localBookingDetails);
       } else {
         alert(`Booking failed: ${response.message}`);
       }
@@ -172,8 +178,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
       setIsSubmitting(false);
     }
   };
-  
-  
+
   if (!isVisible) return null;
 
   return (

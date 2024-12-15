@@ -10,7 +10,7 @@ import navLinks from "./Navbar.json"; // Import nav links
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false); // Mobile menu toggle
   const [navbarBg, setNavbarBg] = useState("bg-transparent"); // Navbar background on scroll
-  const [userCardOpen, setUserCardOpen] = useState(false); // User card toggle state
+  const [userCardOpen, setUserCardOpen] = useState(false); 
   const [user, setUser] = useState({
     name: "Guest User",
     email: "guest@example.com",
@@ -84,7 +84,7 @@ const Navbar = () => {
 
   // Handle user card toggle
   const toggleUserCard = () => {
-    setUserCardOpen((prev) => !prev); // Correctly toggle user card visibility
+    setUserCardOpen((prev) => !prev);
   };
 
   // Handle sign out
@@ -109,11 +109,11 @@ const Navbar = () => {
 
   return (
     <div ref={navbarRef} className={`fixed top-0 w-full z-50 transition-all duration-300 ${navbarBg}`}>
-      <div className="w-full py-2 md:py-1 bg-black md:bg-transparent">
+      <div className="w-full py-2 md:py-1 bg-black lg:bg-black md:bg-transparent">
         <div className="flex items-center justify-between w-[95%] relative">
           {/* Logo Section */}
           <div className="flex items-center md:pl-14">
-            <Image src="/images/logo.png" width={110} height={110} alt="hotellogo" />
+         <Link href="/">   <Image src="/images/logo.png" width={110} height={110} alt="hotellogo" /></Link>
           </div>
 
           {/* Links Section (Desktop) */}
@@ -215,35 +215,42 @@ const Navbar = () => {
 
       {/* Mobile Menu (Dropdown on Mobile) */}
       {menuOpen && (
-  <div className="md:hidden bg-gray-900 text-white p-6 w-full transition-all duration-300 flex flex-col items-center justify-start space-y-6">
+  <div
+    className="md:hidden bg-gray-900 text-white p-6 transition-all duration-300 fixed top-0 right-0 h-full w-64 transform ease-in-out z-50 flex flex-col   shadow-lg"
+    style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(-100%)' }}
+  >
+    <div className="w-full flex items-center justify-between ">
+        {/* User Profile Section for Mobile */}
+    <div
+      onClick={toggleUserCard}
+      className="cursor-pointer flex items-center justify-center w-16 h-12 rounded-full border-2 border-gray-600 bg-gray-800 hover:bg-gray-700 transition-all duration-200 "
+    >
+      {user?.image ? (
+        <Image className="w-full h-full object-cover rounded-full" src={user.image} alt="user" />
+      ) : (
+        <span className="text-white  font-semibold">{getInitials(user?.name, user?.email)}</span>
+      )}
+    </div>
+      <button  onClick={toggleMenu} className="w-full flex items-center justify-end">x</button>
+    </div>
     {/* Mobile Navigation Links */}
-    <div className="flex flex-col w-full items-center justify-center">
+    <div className="flex flex-col w-full  items-center justify-center text-sm ">
       {navLinks.map((link) => (
         <Link
           key={link.label}
           href={link.href}
           onClick={toggleMenu}
-          className="w-full py-3 text-center text-xl font-medium text-white bg-transparent rounded-lg transition-all duration-200 transform hover:bg-yellow-600 hover:text-gray-900 shadow-lg hover:scale-105"
+          className="w-full p-2 font-medium text-white bg-transparent rounded-lg transition-all duration-200 transform hover:bg-yellow-600 hover:text-gray-900 shadow-lg hover:scale-105"
         >
           {link.label}
         </Link>
       ))}
     </div>
 
-    {/* User Profile Section for Mobile */}
-    <div
-      onClick={toggleUserCard}
-      className="cursor-pointer flex items-center justify-center w-16 h-16 rounded-full border-2 border-gray-600 bg-gray-800 hover:bg-gray-700 transition-all duration-200 mt-6"
-    >
-      {user?.image ? (
-        <Image className="w-full h-full object-cover rounded-full" src={user.image} alt="user" />
-      ) : (
-        <span className="text-white text-2xl font-semibold">{getInitials(user?.name, user?.email)}</span>
-      )}
-    </div>
+  
 
     {/* Conditional Mobile Button: Book Now or Login */}
-    <div className="mt-8 flex flex-col space-y-4 w-full">
+    <div className="mt-2 flex flex-col space-y-4 w-full">
       {session || (user?.name !== "Guest User" && user?.email !== "guest@example.com") ? (
         <Link href="/rooms" passHref>
           <button className="w-full px-6 py-3 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-lg hover:bg-blue-700 hover:shadow-xl transition duration-200">
@@ -260,6 +267,7 @@ const Navbar = () => {
     </div>
   </div>
 )}
+
 
 
 

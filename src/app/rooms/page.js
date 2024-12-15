@@ -5,7 +5,7 @@ import { getDeluxeRoom, getSuperDeluxeRoom, getFamilyDeluxeRoom } from "../../We
 import FilterSidebar from "../../components/Rooms/FilterSidebar";
 import HeaderBanner from "../../components/Rooms/HeaderBanner";
 import RoomCard from "../../components/Rooms/RoomCard";
-
+import CalendarSearchUI from "../../components/Rooms/CalendarSearchUI";
 const RoomPage = () => {
   const [rooms, setRooms] = useState({
     deluxe: [],
@@ -29,7 +29,16 @@ const RoomPage = () => {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [filteredRoomIds, setFilteredRoomIds] = useState([]);
 
+  const updateFilteredRooms = (bookedRoomIds) => {
+    const filteredRooms = {
+      deluxe: rooms.deluxe.filter((room) => !bookedRoomIds.includes(room._id)),
+      superDeluxe: rooms.superDeluxe.filter((room) => !bookedRoomIds.includes(room._id)),
+      family: rooms.family.filter((room) => !bookedRoomIds.includes(room._id)),
+    };
+    setFilteredRooms(filteredRooms);
+  };
   // Fetch all room data
   useEffect(() => {
     const fetchRooms = async () => {
@@ -163,11 +172,12 @@ const RoomPage = () => {
   }
 
   return (
-    <div className="w-full ">
+    <div className="w-full flex flex-col items-center justify-center bg-gray-100">
       {/* Header Banner */}
-      <HeaderBanner title="Rooms & Suites" backgroundImage="/images/img2.jpg" />
+      <div className="w-full relative">
+        <HeaderBanner className="w-full" title="Rooms & Suites" backgroundImage="/images/img2.jpg" />
+      </div>
 
-     
 
       <div className="flex w-full p-5">
         {/* Filter Sidebar */}
@@ -176,7 +186,14 @@ const RoomPage = () => {
         </div>
 
         {/* Room Sections */}
+
+       <div className="flex w-full flex-col">
+       <div className="  w-full flex items-center justify-center p-2  ">
+          <CalendarSearchUI updateFilteredRooms={updateFilteredRooms} />
+        </div>
+
         <main className="w-full  p-4 h-screen overflow-scroll ">
+
           {/* Deluxe Rooms */}
           <section>
             <h2 className="text-2xl font-semibold mb-6">Deluxe Rooms</h2>
@@ -213,6 +230,7 @@ const RoomPage = () => {
             </div>
           </section>
         </main>
+       </div>
       </div>
     </div>
   );

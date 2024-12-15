@@ -14,7 +14,7 @@ const MyFacilities = () => {
     FaWifi: <FaWifi size={48} />,
     FaKey: <FaKey size={48} />,
     FaUtensils: <FaUtensils size={48} />,
-    FaSwimmingPool: <FaSwimmingPool size={48} />
+    // FaSwimmingPool: <FaSwimmingPool size={48} />
   };
 
   return (

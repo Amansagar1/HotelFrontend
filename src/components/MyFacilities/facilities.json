@@ -26,12 +26,6 @@
     "icon": "FaUtensils",
     "image": "/images/img2.jpg",
     "description": "Complimentary breakfast"
-  },
-  {
-    "id": 5,
-    "name": "Swimming Pool",
-    "icon": "FaSwimmingPool",
-    "image": "/images/img1.jpg",
-    "description": "Relax and unwind in our swimming pool"
   }
+ 
 ]

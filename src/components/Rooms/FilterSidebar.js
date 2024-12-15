@@ -17,8 +17,8 @@ const FilterSidebar = ({ filters, toggleFilter }) => {
 
       {/* Drawer */}
       <div
-        className={` fixed top-0 right-0 h-screen w-3/4 max-w-sm bg-gray-100 z-40 transform ${
-          isOpen ? "translate-x-0 mt-[130px] " : "translate-x-full "
+        className={` fixed top-0 right-0 h-screen w-3/2 max-w-sm bg-gray-300 z-0 transform ${
+          isOpen ? "translate-x-0 mt-[130px] z-50" : "translate-x-full "
         } transition-transform duration-300 ease-in-out shadow-lg sm:relative sm:translate-x-0 sm:w-full sm:max-w-none`}
       >
         <div className="p-4 w-64 ">
