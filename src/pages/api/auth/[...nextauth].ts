@@ -151,6 +151,6 @@ export default NextAuth({
     async redirect({ url, baseUrl }) {
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
-  },
+  },  
   debug: true, // Enable debugging
 });

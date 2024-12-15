@@ -266,8 +266,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { loginUser, registerUser } from "../../Webservices/HotelAPIController"; // Import the API functions
-import Cookies from "js-cookie"; // Import js-cookie for handling cookies
-
+import Cookies from "js-cookie"; 
+import { signIn } from "next-auth/react";
 const LoginPage = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -440,6 +440,7 @@ const LoginPage = () => {
 
           <button
             disabled={isLoading}
+            onClick={() => signIn('google')} 
             className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-gray-50 font-medium disabled:opacity-70 disabled:hover:scale-100"
           >
             {isLoading ? (

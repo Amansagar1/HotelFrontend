@@ -105,10 +105,21 @@ const RoomCard = ({ room }) => {
     // Fetch bookings and check if the current room is booked
     getAllBookingRooms().then(({ result }) => {
       if (result && result.bookings) {
+        // Get today's date
+        const today = new Date();
+
         // Check if the current room's `id` matches any `roomId` in the bookings API
-        const bookedRoom = result.bookings.find(
-          (booking) => booking.roomId === room._id && booking.available === "false"
-        );
+        const bookedRoom = result.bookings.find((booking) => {
+          if (booking.roomId === room._id && booking.available === "false") {
+            const checkInDate = new Date(booking.checkInDate); // Check-in date from the booking
+            const checkOutDate = new Date(booking.checkOutDate); // Check-out date from the booking
+
+            // Check if today's date falls between the check-in and check-out dates
+            return today >= checkInDate && today <= checkOutDate;
+          }
+          return false;
+        });
+
         setIsBooked(!!bookedRoom); // Set true if the room is booked
       } else {
         console.error("Failed to fetch booking data.");
@@ -118,7 +129,6 @@ const RoomCard = ({ room }) => {
 
   return (
     <div className="bg-white shadow-lg rounded-md overflow-hidden flex flex-col group relative w-full">
-      
       {/* Price */}
       <div className="absolute flex w-full items-center justify-end p-4">
         <p className="text-white bg-yellow-600 rounded-lg text-sm w-20 items-center justify-center flex p-1">
@@ -136,14 +146,11 @@ const RoomCard = ({ room }) => {
       />
 
       {/* Room details */}
-   
-
-             {/* Room details */}
-       <div className="p-4">
-         {/* Title and Availability Status */}
-         <div className="text-xl font-semibold flex justify-between items-center">
-           {room.name}
-           <span
+      <div className="p-4">
+        {/* Title and Availability Status */}
+        <div className="text-xl font-semibold flex justify-between items-center">
+          {room.name}
+          <span
             className={`text-xs px-2 py-1 rounded-full ${
               isBooked ? "bg-red-500" : "bg-green-500"
             } text-white`}
@@ -154,7 +161,10 @@ const RoomCard = ({ room }) => {
 
         {/* Rating */}
         <p className="text-yellow-500 mt-2">
-          {room.rating ? Array(room.rating).fill("★").join("") : "No rating"}
+          {room.rating
+            ? Array(Math.floor(room.rating)).fill("★").join("") +
+              (room.rating % 1 !== 0 ? "☆" : "")
+            : "No rating"}
         </p>
 
         {/* Always Visible Room Details */}
@@ -189,7 +199,7 @@ const RoomCard = ({ room }) => {
             <h1>{room.safetyAndSecurity ? room.safetyAndSecurity.join(", ") : "No safety features listed"}</h1>
           </div>
         </div>
-      
+
         {/* Button */}
         <button
           onClick={() => setShowPopup(true)}

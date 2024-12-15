@@ -104,7 +104,8 @@ const ContactUs = () => {
               <div className="flex items-center gap-4 text-white">
                 <FaMapMarkerAlt className="text-2xl text-white" />
                 <span className="text-white">
-                  Ayodhya Road, Ayodhya, Uttar Pradesh - 0000
+                Janaura Road, Janoura Bypass, Janpad,
+                Ayodhya, Uttar Pradesh - 224001, India
                 </span>
               </div>
               <div className="flex items-center gap-4 mt-4 text-white">

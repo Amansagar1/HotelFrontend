@@ -48,7 +48,9 @@ const Footer = () => {
             <h4 className="font-semibold text-white">Support</h4>
             <p className="mt-4 text-white">For inquiries, call or email:</p>
             <Link href="tel:+1234567890" className="text-white hover:text-rose-600">+91 73919 57555 </Link><br />
-            <Link href="mailto:info@sudarshanhotel.com" className="text-white hover:text-rose-600">hotelsudarshan01@gmail.com</Link>
+            <Link href="mailto:info@sudarshanhotel.com" className="text-white hover:text-rose-600">hotelsudarshan01@gmail.com</Link> <br />
+            <Link  className="text-white hover:text-rose-600" href="/">Address :- Janaura Road, Janoura Bypass, Janpad,
+            Ayodhya, Uttar Pradesh - 224001, India</Link>
           </div>
 
           {/* Quick Links Section */}
