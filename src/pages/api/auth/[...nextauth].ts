@@ -149,7 +149,7 @@ export default NextAuth({
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : baseUrl;
+      return url.startsWith(baseUrl) ? url : baseUrl + `/rooms`;
     },
   },  
   debug: true, // Enable debugging
