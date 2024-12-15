@@ -29,16 +29,16 @@ const RoomPage = () => {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [filteredRoomIds, setFilteredRoomIds] = useState([]);
+  // const [filteredRoomIds, setFilteredRoomIds] = useState([]);
 
-  const updateFilteredRooms = (bookedRoomIds) => {
-    const filteredRooms = {
-      deluxe: rooms.deluxe.filter((room) => !bookedRoomIds.includes(room._id)),
-      superDeluxe: rooms.superDeluxe.filter((room) => !bookedRoomIds.includes(room._id)),
-      family: rooms.family.filter((room) => !bookedRoomIds.includes(room._id)),
-    };
-    setFilteredRooms(filteredRooms);
-  };
+  // const updateFilteredRooms = (bookedRoomIds) => {
+  //   const filteredRooms = {
+  //     deluxe: rooms.deluxe.filter((room) => !bookedRoomIds.includes(room._id)),
+  //     superDeluxe: rooms.superDeluxe.filter((room) => !bookedRoomIds.includes(room._id)),
+  //     family: rooms.family.filter((room) => !bookedRoomIds.includes(room._id)),
+  //   };
+  //   setFilteredRooms(filteredRooms);
+  //};
   // Fetch all room data
   useEffect(() => {
     const fetchRooms = async () => {
@@ -189,7 +189,8 @@ const RoomPage = () => {
 
        <div className="flex w-full flex-col">
        <div className="  w-full flex items-center justify-center p-2  ">
-          <CalendarSearchUI updateFilteredRooms={updateFilteredRooms} />
+          {/* <CalendarSearchUI updateFilteredRooms={updateFilteredRooms} /> */}
+          <CalendarSearchUI  />
         </div>
 
         <main className="w-full  p-4 h-screen overflow-scroll ">

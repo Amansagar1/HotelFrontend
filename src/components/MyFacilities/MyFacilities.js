@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { FaConciergeBell, FaWifi, FaKey, FaUtensils, FaSwimmingPool } from "react-icons/fa"; 
+import { FaConciergeBell, FaWifi, FaKey, FaUtensils } from "react-icons/fa"; 
 
 // Import the facilities data directly
 import facilities from "./facilities.json";

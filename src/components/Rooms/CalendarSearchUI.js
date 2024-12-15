@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { getAllBookingRooms } from "../../Webservices/HotelAPIController";
+// import { getAllBookingRooms } from "../../Webservices/HotelAPIController";
 
 const CalendarSearchUI = () => {
   const [showPopup, setShowPopup] = useState(false);
