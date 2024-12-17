@@ -408,8 +408,15 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
                             <p className="text-lg font-semibold text-blue-500">
                                 Price: {room.price ? `₹ ${room.price}` + " /-" : "N/A /-"}
                             </p>
-                            <p className="text-yellow-500 font-bold">
-                                Rating: {room.rating || "No rating"} ⭐
+                            <p className="text-yellow-500 mt-2">
+                                {room.rating ? (
+                                    <>
+                                        {Array(Math.floor(room.rating))
+                                            .fill("★")
+                                            .join("")}
+                                        {room.rating % 1 >= 0.5 ? "★" : ""}
+                                    </>
+                                ) : "No rating"}
                             </p>
                         </div>
 
@@ -489,7 +496,7 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
                         <div className="flex flex-col gap-2">
                             <button
                                 className={`py-2 rounded-lg font-semibold ${room.available
-                                    ? "bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
+                                    ? "bg-yellow-600 text-white hover:bg-yellow-700 cursor-pointer"
                                     : "bg-gray-400 text-gray-600 cursor-not-allowed"
                                     }`}
                                 onClick={handleBookNow}

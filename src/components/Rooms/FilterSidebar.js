@@ -17,24 +17,25 @@ const FilterSidebar = ({ filters, toggleFilter }) => {
 
       {/* Drawer */}
       <div
-        className={` fixed top-0 right-0 h-screen w-3/2 max-w-sm bg-gray-300 z-0 transform ${
-          isOpen ? "translate-x-0 mt-[130px] z-50" : "translate-x-full "
+        className={` fixed top-0 right-0 h-screen w-3/2 max-w-sm bg-yellow-600 rounded-md z-0 transform ${
+          isOpen ? "translate-x-0 mt-[120px] z-50 " : "translate-x-full "
         } transition-transform duration-300 ease-in-out shadow-lg sm:relative sm:translate-x-0 sm:w-full sm:max-w-none`}
       >
-        <div className="p-4 w-64 ">
-          <h2 className="text-2xl font-semibold mb-4">Filter by</h2>
+        <div className="p-4 w-64
+         text-gray-100 ">
+          <h2 className="text-xl font-semibold mb-4">Filter by</h2>
           {Object.keys(filters).map((category) => (
             <div key={category} className="mb-6">
               <h3 className="font-semibold text-lg capitalize">{category}</h3>
               <ul className="space-y-2 mt-2">
                 {Object.keys(filters[category]).map((filter) => (
                   <li key={filter}>
-                    <label className="flex items-center space-x-2">
+                    <label className="flex items-center space-x-4">
                       <input
                         type="checkbox"
                         checked={filters[category][filter]}
                         onChange={() => toggleFilter(category, filter)}
-                        className="form-checkbox"
+                        className="form-checkbox  "
                       />
                       <span className="capitalize">
                         {filter.replace(/([A-Z])/g, " $1").toLowerCase()}

@@ -109,11 +109,11 @@ const Navbar = () => {
 
   return (
     <div ref={navbarRef} className={`fixed top-0 w-full z-50 transition-all duration-300 ${navbarBg}`}>
-      <div className="w-full py-2 md:py-1 bg-black lg:bg-black md:bg-transparent">
+      <div className="w-full   lg:bg-black md:bg-transparent">
         <div className="flex items-center justify-between w-[95%] relative">
           {/* Logo Section */}
           <div className="flex items-center md:pl-14">
-         <Link href="/">   <Image src="/images/logo.png" width={110} height={110} alt="hotellogo" /></Link>
+         <Link href="/">   <Image src="/images/logo.png" width={100} height={100} alt="hotellogo" /></Link>
           </div>
 
           {/* Links Section (Desktop) */}
@@ -240,7 +240,7 @@ const Navbar = () => {
           key={link.label}
           href={link.href}
           onClick={toggleMenu}
-          className="w-full p-2 font-medium text-white bg-transparent rounded-lg transition-all duration-200 transform hover:bg-yellow-600 hover:text-gray-900 shadow-lg hover:scale-105"
+          className="w-full p-2 font-medium text-white bg-transparent rounded-lg transition-all duration-200 transform hover:bg-yellow-600 hover:text-gray-900  hover:scale-105"
         >
           {link.label}
         </Link>
