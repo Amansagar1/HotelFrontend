@@ -5,8 +5,9 @@ import { getAllBookingRooms } from "../../Webservices/HotelAPIController";
 
 const RoomCard = ({ room }) => {
   const [showPopup, setShowPopup] = useState(false);
-  const [isBooked, setIsBooked] = useState(false); // To track booking status
+  const [isBooked, setIsBooked] = useState(false); 
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchBookings = async () => {
       try {
@@ -37,7 +38,7 @@ const RoomCard = ({ room }) => {
       } catch (error) {
         console.error("Error fetching booking data:", error);
       } finally {
-        setLoading(false); // Stop loading once the data is fetched
+        setLoading(!loading); 
       }
     };
   
