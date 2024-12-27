@@ -38,7 +38,7 @@ const ContactUs = () => {
     emailjs
       .send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, // Service ID from .env
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, // Template ID from .env
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID1, // Template ID from .env
         { name, email, subject, message },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY // Public Key from .env
       )
@@ -95,11 +95,11 @@ const ContactUs = () => {
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <FaPhoneAlt className="text-2xl text-white" />
-                <span className="text-white">+91 73919 57555 </span>
+                <span className="text-white">+91 9070755755  </span>
               </div>
               <div className="flex items-center gap-4 text-white">
                 <FaEnvelope className="text-2xl text-white" />
-                <span className="text-white">hotelsudarshan01@gmail.com</span>
+                <span className="text-white">contact.hotelsudarshan@gmail.com</span>
               </div>
               <div className="flex items-center gap-4 text-white">
                 <FaMapMarkerAlt className="text-2xl text-white" />
@@ -117,7 +117,7 @@ const ContactUs = () => {
                   <FaFacebook className="text-2xl text-white hover:text-blue-600" />
                 </Link>
                 <Link
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/sudarshan_ayodhya?igsh=bnFqOTk5ZG9wMzlm"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

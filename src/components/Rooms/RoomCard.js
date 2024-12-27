@@ -1,13 +1,14 @@
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import RoomDetailsPage from "../RoomsDetails/Roomdetails";
 import { getAllBookingRooms } from "../../Webservices/HotelAPIController";
 
-const RoomCard = ({ room }) => {
+const RoomCard = ({ room, checkIn, checkOut, showBookedRooms,allBookings }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [isBooked, setIsBooked] = useState(false); 
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     const fetchBookings = async () => {
       try {
@@ -15,16 +16,16 @@ const RoomCard = ({ room }) => {
         if (result && result.bookings) {
           const currentDate = new Date(); 
           currentDate.setHours(0, 0, 0, 0);
-  
+
           // Check if the room is booked based on roomId and date range
           const bookedRoom = result.bookings.find((booking) => {
             const bookingCheckIn = new Date(booking.checkIn);
             const bookingCheckOut = new Date(booking.checkOut);
-  
+
             // Reset hours to midnight for both booking dates to ensure proper date comparison
             bookingCheckIn.setHours(0, 0, 0, 0);
             bookingCheckOut.setHours(0, 0, 0, 0);
-  
+
             return (
               booking.roomId === room._id &&
               currentDate >= bookingCheckIn &&
@@ -32,7 +33,7 @@ const RoomCard = ({ room }) => {
               booking.available === "false"
             );
           });
-  
+
           setIsBooked(!!bookedRoom); 
         }
       } catch (error) {
@@ -41,17 +42,47 @@ const RoomCard = ({ room }) => {
         setLoading(!loading); 
       }
     };
-  
+
     fetchBookings();
   }, [room._id]);
-  
+
+  // Function to check if the room is booked during specific dates
+  const checkBookingStatus = () => {
+    if (checkIn && checkOut) {
+      // Check if room is booked during specific dates
+      const isBookedDuringPeriod = room.bookings?.some(booking => {
+        const bookingStart = new Date(booking.checkIn);
+        const bookingEnd = new Date(booking.checkOut);
+
+        // Compare checkIn/checkOut with booking date ranges
+        return (
+          (checkIn >= bookingStart && checkIn < bookingEnd) ||
+          (checkOut > bookingStart && checkOut <= bookingEnd)
+        );
+      });
+
+      setIsBooked(isBookedDuringPeriod);
+    }
+  };
+
+  // Run checkBookingStatus when checkIn or checkOut changes
+  useEffect(() => {
+    if (allBookings && allBookings.length > 0) {
+      checkBookingStatus();
+    }
+  }, [checkIn, checkOut, allBookings]);
+  // Don't render the room if it's booked and showBookedRooms is false
+  if (isBooked && !showBookedRooms) {
+    return null;  // Hide booked rooms by default
+  }
 
   return (
+  <>
     <div className="bg-white shadow-lg rounded-md overflow-hidden flex flex-col group relative w-full">
       {/* Price */}
       <div className="absolute flex w-full items-center justify-end p-4">
         <p className="text-white bg-yellow-600 rounded-lg text-sm w-20 items-center justify-center flex p-1">
-          {room.price ? `₹${room.price} /-` : "N/A /-"}
+           {room.price ? `₹${room.price} /-` : "N/A /-"}
         </p>
       </div>
 
@@ -80,17 +111,15 @@ const RoomCard = ({ room }) => {
 
         {/* Rating */}
         <p className="text-yellow-500 mt-2">
-  {room.rating ? (
-    <>
-      {Array(Math.floor(room.rating))  
-        .fill("★")
-        .join("")}
-      {room.rating % 1 >= 0.5 ? "★" : ""}  
-    </>
-  ) : "No rating"}
-</p>
-
-
+          {room.rating ? (
+            <>
+              {Array(Math.floor(room.rating))  
+                .fill("★")
+                .join("")}
+              {room.rating % 1 >= 0.5 ? "★" : ""}  
+            </>
+          ) : "No rating"}
+        </p>
 
         {/* Always Visible Room Details */}
         <div className="text-sm flex flex-col gap-2 mt-2">
@@ -143,6 +172,7 @@ const RoomCard = ({ room }) => {
         />
       </div>
     </div>
+    </>
   );
 };
 

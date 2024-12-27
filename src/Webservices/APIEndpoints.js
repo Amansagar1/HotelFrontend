@@ -39,7 +39,15 @@ const EndPoints = {
 
    MAIL_URL: () => BASE_URL + `/email/send-booking-emails`,
 
+   
+   GET_ALL_ROOMS : ()  => BASE_URL + `/allrooms`,
 
+//Footer
+
+    GET_FOOTER: () => BASE_URL + `/footer`,
+    GET_AMENITIES_PAGE: () => BASE_URL + `/hotel`,
+
+   
 };
 
 Object.freeze(EndPoints);

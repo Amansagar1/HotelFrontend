@@ -95,49 +95,49 @@ export const getFamilyDeluxeRoom = () => {
 };
 
 
-export const getAllRoomsDetails = () => {
-  const url = EndPoints.GET_ROOMSDETAILS();
-  console.log("Requesting URL:", url);
+// export const getAllRoomsDetails = () => {
+//   const url = EndPoints.GET_ROOMSDETAILS();
+//   console.log("Requesting URL:", url);
 
-  return axios
-    .get(url)
-    .then((response) => {
-      console.log("API Response:", response.data);
-      return { result: response.data };
-    })
-    .catch((error) => {
-      console.error("Error details:", {
-        message: error.message,
-        code: error.code,
-        config: error.config,
-        response: error.response,
-      });
-      return { result: null };
-    });
-};
+//   return axios
+//     .get(url)
+//     .then((response) => {
+//       console.log("API Response:", response.data);
+//       return { result: response.data };
+//     })
+//     .catch((error) => {
+//       console.error("Error details:", {
+//         message: error.message,
+//         code: error.code,
+//         config: error.config,
+//         response: error.response,
+//       });
+//       return { result: null };
+//     });
+// };
 
-export const getRoomDetailsById = async (id) => {
-  try {
-    console.log("Room ID received:", id); // Log the room ID for debugging
+// export const getRoomDetailsById = async (id) => {
+//   try {
+//     console.log("Room ID received:", id); // Log the room ID for debugging
 
-    let response;
+//     let response;
 
-    if (id && id.length === 24) { // MongoDB ObjectId format (24 characters)
-      // Correct API endpoint usage
-      response = await axios.get(EndPoints.GET_DELUXE_ROOMS(id));
-      response = await axios.get(EndPoints.GET_SUPER_DELUXE_ROOMS(id));
-      response = await axios.get(EndPoints.GET_FAMILY_ROOMS(id));
-    } else {
-      console.error("Invalid room ID:", id); // Log invalid ID for debugging
-      throw new Error("Invalid room ID");
-    }
+//     if (id && id.length === 24) { // MongoDB ObjectId format (24 characters)
+//       // Correct API endpoint usage
+//       response = await axios.get(EndPoints.GET_DELUXE_ROOMS(id));
+//       response = await axios.get(EndPoints.GET_SUPER_DELUXE_ROOMS(id));
+//       response = await axios.get(EndPoints.GET_FAMILY_ROOMS(id));
+//     } else {
+//       console.error("Invalid room ID:", id); // Log invalid ID for debugging
+//       throw new Error("Invalid room ID");
+//     }
 
-    return response.data; // Return the room details
-  } catch (error) {
-    console.error("Error fetching room details:", error);
-    throw error; // Propagate the error if something goes wrong
-  }
-};
+//     return response.data; // Return the room details
+//   } catch (error) {
+//     console.error("Error fetching room details:", error);
+//     throw error; // Propagate the error if something goes wrong
+//   }
+// };
 
 
 
@@ -260,13 +260,13 @@ export async function PutDeluxeRoom(id, deluxeRoomData) {
   try {
     const updatedRoomData = {
       ...deluxeRoomData,
-      available: false,
+      available: false,  // Mark room as unavailable
     };
 
     // Perform the PUT request to update the deluxe room
     const response = await axios.put(EndPoints.PUT_DELUXE_ROOM(id), updatedRoomData);
 
-    console.log("Updated Room Data:", response.data);
+    console.log("Updated Deluxe Room Data:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error updating deluxe room:", error);
@@ -279,13 +279,13 @@ export async function PutSuperDeluxeRoom(id, deluxeRoomData) {
   try {
     const updatedRoomData = {
       ...deluxeRoomData,
-      available: false,
+      available: false,  // Mark room as unavailable
     };
 
     // Perform the PUT request to update the super deluxe room
     const response = await axios.put(EndPoints.PUT_SUPERDELUXE_ROOM(id), updatedRoomData);
 
-    console.log("Updated Room Data:", response.data);
+    console.log("Updated Super Deluxe Room Data:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error updating super deluxe room:", error);
@@ -294,23 +294,25 @@ export async function PutSuperDeluxeRoom(id, deluxeRoomData) {
 }
 
 
+
 export async function PutFamilyRoom(id, deluxeRoomData) {
   try {
     const updatedRoomData = {
       ...deluxeRoomData,
-      available: false,
+      available: false,  // Mark room as unavailable
     };
 
     // Perform the PUT request to update the family room
     const response = await axios.put(EndPoints.PUT_FAMILY_ROOM(id), updatedRoomData);
 
-    console.log("Updated Room Data:", response.data);
+    console.log("Updated Family Room Data:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error updating family room:", error);
     throw error;  // Rethrow error for further handling
   }
 }
+
 
 
 export const getAllBookingRooms = () => {
@@ -416,5 +418,63 @@ export const sendBookingEmails = async (bookingDetails) => {
     // Catch and log any other errors
     console.error("Error in sendBookingEmails:", error);
     throw error;
+  }
+};
+
+
+//-get all rooms
+export const getAllRooms = () => {
+  return axios
+    .get(EndPoints.GET_ALL_ROOMS())
+    .then((response) => {
+      console.log("getAllRooms API Response:", response.data);
+      return { result: response.data };
+    })
+    .catch((error) => {
+      console.error("Error fetching getAllRooms Room data:", error);
+      return { result: null };
+    });
+};
+
+
+//-get all rooms check availability
+
+
+export const fetchAvailableRooms = async (checkIn, checkOut, roomType) => {
+  try {
+    const response = await axios.get('/api/allrooms/availability', {
+      params: {
+        checkIn: checkIn,
+        checkOut: checkOut,
+        roomType: roomType,
+      },
+    });
+    return response.data.availableRooms;
+  } catch (error) {
+    console.error('Error fetching available rooms:', error);
+    return [];
+  }
+};
+//Footer
+
+// Function to get the footer details
+export const getFooter = async () => {
+  try {
+    const response = await axios.get(EndPoints.GET_FOOTER());
+    console.log("getFooter API Response:", response.data);
+    return response.data; 
+  } catch (error) {
+    console.error("Error fetching getFooter data:", error);
+    throw error; 
+  }
+};
+export const getAmenitiesPage = async () => {
+  try {
+    const response = await axios.get(EndPoints.GET_AMENITIES_PAGE());
+    console.log("getAmenitiesPage API Response:", response.data);
+    return response.data; 
+  } catch (error) {
+    console.error("Error fetching getAmenitiesPage data:", error);
+    throw error; 
   }
 };

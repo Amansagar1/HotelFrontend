@@ -77,107 +77,120 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
   };
 
   const sendEmails = async (bookingData) => {
-    const userMail = {
-      to_name: `${bookingData.firstName} ${bookingData.lastName}`,
-      to_email: bookingData.email, // User's email
-      room_title: bookingData.title,
-      check_in: `${bookingData.checkIn} at ${bookingData.checkInTime}`,
-      check_out: `${bookingData.checkOut} at ${bookingData.checkOutTime}`,
-      price: bookingData.price,
-    };
-
-    const adminMail = {
-      to_name: "Hotel Management",
-      to_email: "hotelsudarshan01@gmail.com",
-      user_name: `${bookingData.firstName} ${bookingData.lastName}`,
-      user_email: bookingData.email,
-      phone: bookingData.phone,
-      room_title: bookingData.title,
-      check_in: `${bookingData.checkIn} at ${bookingData.checkInTime}`,
-      check_out: `${bookingData.checkOut} at ${bookingData.checkOutTime}`,
-      price: bookingData.price,
-    };
-
     try {
-      // Send email to user
+      // Email to User
+      const userEmail = {
+        to_name: `${bookingData.firstName} ${bookingData.lastName}`,
+        to_email: bookingData.email, // User's email from form
+        room_title: bookingData.title,
+        check_in: `${bookingData.checkIn} at ${bookingData.checkInTime}`,
+        check_out: `${bookingData.checkOut} at ${bookingData.checkOutTime}`,
+        price: bookingData.price,
+        number_of_adults: bookingData.numberOfAdults, // Added number of adults
+        booking_date: bookingData.bookingDate, // Added booking date
+        phone: bookingData.phone, // Added phone
+      };
+  
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID2,
-        userMail,
+        userEmail,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
-      console.log("Email sent to user successfully.");
-
-      // Send email to admin
+      console.log("User email sent successfully to:", bookingData.email);
+  
+      // Email to Admin
+      const adminEmail = {
+        to_name: "Hotel Management",
+        to_email: "hotelsudarshan01@gmail.com", 
+        user_name: `${bookingData.firstName} ${bookingData.lastName}`,
+        user_email: bookingData.email,
+        phone: bookingData.phone,
+        room_title: bookingData.title,
+        check_in: `${bookingData.checkIn} at ${bookingData.checkInTime}`,
+        check_out: `${bookingData.checkOut} at ${bookingData.checkOutTime}`,
+        price: bookingData.price,
+        number_of_adults: bookingData.numberOfAdults, // Added number of adults
+        booking_date: bookingData.bookingDate, // Added booking date
+      };
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID2,
-        adminMail,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID2, 
+        adminEmail,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
-      console.log("Email sent to admin successfully.");
+      console.log("Admin email sent successfully to: hotelsudarshan01@gmail.com");
     } catch (error) {
       console.error("Error sending emails:", error);
     }
   };
 
   // Helper function to convert times to local time
-  const convertToLocalTime = (time) => {
-    // Parse the time input (HH:mm) into a Date object
-    const [hours, minutes] = time.split(":");
-    const localDate = new Date();
+// Helper function to convert the date to IST and format it as DD/MM/YY
+const convertToIndianDate = (date) => {
+  // Parse the date input (YYYY-MM-DD) into a Date object
+  const [year, month, day] = date.split("-").map(Number);
 
-    // Set the hours and minutes to the input time, keeping the current date
-    localDate.setHours(hours, minutes, 0, 0);
+  // Create a Date object using the date parts and set the time to 00:00:00
+  const localDate = new Date(year, month - 1, day); // Month is 0-based in JavaScript
 
-    // Convert to the user's local time and return as ISO string or formatted string
-    return localDate.toLocaleString(); // or localDate.toISOString() if you need it in ISO format
-  };
+  // Convert the localDate to IST (UTC +5:30)
+  const offsetInMinutes = 330; // IST is UTC+5:30
+  const istDate = new Date(localDate.getTime() + offsetInMinutes * 60000);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // Format the date to DD/MM/YY
+  const dayFormatted = String(istDate.getDate()).padStart(2, '0'); // Add leading zero if needed
+  const monthFormatted = String(istDate.getMonth() + 1).padStart(2, '0'); // Month is 0-based
+  const yearFormatted = String(istDate.getFullYear()).slice(2); // Get last 2 digits of the year
 
-    console.log("Submitting Form Data:", bookingDetails);
+  // Return the date in DD/MM/YY format
+  return `${dayFormatted}/${monthFormatted}/${yearFormatted}`;
+};
 
-    if (!validateForm()) {
-      alert("Please correct the highlighted errors.");
-      return;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  console.log("Submitting Form Data:", bookingDetails);
+
+  if (!validateForm()) {
+    alert("Please correct the highlighted errors.");
+    return;
+  }
+
+  setIsSubmitting(true);
+
+  // Convert check-in and check-out dates to IST (DD/MM/YY format)
+  const localBookingDetails = { ...bookingDetails };
+  if (localBookingDetails.checkIn) {
+    localBookingDetails.checkIn = convertToIndianDate(localBookingDetails.checkIn);
+  }
+  if (localBookingDetails.checkOut) {
+    localBookingDetails.checkOut = convertToIndianDate(localBookingDetails.checkOut);
+  }
+
+  try {
+    const response = await postBookingRoom(localBookingDetails);
+    console.log("API Response:", response);
+
+    if (response.success) {
+      // Mark the room as unavailable
+      await PutDeluxeRoom(localBookingDetails.roomId, { ...roomDetails, available: false });
+
+      setIsBooked(true);
+      alert("Booking successful!");
+
+      // Send emails to user and admin
+      await sendEmails(localBookingDetails);
+    } else {
+      alert(`Booking failed: ${response.message}`);
     }
-
-    setIsSubmitting(true);
-
-    // Convert check-in and check-out times to local time
-    const localBookingDetails = { ...bookingDetails };
-    if (localBookingDetails.checkInTime) {
-      localBookingDetails.checkInTime = convertToLocalTime(localBookingDetails.checkInTime);
-    }
-    if (localBookingDetails.checkOutTime) {
-      localBookingDetails.checkOutTime = convertToLocalTime(localBookingDetails.checkOutTime);
-    }
-
-    try {
-      const response = await postBookingRoom(localBookingDetails);
-      console.log("API Response:", response);
-
-      if (response.success) {
-        // Mark the room as unavailable
-        await PutDeluxeRoom(localBookingDetails.roomId, { ...roomDetails, available: false });
-
-        setIsBooked(true);
-        alert("Booking successful!");
-
-        // Send emails to user and admin
-        await sendEmails(localBookingDetails);
-      } else {
-        alert(`Booking failed: ${response.message}`);
-      }
-    } catch (error) {
-      console.error("Error during booking:", error);
-      alert("An error occurred while processing your booking. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  } catch (error) {
+    console.error("Error during booking:", error);
+    alert("An error occurred while processing your booking. Please try again.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   if (!isVisible) return null;
 
