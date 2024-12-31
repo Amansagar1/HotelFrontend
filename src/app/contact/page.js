@@ -203,7 +203,7 @@ const ContactUs = () => {
       {/* Google Map */}
       <div className="w-full mt-10">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3562.472390398609!2d82.15182107543426!3d26.761207976737815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjbCsDQ1JzQwLjQiTiA4MsKwMDknMTUuOCJF!5e0!3m2!1sen!2sin!4v1732726054854!5m2!1sen!2sin"
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4267.551533073588!2d82.151946!3d26.7610354!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399a090012f71289%3A0xf95ca734675f924e!2sHotel%20Sudarshan!5e1!3m2!1sen!2sin!4v1735662970111!5m2!1sen!2sin"
           width="100%"
           height="400"
           style={{ border: 0 }}

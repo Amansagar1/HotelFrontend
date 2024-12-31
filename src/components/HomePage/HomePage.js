@@ -2,10 +2,10 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-
+import CalendarSearchUI from "../../components/Rooms/CalendarSearchUI";
 // Import carousel images JSON
-import carouselImages from "./carouselImages.json"; 
-import  Link  from "next/link";
+import carouselImages from "./carouselImages.json";
+import Link from "next/link";
 
 const images = carouselImages.images;
 
@@ -42,7 +42,7 @@ export default function HomePage() {
           alt={images[currentIndex].alt}
           layout="fill"
           objectFit="cover"
-          priority={true} 
+          priority={true}
           className="fade-animation"
         />
 
@@ -54,10 +54,15 @@ export default function HomePage() {
           <p className="text-lg md:text-2xl lg:text-4xl mb-6 drop-shadow-md">
             A Premier Destination for Comfort, Elegance, and Serenity
           </p>
-     <button className="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold rounded shadow-md">
-     <Link href="/rooms">     Discover Our Rooms and Services
-     </Link>  </button>
+          <button className="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold rounded shadow-md">
+            <Link href="/rooms">     Discover Our Rooms and Services
+            </Link>  </button>
+          <div className=" w-[80%] flex items-center justify-center p-6 ">
+            {/* <CalendarSearchUI updateFilteredRooms={updateFilteredRooms} /> */}
+            <CalendarSearchUI />
+          </div>
         </div>
+
       </div>
 
       {/* Left Arrow */}
@@ -79,18 +84,19 @@ export default function HomePage() {
       </button>
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
+
+      <div className="absolute  bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
+
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
             aria-label={`Go to slide ${index + 1}`}
             tabIndex={0}
-            className={`h-3 w-3 rounded-full ${
-              currentIndex === index
-                ? "bg-yellow-500"
-                : "bg-gray-300 hover:bg-yellow-400"
-            }`}
+            className={`h-3 w-3 rounded-full ${currentIndex === index
+              ? "bg-yellow-500"
+              : "bg-gray-300 hover:bg-yellow-400"
+              }`}
           />
         ))}
       </div>

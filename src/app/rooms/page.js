@@ -5,7 +5,7 @@ import { getDeluxeRoom, getSuperDeluxeRoom, getFamilyDeluxeRoom } from "../../We
 import FilterSidebar from "../../components/Rooms/FilterSidebar";
 import HeaderBanner from "../../components/Rooms/HeaderBanner";
 import RoomCard from "../../components/Rooms/RoomCard";
-import CalendarSearchUI from "../../components/Rooms/CalendarSearchUI";
+
 const RoomPage = () => {
   const [rooms, setRooms] = useState({
     deluxe: [],
@@ -178,10 +178,7 @@ const RoomPage = () => {
         {/* Room Sections */}
 
        <div className="flex w-full flex-col">
-       <div className="  w-full flex items-center justify-center p-2  ">
-          {/* <CalendarSearchUI updateFilteredRooms={updateFilteredRooms} /> */}
-          <CalendarSearchUI  />
-        </div>
+
 
         <main className="w-full  p-4 h-screen overflow-scroll ">
 

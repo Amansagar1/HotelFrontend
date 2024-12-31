@@ -557,6 +557,9 @@ video {
 .visible {
   visibility: visible;
 }
+.static {
+  position: static;
+}
 .fixed {
   position: fixed;
 }
@@ -625,6 +628,9 @@ video {
 }
 .z-50 {
   z-index: 50;
+}
+.z-30 {
+  z-index: 30;
 }
 .col-span-full {
   grid-column: 1 / -1;
@@ -832,6 +838,15 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.w-\[60\] {
+  width: 60;
+}
+.w-\[60\%\] {
+  width: 60%;
+}
+.w-\[70\%\] {
+  width: 70%;
 }
 .max-w-3xl {
   max-width: 48rem;

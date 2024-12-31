@@ -46,6 +46,7 @@ const EndPoints = {
 
     GET_FOOTER: () => BASE_URL + `/footer`,
     GET_AMENITIES_PAGE: () => BASE_URL + `/hotel`,
+    GET_ABOUT_US: () => BASE_URL + `/aboutus`,
 
    
 };

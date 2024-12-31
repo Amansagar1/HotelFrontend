@@ -478,3 +478,14 @@ export const getAmenitiesPage = async () => {
     throw error; 
   }
 };
+
+export const getAboutUs = async () => {
+  try {
+    const response = await axios.get(EndPoints.GET_ABOUT_US());
+    console.log("getAboutUs API Response:", response.data);
+    return response.data; 
+  } catch (error) {
+    console.error("Error fetching getAboutUs data:", error);
+    throw error; 
+  }
+};
