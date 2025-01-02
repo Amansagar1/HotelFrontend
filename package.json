@@ -24,6 +24,7 @@
     "next-auth": "^4.24.10",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.16",
+    "qrcode.react": "^4.2.0",
     "react": "^18.2.0",
     "react-datepicker": "^7.5.0",
     "react-dom": "^18.2.0",
