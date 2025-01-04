@@ -311,6 +311,7 @@ const INITIAL_BOOKING_STATE = {
   roomId: "",
   price: "",
   title: "",
+  available: "false",
 };
 
 const FORM_FIELDS = [
@@ -334,6 +335,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     roomId: roomDetails?._id,
     price: roomDetails?.price,
     title: roomDetails?.name,
+      available: "false",
   });
   const [isBooked, setIsBooked] = useState(false);
   const [errors, setErrors] = useState({});
