@@ -300,121 +300,27 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { getAllRooms } from "../../Webservices/HotelAPIController"; // Assuming this is the endpoint for getting all rooms
-import { getAllBookingRooms } from "../../Webservices/HotelAPIController"; // Assuming this is the endpoint for getting all bookings
+import { useRouter } from 'next/navigation'; // Import useRouter for navigation
 
 const CalendarSearchUI = () => {
-  const [showPopup, setShowPopup] = useState(false);
+  const router = useRouter(); // Initialize router to navigate after form submission
   const [checkIn, setCheckIn] = useState(null);
   const [checkOut, setCheckOut] = useState(null);
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
-  const [availableRooms, setAvailableRooms] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
-  // Function to check room availability based on bookings
-  const checkRoomAvailability = (room, bookings, checkInDate, checkOutDate) => {
-    const roomBookings = bookings.filter(booking => booking.roomId === room._id); // Filtering bookings based on room ID
-
-    // Log how many bookings match for this room
-    console.log(`Room ID: ${room._id} - ${roomBookings.length} matching bookings found.`);
-
-    // Now check for conflicts in the given date range
-    const matchingBookings = roomBookings.filter(booking => {
-      const existingCheckIn = new Date(booking.checkIn);
-      const existingCheckOut = new Date(booking.checkOut);
-
-      // Check if there is an overlap between the room's booking dates and the selected dates
-      const isConflict = 
-        (checkInDate < existingCheckOut && checkOutDate > existingCheckIn) || 
-        (existingCheckIn <= checkInDate && existingCheckOut >= checkOutDate);
-
-      // Log any conflict found
-      if (isConflict) {
-        console.log(`Conflict found for room ${room._id}: Booking overlaps with selected dates.`);
-      }
-      
-      return isConflict;
-    });
-
-    // Return if the room is available (no conflict)
-    return matchingBookings.length === 0;
-  };
-
-  const handleSearch = async () => {
-    // Validate input
-    if (!checkIn || !checkOut) {
-      setError("Please select both check-in and check-out dates");
-      console.log("No dates selected");
-      return;
-    }
-
-    if (checkOut <= checkIn) {
-      setError("Check-out date must be after check-in date");
-      console.log("Invalid date range: check-out must be after check-in");
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      // Fetch all rooms and their bookings
-      const { result: roomData } = await getAllRooms();
-      const { result: bookingData } = await getAllBookingRooms();
-
-      if (!roomData || !roomData.rooms || roomData.rooms.length === 0) {
-        setError("No rooms found");
-        setLoading(false);
-        console.log("No rooms found in the response");
-        return;
-      }
-
-      // Log all rooms and bookings for debugging
-      console.log("Rooms:", roomData.rooms);
-      console.log("Bookings:", bookingData);
-
-      const checkInDate = new Date(checkIn);
-      const checkOutDate = new Date(checkOut);
-
-      // Check room availability based on bookings
-      const availableRooms = roomData.rooms.map((room) => {
-        const isAvailable = checkRoomAvailability(room, bookingData, checkInDate, checkOutDate);
-        const roomStatus = isAvailable ? "Available" : "Booked";
-
-        console.log(`Room: ${room.name} (${roomStatus})`);
-
-        return { ...room, status: roomStatus };
-      });
-
-      // Filter rooms based on occupancy
-      const occupancyFilteredRooms = availableRooms.filter(
-        (room) => room.maxOccupancy >= adults + children
-      );
-
-      setAvailableRooms(occupancyFilteredRooms);
-      setLoading(false);
-
-      // Log the available rooms to console
-      if (occupancyFilteredRooms.length > 0) {
-        console.log("Available rooms:", occupancyFilteredRooms);
-      } else {
-        console.log("No available rooms for the selected dates and occupancy.");
-      }
-    } catch (error) {
-      console.error("Error fetching room availability:", error);
-      setError("Failed to check room availability");
-      setLoading(false);
+  const handleSearch = () => {
+    // Simply redirect to /rooms page after form is filled
+    if (checkIn && checkOut) {
+      router.push('/rooms');
+    } else {
+      alert("Please select both check-in and check-out dates.");
     }
   };
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
-  };
-
-  const closePopup = () => {
-    setShowPopup(false);
   };
 
   return (
@@ -487,44 +393,6 @@ const CalendarSearchUI = () => {
                 </select>
               </div>
 
-              {/* Error and Loading Display */}
-              {error && (
-                <div className="text-red-500 text-sm mb-4">
-                  {error}
-                </div>
-              )}
-
-              {loading && (
-                <div className="text-yellow-600 text-sm mb-4">
-                  Checking availability...
-                </div>
-              )}
-
-              {/* Available Rooms Display */}
-              {!loading && availableRooms.length > 0 && (
-                <div className="mt-4">
-                  <h3 className="text-lg font-semibold mb-2">
-                    Available Rooms: {availableRooms.length}
-                  </h3>
-                  <ul className="space-y-2">
-                    {availableRooms.map(room => (
-                      <li
-                        key={room._id}
-                        className="bg-green-100 p-2 rounded-md"
-                      >
-                        {room.name} (Max Occupancy: {room.maxOccupancy})
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {!loading && availableRooms.length === 0 && checkIn && checkOut && (
-                <div className="text-red-500 text-sm mb-4">
-                  No rooms available for the selected dates and occupancy.
-                </div>
-              )}
-
               <div className="mt-6 flex items-center justify-center gap-4 text-sm">
                 <button
                   onClick={handleSearch}
@@ -533,7 +401,7 @@ const CalendarSearchUI = () => {
                   Check Availability
                 </button>
                 <button
-                  onClick={closePopup}
+                  onClick={togglePopup}
                   className="bg-yellow-600 text-white font-semibold py-3 px-4 rounded-md hover:bg-orange-600 w-full transition duration-300"
                 >
                   Close
@@ -604,7 +472,7 @@ const CalendarSearchUI = () => {
         <div className="lg:w-1/6 mt-6">
           <button
             onClick={handleSearch}
-            className="bg-yellow-600 text-white text-sm font-semibold py-3  rounded-md hover:bg-orange-600 w-full transition duration-300"
+            className="bg-yellow-600 text-white text-sm font-semibold py-3 rounded-md hover:bg-orange-600 w-full transition duration-300"
           >
             Check Availability
           </button>
@@ -615,6 +483,9 @@ const CalendarSearchUI = () => {
 };
 
 export default CalendarSearchUI;
+
+
+
 // import React, { useState } from "react";
 // import { fetchAvailableRooms } from "../../Webservices/HotelAPIController";
 

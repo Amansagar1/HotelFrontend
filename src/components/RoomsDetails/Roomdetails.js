@@ -521,6 +521,7 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
                     onClose={handleCloseModal}
                     onSubmit={handleBookingSubmit}
                     roomDetails={room}
+                    
                 />
             </div>
         </div>

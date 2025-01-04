@@ -190,23 +190,27 @@ export const postBookingRoom = (bookingData) => {
     body: JSON.stringify(bookingData),
   })
     .then((response) => {
+      // Check if the response status is OK (status code 200-299)
       if (!response.ok) {
-        // Log the response body to help debug issues
         return response.text().then((text) => {
-          throw new Error(`Booking failed: ${response.statusText}. Response body: ${text}`);
+          // Log and throw detailed error if response is not OK
+          const errorMessage = `Booking failed: ${response.statusText}. Response body: ${text}`;
+          console.error(errorMessage);
+          throw new Error(errorMessage);
         });
       }
-      return response.json(); // Parse the response as JSON if OK
+      return response.json(); // Proceed with parsing the response as JSON
     })
     .then((data) => {
       console.log("Booking successful", data);
-      return data; // Return the response data
+      return data; // Return the parsed response data
     })
     .catch((error) => {
       console.error("Error during booking:", error.message);
-      throw error; // Rethrow error so it can be handled by the caller
+      throw error; // Rethrow error to be handled by the caller
     });
 };
+
 
 
 export const createRoom = async (roomData) => {
