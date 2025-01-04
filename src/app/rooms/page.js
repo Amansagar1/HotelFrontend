@@ -5,7 +5,7 @@ import { getDeluxeRoom, getSuperDeluxeRoom, getFamilyDeluxeRoom } from "../../We
 import FilterSidebar from "../../components/Rooms/FilterSidebar";
 import HeaderBanner from "../../components/Rooms/HeaderBanner";
 import RoomCard from "../../components/Rooms/RoomCard";
-import CalendarSearchUI from "../../components/Rooms/CalendarSearchUI";
+// import CalendarSearchUI from "../../components/Rooms/CalendarSearchUI";
 const RoomPage = () => {
   const [rooms, setRooms] = useState({
     deluxe: [],

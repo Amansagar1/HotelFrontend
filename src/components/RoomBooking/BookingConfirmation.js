@@ -1,6 +1,6 @@
 import React from "react";
 
-const BookingConfirmation = ({ onClose }) => {
+const BookingConfirmation = () => {
   return (
     <div className="text-center p-4">
       <h2 className="text-2xl text-green-500 font-semibold">Thank you for choosing us!</h2>

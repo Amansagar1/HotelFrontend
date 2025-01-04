@@ -342,13 +342,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [paymentOption, setPaymentOption] = useState(null);
   const [isPaymentCompleted, setIsPaymentCompleted] = useState(false);
-  const [isBookingConfirmed, setIsBookingConfirmed] = useState(false);
 
-
-
-  const handleClose = () => {
-    setIsBookingConfirmed(false); 
-  };
   useEffect(() => {
     if (roomDetails) {
       setBookingDetails((prev) => ({

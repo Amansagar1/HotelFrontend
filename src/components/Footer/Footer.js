@@ -108,7 +108,7 @@ import Link from "next/link";
 import { getFooter } from "../../Webservices/HotelAPIController";
 
 const Footer = () => {
-  const [year, setYear] = useState(new Date().getFullYear());
+  const [year, ] = useState(new Date().getFullYear());
   const [footerData, setFooterData] = useState(null);
 
   useEffect(() => {
