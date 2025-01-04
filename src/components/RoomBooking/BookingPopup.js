@@ -294,7 +294,7 @@
 import React, { useState, useEffect } from "react";
 import { postBookingRoom } from "../../Webservices/HotelAPIController";
 import PaymentOptions from "./PaymentOptions";
-
+import BookingConfirmation from "./BookingConfirmation"
 const INITIAL_BOOKING_STATE = {
   firstName: "",
   lastName: "",
@@ -340,7 +340,13 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [paymentOption, setPaymentOption] = useState(null);
   const [isPaymentCompleted, setIsPaymentCompleted] = useState(false);
+  const [isBookingConfirmed, setIsBookingConfirmed] = useState(false);
 
+
+
+  const handleClose = () => {
+    setIsBookingConfirmed(false); 
+  };
   useEffect(() => {
     if (roomDetails) {
       setBookingDetails((prev) => ({
@@ -394,6 +400,8 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     const yearFormatted = String(istDate.getFullYear()).slice(2); // YY format
     return `${dayFormatted}/${monthFormatted}/${yearFormatted}`;
   };
+  
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -525,13 +533,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
             </form>
           ) : (
             <div className="text-center">
-              <h2 className="text-xl font-bold">Thank you for booking with us!</h2>
-              <button
-                onClick={onClose}
-                className="mt-4 bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600"
-              >
-                Close
-              </button>
+            <BookingConfirmation  />
             </div>
           )}
         </div>

@@ -508,9 +508,9 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
 
 
                             </button>
-                            <button className="bg-transparent text-blue-500 font-semibold py-2  mb-4 rounded-lg border border-blue-500">
+                            {/* <button className="bg-transparent text-blue-500 font-semibold py-2  mb-4 rounded-lg border border-blue-500">
                                 Save to Wishlist
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </div>
