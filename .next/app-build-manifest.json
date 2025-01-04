@@ -17,6 +17,16 @@
       "static/chunks/main-app.js",
       "static/css/app/rooms/page.css",
       "static/chunks/app/rooms/page.js"
+    ],
+    "/contact/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/contact/page.js"
+    ],
+    "/aboutus/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/aboutus/page.js"
     ]
   }
 }
