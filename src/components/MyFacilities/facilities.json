@@ -3,28 +3,28 @@
     "id": 1,
     "name": "Room Services",
     "icon": "FaConciergeBell",
-    "image": "/images/img5.jpg",
+    "image": "/images/rooms/lift.jpg",
     "description": "24/7 Room Service"
   },
   {
     "id": 2,
     "name": "Wi-Fi Internet",
     "icon": "FaWifi",
-    "image": "/images/img4.jpg",
+    "image": "/images/rooms/commonlobby.jpg",
     "description": "High-speed Wi-Fi throughout the hotel"
   },
   {
     "id": 3,
     "name": "Smart Key",
     "icon": "FaKey",
-    "image": "/images/img3.jpg",
+    "image": "/images/rooms/bedroomwithwindow.jpg",
     "description": "Smart key access for your convenience"
   },
   {
     "id": 4,
     "name": "Breakfast",
     "icon": "FaUtensils",
-    "image": "/images/img2.jpg",
+    "image": "/images/rooms/meetingroomfullview.jpg",
     "description": "Complimentary breakfast"
   }
  

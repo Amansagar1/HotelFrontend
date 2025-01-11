@@ -364,26 +364,32 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{10}$/;
-
+  
     Object.entries(bookingDetails).forEach(([key, value]) => {
       if (!value) {
         newErrors[key] = "This field is required.";
       }
     });
-
+  
     if (bookingDetails.email && !emailRegex.test(bookingDetails.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
     if (bookingDetails.phone && !phoneRegex.test(bookingDetails.phone)) {
       newErrors.phone = "Phone number must be 10 digits.";
     }
-    if (bookingDetails.checkInTime >= bookingDetails.checkOutTime) {
-      newErrors.checkOutTime = "Check-out time must be later than check-in time.";
+  
+    // Check if check-in or check-out time is provided
+    if (bookingDetails.checkInTime && !bookingDetails.checkOutTime) {
+      newErrors.checkOutTime = "Check-out time is required when check-in time is provided.";
     }
-
+    if (!bookingDetails.checkInTime && bookingDetails.checkOutTime) {
+      newErrors.checkInTime = "Check-in time is required when check-out time is provided.";
+    }
+  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+  
 
   const convertToIndianDate = (date) => {
     const [year, month, day] = date.split("-").map(Number);
@@ -408,7 +414,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     }
   
     const paymentStatus = isPaymentCompleted ? "paid" : "unpaid";
-  
+    const contactNumber = "+91 9070755755";
     // Convert dates to ISO format (YYYY-MM-DD) for backend
     const formattedCheckIn = new Date(bookingDetails.checkIn).toISOString().split('T')[0];
     const formattedCheckOut = new Date(bookingDetails.checkOut).toISOString().split('T')[0];
@@ -451,7 +457,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
   
       if (response.success) {
         setIsBooked(true);
-        alert(`Booking successful! Payment status: ${paymentStatus}`);
+        alert(`Booking successful! Payment status: ${paymentStatus}. For assistance, contact us at ${contactNumber}`);
       } else {
         throw new Error(response.message);
       }
@@ -471,7 +477,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
       <div className="bg-white rounded-lg shadow-xl p-5 w-[800px]">
         <div 
           className="h-48 bg-cover bg-center relative" 
-          style={{ backgroundImage: "url('/images/img4.jpg')" }}
+          style={{ backgroundImage: "url('/images/rooms/reception.jpg')" }}
         >
           <div className="bg-black bg-opacity-50 h-full flex items-center justify-center text-white">
             <h1 className="text-3xl font-bold">

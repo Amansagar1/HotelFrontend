@@ -1,15 +1,31 @@
 {
     "images": [
       {
-        "src": "/images/img1.jpg",
+        "src": "/images/rooms/receptionfront.jpg",
         "alt": "Slide 1"
       },
       {
-        "src": "/images/img2.jpg",
+        "src": "/images/rooms/reception.jpg",
         "alt": "Slide 2"
       },
       {
-        "src": "/images/img3.jpg",
+        "src": "/images/rooms/meetingroomfullview.jpg",
+        "alt": "Slide 3"
+      },
+      {
+        "src": "/images/rooms/meetingroomfull.jpg",
+        "alt": "Slide 3"
+      },
+      {
+        "src": "/images/rooms/lift.jpg",
+        "alt": "Slide 3"
+      },
+      {
+        "src": "/images/rooms/drawingroomwithstairs.jpg",
+        "alt": "Slide 3"
+      },
+      {
+        "src": "/images/rooms/commonlobby.jpg",
         "alt": "Slide 3"
       }
     ]

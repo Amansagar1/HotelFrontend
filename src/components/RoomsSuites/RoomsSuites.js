@@ -4,46 +4,58 @@ import Image from "next/image";
 import { getRoomsCategory } from '../../Webservices/HotelAPIController';  // Adjust the path accordingly
 
 const RoomsSuites = () => {
-  const [rooms, setRooms] = useState([]); 
+  const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {   
+  useEffect(() => {
     getRoomsCategory()
       .then((response) => {
         if (response.result) {
-          setRooms(response.result); 
+          setRooms(response.result);
         }
       })
       .catch((error) => {
         console.error("Error fetching rooms data:", error);
       })
       .finally(() => {
-        setLoading(false); 
+        setLoading(false);
       });
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center bg-[#ffa6005d] p-4 sm:p-6 md:p-8 lg:p-12 ">
+    <div className="relative w-full min-h-screen flex items-center justify-center bg-[#ffd17c5d] p-4 sm:p-6 md:p-8 lg:p-12 ">
       {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
+      <div className="absolute inset-0 w-full" style={{
+        backgroundImage: `url('/images/logo.png')`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: '',
+        backgroundSize: '900px',
+        opacity: '0.2'  // Adjust opacity for the background image transparency
+      }}
+
+      >
+        {/* <Image
           src='/images/logo.png'
           alt="Background"
           width={800}
           height={400}
           objectFit="cover"
-        />
+          repeat="no-repeat"
+          objectPosition='center center'
+          className="fade-animation bg-transparent "
+     
+        /> */}
         {/* Transparent White Overlay */}
-        <div className="absolute inset-0 bg-white opacity-50" />
+        {/* <div className="absolute inset-0 bg-[#c7c7c7] opacity-70 w-full" /> */}
       </div>
 
       {/* Content with Cards */}
       <div className="relative z-10 flex flex-col items-center text-center space-y-6 max-w-7xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-800 mb-4">
           SUDARSHAN&apos;S ROOMS & SUITES
         </h1>
-        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 mb-6 px-4 sm:px-0">
-          Experience exceptional comfort and elegance with our specially designed rooms and suites. Each room promises a blend of luxurious comfort and thoughtful amenities, ensuring a perfect stay.
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-black mb-6 px-4 sm:px-0">
+          <span className=''>Experience</span> exceptional comfort and elegance with our specially designed rooms and suites. Each room promises a blend of luxurious comfort and thoughtful amenities, ensuring a perfect stay.
         </p>
 
         {/* Loading State */}
@@ -52,19 +64,19 @@ const RoomsSuites = () => {
         ) : (
           // Cards Container
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
-          {rooms.map((room, index) => (
-            <Card
-              key={index}
-              image={room.image}  // Use image from API
-              title={room.type}  // Adjust the title field from API (room.type)
-              description={room.description}  // Adjust the description field from API
-              price={`₹${room.price}/-`}  // Add rupee symbol and "/-" to the price
-              beds={room.beds}  // Adjust the beds field from API
-              rating={room.rating}  // Adjust the rating field from API
-            />
-          ))}
-        </div>
-        
+            {rooms.map((room, index) => (
+              <Card
+                key={index}
+                image={room.image}  // Use image from API
+                title={room.type}  // Adjust the title field from API (room.type)
+                description={room.description}  // Adjust the description field from API
+                price={`₹${room.price}/-`}  // Add rupee symbol and "/-" to the price
+                beds={room.beds}  // Adjust the beds field from API
+                rating={room.rating}  // Adjust the rating field from API
+              />
+            ))}
+          </div>
+
         )}
       </div>
     </div>

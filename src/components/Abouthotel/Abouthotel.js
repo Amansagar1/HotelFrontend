@@ -12,27 +12,23 @@ const AboutHotel = () => {
   if (!isMounted) return null;
 
   return (
-    <div className="flex flex-col md:flex-row gap-10 px-5 py-16 w-full ">
+    <div className="flex flex-col md:flex-row p-8 w-full items-center justify-between">
       {/* Left Side: Image with Background */}
-
-     <div className="w-full">
-     <div className="bg-yellow-600 h-[350px] md:h-[576px] shadow-lg relative  ">
-     <div
-  className="absolute w-full h-full ml-5 mt-5 flex items-center justify-center bg-cover bg-center"
-  style={{
-    width: '100%',
-    height: '100%',
-    backgroundImage: "url('/images/front.jpg')",
-    backgroundSize: "cover",       
-    backgroundPosition: "top",  
-  }}
->
-</div>
-
+      <div className="w-full md:w-1/2 flex items-center justify-center mb-8 md:mb-0">
+        <div className="bg-yellow-600 h-[350px] md:h-[576px] shadow-lg relative w-full md:w-[60%]  ">
+          <div
+            className="absolute inset-0 flex items-center justify-center mt-4 ml-4"
+            style={{
+              backgroundImage: "url('/images/front.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
+        </div>
       </div>
-     </div>
+
       {/* Right Side: Text and Stats */}
-      <div className="w-full  px-5 md:px-10">
+      <div className="w-full md:w-1/2 px-4 md:px-10">
         <p className="text-sm text-gray-500 uppercase tracking-wider mb-2">
           Luxury Hotel and Resort
         </p>

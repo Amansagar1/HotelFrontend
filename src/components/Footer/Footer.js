@@ -143,14 +143,12 @@ const Footer = () => {
             <p className="mt-4 text-[15px] font-normal text-white/[80%]">
               {footerData.hotelInfo.description || "No description available"}
             </p>
-            <div className="mt-6 flex justify-center gap-4">
+            <div className="mt-6 flex  items-center gap-4">
               {footerData.hotelInfo.socialLinks.map((link) => (
                 <Link key={link.url} className="hover:scale-110" target="_blank" href={link.url}>
                   {link.platform === "Facebook" && <FaFacebookF className="text-white" size={30} />}
-                  {link.platform === "LinkedIn" && <FaLinkedinIn className="text-white" size={30} />}
                   {link.platform === "Instagram" && <FaInstagram className="text-white" size={30} />}
                   {link.platform === "Twitter" && <FaTwitter className="text-white" size={30} />}
-                  {link.platform === "YouTube" && <FaYoutube className="text-white" size={30} />}
                 </Link>
               ))}
             </div>
@@ -209,10 +207,10 @@ const Footer = () => {
             <p>&copy; {year} {footerData.hotelInfo.name}. All rights reserved.</p>
           </div>
           <div className="flex gap-6 mt-4 sm:mt-0">
-            <Link href={footerData.copyright.privacyPolicyUrl} className="text-white hover:text-rose-600">
+            <Link href="/privacypolicy"className="text-white hover:text-rose-600">
               Privacy Policy
             </Link>
-            <Link href={footerData.copyright.termsUrl} className="text-white hover:text-rose-600">
+            <Link href="/termandcondition"className="text-white hover:text-rose-600">
               Terms & Conditions
             </Link>
           </div>

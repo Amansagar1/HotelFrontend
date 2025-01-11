@@ -104,27 +104,26 @@ const ContactUs = () => {
               <div className="flex items-center gap-4 text-white">
                 <FaMapMarkerAlt className="text-2xl text-white" />
                 <span className="text-white">
-                Janaura Road, Janoura Bypass, Janpad,
-                Ayodhya, Uttar Pradesh - 224001, India
+                Janaura Road, Lucknow Ayodhya By Pass, Ayodhya, Uttar Pradesh, 224001, India
                 </span>
               </div>
               <div className="flex items-center gap-4 mt-4 text-white">
                 <Link
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/profile.php?id=61571016342065"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <FaFacebook className="text-2xl text-white hover:text-blue-600" />
                 </Link>
                 <Link
-                  href="https://www.instagram.com/sudarshan_ayodhya?igsh=bnFqOTk5ZG9wMzlm"
+                  href="https://www.instagram.com/sudarshan_ayodhya/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <FaInstagram className="text-2xl text-white hover:text-pink-500" />
                 </Link>
                 <Link
-                  href="https://twitter.com"
+                  href="https://x.com/SudarshanAyd"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

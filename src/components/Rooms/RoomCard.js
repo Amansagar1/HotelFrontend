@@ -103,7 +103,7 @@ const RoomCard = ({ room }) => {
 
       {/* Room Image */}
       <Image
-        src={"/images/img1.jpg"}
+        src={ room.image ||"/images/rooms/deluxeroom.jpg"}
         alt={room.name || "Room Image"}
         width={500}
         height={400}
@@ -135,9 +135,10 @@ const RoomCard = ({ room }) => {
         {/* Room Details */}
         <div className="text-sm flex flex-col gap-2 mt-4">
           <DetailRow label="Room Number" value={room.roomnumber} />
-          <DetailRow label="Size" value={room.size ? `${room.size} sq ft` : null} />
+          <DetailRow label="Size" value={room.size ? `${room.size}` : null} />
           <DetailRow label="Max Occupancy" value={room.maxOccupancy} />
-          <DetailRow label="Beds & Blankets" value={room.bedsAndBlankets} />
+          <DetailRow label="Beds & Blankets" value={Array.isArray(room.bedsAndBlankets) ? room.bedsAndBlankets.join(", ") : room.bedsAndBlankets} />
+
           <DetailRow 
             label="Features" 
             value={room.features?.join(", ")} 

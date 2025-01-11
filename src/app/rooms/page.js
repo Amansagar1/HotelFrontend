@@ -5,7 +5,7 @@ import { getDeluxeRoom, getSuperDeluxeRoom, getFamilyDeluxeRoom } from "../../We
 import FilterSidebar from "../../components/Rooms/FilterSidebar";
 import HeaderBanner from "../../components/Rooms/HeaderBanner";
 import RoomCard from "../../components/Rooms/RoomCard";
-// import CalendarSearchUI from "../../components/Rooms/CalendarSearchUI";
+
 const RoomPage = () => {
   const [rooms, setRooms] = useState({
     deluxe: [],
@@ -29,17 +29,7 @@ const RoomPage = () => {
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const [filteredRoomIds, setFilteredRoomIds] = useState([]);
-
-  // const updateFilteredRooms = (bookedRoomIds) => {
-  //   const filteredRooms = {
-  //     deluxe: rooms.deluxe.filter((room) => !bookedRoomIds.includes(room._id)),
-  //     superDeluxe: rooms.superDeluxe.filter((room) => !bookedRoomIds.includes(room._id)),
-  //     family: rooms.family.filter((room) => !bookedRoomIds.includes(room._id)),
-  //   };
-  //   setFilteredRooms(filteredRooms);
-  //};
-  // Fetch all room data
+ 
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -49,7 +39,9 @@ const RoomPage = () => {
           getSuperDeluxeRoom(),
           getFamilyDeluxeRoom(),
         ]);
-
+        console.log('Deluxe Rooms:', deluxeData?.result);
+        console.log('Super Deluxe Rooms:', superDeluxeData?.result);
+        console.log('Family Rooms:', familyData?.result);
         setRooms({
           deluxe: deluxeData?.result || [],
           superDeluxe: superDeluxeData?.result || [],

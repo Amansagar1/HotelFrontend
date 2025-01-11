@@ -12,7 +12,7 @@ const Aboutus = () => {
     const fetchHotelData = async () => {
       try {
         const data = await getAboutUs(); 
-        setHotelData(data.aboutus[0]);
+        setHotelData(data.aboutus);
       } catch (error) {
         console.error("Error fetching hotel data:", error);
       }
@@ -106,20 +106,25 @@ const Aboutus = () => {
           Our dedicated team ensures every guest has a memorable stay.
         </p>
         <div className="flex flex-wrap justify-center gap-8">
-          {hotelData.teamMembers.map((member, index) => (
-            <div key={index} className="text-center">
-              <Image
-                src={member.image}
-                alt={member.name}
-                width={150}
-                height={150}
-                className="rounded-full shadow-lg"
-              />
-              <h4 className="text-lg font-semibold mt-4">{member.name}</h4>
-              <p className="text-sm text-gray-500">{member.role}</p>
-            </div>
-          ))}
-        </div>
+  {hotelData.teamMembers.map((member, index) => (
+    <div key={index} className="text-center">
+      <div className="w-[150px] h-[150px] overflow-hidden rounded-full mx-auto">
+        <Image
+          src={member.image}
+          alt={member.name}
+          width={150}
+          height={150}
+          className="object-cover w-full h-full "
+          style={{ objectPosition: 'top' }} // Ensures the face is centered
+        />
+      </div>
+      <h4 className="text-lg font-semibold mt-4">{member.name}</h4>
+      <p className="text-sm text-gray-500">{member.role}</p>
+    </div>
+  ))}
+</div>
+
+
       </div>
 
       {/* Client Feedback Section */}
