@@ -1,6 +1,6 @@
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
+const MAIL_URL = process.env.NEXT_PUBLIC_MAIL_URL;
 
 
 const EndPoints = {
@@ -37,7 +37,7 @@ const EndPoints = {
 
     REGISTER_USER: () => BASE_URL + `/auth/register`,
 
-   MAIL_URL: () => BASE_URL + `/email/send-booking-emails`,
+   MAIL_URL: () => MAIL_URL + `/send-email`,
 
    
    GET_ALL_ROOMS : ()  => BASE_URL + `/allrooms`,

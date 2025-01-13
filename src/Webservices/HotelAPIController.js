@@ -493,3 +493,40 @@ export const getAboutUs = async () => {
     throw error; 
   }
 };
+
+export const submitForm = async (formData) => {
+  try {
+    const response = await fetch(EndPoints.MAIL_URL(), 
+    {
+      
+
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData), // Send form data as JSON
+    });
+    console.log("Sending request to:", EndPoints.MAIL_URL()); 
+    // Check if the response is successful (status code 2xx)
+    if (!response.ok) {
+      // Handle error based on the status code
+      throw new Error(`Failed to send the email. Status: ${response.status}`);
+    }
+
+    // Try parsing the JSON response if it's valid
+    try {
+      const result = await response.json();
+      console.log('Email sent successfully:', result);
+      return result; // Return the response for further handling in the calling function
+    } catch (jsonError) {
+      // Handle the case where the response is not a valid JSON
+      console.error('Failed to parse JSON response:', jsonError);
+      throw new Error('Received an invalid JSON response from the server');
+    }
+
+  } catch (error) {
+    // Log the error and return a useful message
+    console.error('Error submitting form:', error);
+    return { error: error.message || 'An unknown error occurred' }; // Return the error message for UI feedback
+  }
+};

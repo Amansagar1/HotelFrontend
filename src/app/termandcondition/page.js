@@ -19,7 +19,7 @@ const TermsAndConditions = () => {
     <strong className="font-semibold">2 days before the check-in date</strong>. 
     Cancellations are only allowed{" "}
     <strong className="font-semibold">before the Check-In Time</strong>. 
-    All times mentioned are in the destination's local time zone.
+    All times mentioned are in the destination&apos;s local time zone.
   </p>
 </section>
 

@@ -103,7 +103,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaFacebookF, FaLinkedinIn, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTwitter, } from "react-icons/fa";
 import Link from "next/link";
 import { getFooter } from "../../Webservices/HotelAPIController";
 
@@ -204,7 +204,7 @@ const Footer = () => {
         {/* Bottom Copyright Section */}
         <div className="mt-8 border-t border-white pt-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left text-white text-sm">
           <div className="text-white">
-            <p>&copy; {year} {footerData.hotelInfo.name}. All rights reserved.</p>
+            <p>&copy; {year} Hexaonelab. All rights reserved.</p>
           </div>
           <div className="flex gap-6 mt-4 sm:mt-0">
             <Link href="/privacypolicy"className="text-white hover:text-rose-600">
