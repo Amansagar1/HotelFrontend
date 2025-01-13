@@ -246,8 +246,8 @@ const ContactUs = () => {
     }
 
     try {
-      const response = await submitForm(formData); 
-   
+      const response = await submitForm(formData);
+
       console.log("Message sent successfully:", response);
       setSuccess(true);
       setError("");
@@ -368,10 +368,12 @@ const ContactUs = () => {
                     onChange={handleChange}
                     className="w-full p-4 rounded bg-yellow-900 text-white focus:outline-none"
                   >
+                    <option value="" disabled selected >Select One</option>
                     <option value="General Inquiry">General Inquiry</option>
                     <option value="Booking Assistance">Booking Assistance</option>
                     <option value="Feedback">Feedback</option>
                   </select>
+
                   <textarea
                     name="message"
                     placeholder="Write Message"
@@ -392,7 +394,7 @@ const ContactUs = () => {
               <div className="w-full max-w-md text-center animate-fade-in">
                 <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
                 <p className="text-white">
-                  Your message has been sent successfully. We'll get back to you
+                  Your message has been sent successfully. We&apos;ll get back to you
                   shortly.
                 </p>
               </div>

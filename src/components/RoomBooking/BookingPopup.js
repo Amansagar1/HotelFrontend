@@ -222,7 +222,7 @@
 //                 ))}
 
 //                 {/* Payment Options */}
-              
+
 //                <div className="flex w-full items-center justify-end gap-4">
 //                {!paymentOption ? (
 //                   <div className="flex justify-end gap-4 ">
@@ -240,7 +240,7 @@
 //                     >
 //                       Pay at Counter
 //                     </button>
-                    
+
 //                   </div>
 //                 ) : paymentOption === "UPI" ? (
 //                   <div className="mt-4">
@@ -292,9 +292,9 @@
 
 // export default BookingModal;
 import React, { useState, useEffect } from "react";
-import { postBookingRoom } from "../../Webservices/HotelAPIController";
+import { postBookingRoom, submitForm } from "../../Webservices/HotelAPIController";
 import PaymentOptions from "./PaymentOptions";
-import BookingConfirmation from "./BookingConfirmation"
+import BookingConfirmation from "./BookingConfirmation";
 const INITIAL_BOOKING_STATE = {
   firstName: "",
   lastName: "",
@@ -335,7 +335,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     roomId: roomDetails?._id,
     price: roomDetails?.price,
     title: roomDetails?.name,
-      available: "false",
+    available: "false",
   });
   const [isBooked, setIsBooked] = useState(false);
   const [errors, setErrors] = useState({});
@@ -364,20 +364,20 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^[0-9]{10}$/;
-  
+
     Object.entries(bookingDetails).forEach(([key, value]) => {
       if (!value) {
         newErrors[key] = "This field is required.";
       }
     });
-  
+
     if (bookingDetails.email && !emailRegex.test(bookingDetails.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
     if (bookingDetails.phone && !phoneRegex.test(bookingDetails.phone)) {
       newErrors.phone = "Phone number must be 10 digits.";
     }
-  
+
     // Check if check-in or check-out time is provided
     if (bookingDetails.checkInTime && !bookingDetails.checkOutTime) {
       newErrors.checkOutTime = "Check-out time is required when check-in time is provided.";
@@ -385,81 +385,162 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     if (!bookingDetails.checkInTime && bookingDetails.checkOutTime) {
       newErrors.checkInTime = "Check-in time is required when check-out time is provided.";
     }
-  
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
+
 
   const convertToIndianDate = (date) => {
     const [year, month, day] = date.split("-").map(Number);
     const localDate = new Date(year, month - 1, day);
     const offsetInMinutes = 330; // IST is UTC +5:30
     const istDate = new Date(localDate.getTime() + offsetInMinutes * 60000);
-  
+
     const dayFormatted = String(istDate.getDate()).padStart(2, '0');
     const monthFormatted = String(istDate.getMonth() + 1).padStart(2, '0');
     const yearFormatted = String(istDate.getFullYear()).slice(2); // YY format
     return `${dayFormatted}/${monthFormatted}/${yearFormatted}`;
   };
-  
 
-  
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!validateForm() || !paymentOption) {
+  //     alert("Please correct the highlighted errors and select a payment option.");
+  //     return;
+  //   }
+
+  //   const paymentStatus = isPaymentCompleted ? "paid" : "unpaid";
+  //   const contactNumber = "+91 9070755755";
+  //   // Convert dates to ISO format (YYYY-MM-DD) for backend
+  //   const formattedCheckIn = new Date(bookingDetails.checkIn).toISOString().split('T')[0];
+  //   const formattedCheckOut = new Date(bookingDetails.checkOut).toISOString().split('T')[0];
+
+  //   // Convert to Indian Date format (DD/MM/YY)
+  //   const indianCheckInDate = convertToIndianDate(formattedCheckIn);
+  //   const indianCheckOutDate = convertToIndianDate(formattedCheckOut);
+
+  //   // Validate time format (HH:MM)
+  //   const timeRegex = /^([01]?[0-9]|2[0-3]):([0-5][0-9])$/;
+  //   const { checkInTime, checkOutTime } = bookingDetails;
+  //   let newErrors = { ...errors };
+
+  //   if (!timeRegex.test(checkInTime)) {
+  //     newErrors.checkInTime = "Please enter a valid time in HH:MM format.";
+  //   }
+
+  //   if (!timeRegex.test(checkOutTime)) {
+  //     newErrors.checkOutTime = "Please enter a valid time in HH:MM format.";
+  //   }
+
+  //   // If time format is invalid, show errors and return
+  //   if (newErrors.checkInTime || newErrors.checkOutTime) {
+  //     setErrors(newErrors);
+  //     alert("Please enter valid check-in and check-out times.");
+  //     return;
+  //   }
+
+  //   setIsSubmitting(true);
+
+  //   try {
+  //     const bookingPayload = {
+  //       ...bookingDetails,
+  //       checkIn: indianCheckInDate, // Use the Indian formatted date here
+  //       checkOut: indianCheckOutDate, // Use the Indian formatted date here
+  //       payment: paymentStatus,
+  //     };
+
+  //     const response = await postBookingRoom(bookingPayload);
+
+  //     if (response.success) {
+  //       setIsBooked(true);
+  //       alert(`Booking successful! Payment status: ${paymentStatus}. For assistance, contact us at ${contactNumber}`);
+  //     } else {
+  //       throw new Error(response.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Booking failed:", error);
+  //     alert(`Booking failed: ${error.message}`);
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!validateForm() || !paymentOption) {
       alert("Please correct the highlighted errors and select a payment option.");
       return;
     }
-  
+
     const paymentStatus = isPaymentCompleted ? "paid" : "unpaid";
     const contactNumber = "+91 9070755755";
+    const { firstName, lastName, address, city, pincode, phone, email, checkIn, checkOut, checkInTime, checkOutTime, numberOfAdults, price, title } = bookingDetails;
+
     // Convert dates to ISO format (YYYY-MM-DD) for backend
-    const formattedCheckIn = new Date(bookingDetails.checkIn).toISOString().split('T')[0];
-    const formattedCheckOut = new Date(bookingDetails.checkOut).toISOString().split('T')[0];
-  
+    const formattedCheckIn = new Date(checkIn).toISOString().split('T')[0];
+    const formattedCheckOut = new Date(checkOut).toISOString().split('T')[0];
+
     // Convert to Indian Date format (DD/MM/YY)
     const indianCheckInDate = convertToIndianDate(formattedCheckIn);
     const indianCheckOutDate = convertToIndianDate(formattedCheckOut);
-  
-    // Validate time format (HH:MM)
-    const timeRegex = /^([01]?[0-9]|2[0-3]):([0-5][0-9])$/;
-    const { checkInTime, checkOutTime } = bookingDetails;
-    let newErrors = { ...errors };
-  
-    if (!timeRegex.test(checkInTime)) {
-      newErrors.checkInTime = "Please enter a valid time in HH:MM format.";
-    }
-  
-    if (!timeRegex.test(checkOutTime)) {
-      newErrors.checkOutTime = "Please enter a valid time in HH:MM format.";
-    }
-  
-    // If time format is invalid, show errors and return
-    if (newErrors.checkInTime || newErrors.checkOutTime) {
-      setErrors(newErrors);
-      alert("Please enter valid check-in and check-out times.");
-      return;
-    }
-  
-    setIsSubmitting(true);
-  
+
+    // Prepare the message to be sent in the email (you can customize it further)
+    const message = `
+      Booking Details
+     Name:${firstName} ${lastName}
+      Address: ${address}, ${city}, ${pincode}
+     Phone: ${phone}
+     Email: ${email}
+     Check-in Date: ${indianCheckInDate}
+     Check-out Date: ${indianCheckOutDate}
+     Check-in Time: ${checkInTime}
+     Check-out Time:${checkOutTime}
+     Number of Adults: ${numberOfAdults}
+     Room: ${title}
+     Price:₹${price}
+     Payment Status: ${paymentStatus}
+    `;
+
+    // Prepare the form data for submission
+    const formData = {
+      name: `${firstName} ${lastName}`,
+      email: email,
+      subject: `Booking Request for ${title}`,
+      message: message,
+    };
+
     try {
+      setIsSubmitting(true);
+
+      // Send the form data to the backend for email
+      const emailResponse = await submitForm(formData);
+
+      // Check emailResponse for success or failure
+      if (emailResponse.error) {
+        throw new Error(`Email submission failed: ${emailResponse.error}`);
+      } else {
+        console.log("Email sent successfully:", emailResponse);
+      }
+
+      // After submitting the form, send the booking data to the backend for storage or further processing
       const bookingPayload = {
         ...bookingDetails,
         checkIn: indianCheckInDate, // Use the Indian formatted date here
         checkOut: indianCheckOutDate, // Use the Indian formatted date here
         payment: paymentStatus,
       };
-  
-      const response = await postBookingRoom(bookingPayload);
-  
-      if (response.success) {
+
+      const bookingResponse = await postBookingRoom(bookingPayload);
+
+      if (bookingResponse.success) {
         setIsBooked(true);
         alert(`Booking successful! Payment status: ${paymentStatus}. For assistance, contact us at ${contactNumber}`);
       } else {
-        throw new Error(response.message);
+        throw new Error(bookingResponse.message);
       }
     } catch (error) {
       console.error("Booking failed:", error);
@@ -468,15 +549,16 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
       setIsSubmitting(false);
     }
   };
-  
+
+
 
   if (!isVisible) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 w-full">
       <div className="bg-white rounded-lg shadow-xl p-5 w-[800px]">
-        <div 
-          className="h-48 bg-cover bg-center relative" 
+        <div
+          className="h-48 bg-cover bg-center relative"
           style={{ backgroundImage: "url('/images/rooms/reception.jpg')" }}
         >
           <div className="bg-black bg-opacity-50 h-full flex items-center justify-center text-white">
@@ -499,9 +581,8 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
                     name={field.name}
                     value={bookingDetails[field.name]}
                     onChange={handleChange}
-                    className={`w-full p-2 border rounded-lg ${
-                      errors[field.name] ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className={`w-full p-2 border rounded-lg ${errors[field.name] ? "border-red-500" : "border-gray-300"
+                      }`}
                   />
                   {errors[field.name] && (
                     <p className="text-red-500 text-sm">{errors[field.name]}</p>
@@ -513,29 +594,28 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
                 setPaymentOption={setPaymentOption}
                 setIsPaymentCompleted={setIsPaymentCompleted}
               />
-             <div className="flex justify-end items-center w-full gap-2"
-             >
-               <button
-                type="submit"
-                disabled={isSubmitting}
-                className={` p-2 rounded-lg text-white ${
-                  isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-                }`}
+              <div className="flex justify-end items-center w-full gap-2"
               >
-                {isSubmitting ? "Submitting..." : "Confirm Booking"}
-              </button>
-              <button
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={` p-2 rounded-lg text-white ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+                    }`}
+                >
+                  {isSubmitting ? "Submitting..." : "Confirm Booking"}
+                </button>
+                <button
                   type="button"
                   onClick={onClose}
                   className="border bg-gray-500 py-2 px-6 rounded-lg text-white hover:bg-gray-600"
                 >
                   Cancel
                 </button>
-             </div>
+              </div>
             </form>
           ) : (
             <div className="text-center">
-            <BookingConfirmation  />
+              <BookingConfirmation />
             </div>
           )}
         </div>
