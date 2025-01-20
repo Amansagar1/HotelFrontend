@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /admin
+Sitemap: https://www.hotelsudarshan.com/sitemap.xml

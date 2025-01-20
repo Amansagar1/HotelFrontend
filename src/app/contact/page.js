@@ -263,7 +263,7 @@ const ContactUs = () => {
       {/* Banner Section */}
       <div
         className="relative bg-cover bg-center h-[400px] flex items-center justify-center text-center text-white"
-        style={{ backgroundImage: `url('/images/img5.jpg')` }}
+        style={{ backgroundImage: `url('/images/img2.jpg')` }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="relative z-10 w-full max-w-5xl mx-auto p-4">

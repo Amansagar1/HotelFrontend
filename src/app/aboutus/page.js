@@ -50,10 +50,10 @@ const Aboutus = () => {
         {/* Image Section */}
         <div className="relative flex items-center justify-center mb-8 md:mb-0 w-full md:w-[550px]">
           <Image
-            src="/images/img4.jpg"
+            src="/images/hotel-front.jpg"
             alt="Luxury Hotel Room"
-            width={550}
-            height={400}
+            width={1200}
+            height={800}
             className="rounded-lg shadow-lg w-full h-auto object-cover"
           />
         </div>

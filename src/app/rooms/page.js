@@ -5,7 +5,7 @@ import { getDeluxeRoom, getSuperDeluxeRoom, getFamilyDeluxeRoom } from "../../We
 import FilterSidebar from "../../components/Rooms/FilterSidebar";
 import HeaderBanner from "../../components/Rooms/HeaderBanner";
 import RoomCard from "../../components/Rooms/RoomCard";
-
+import Head from "next/head"; 
 const RoomPage = () => {
   const [rooms, setRooms] = useState({
     deluxe: [],
@@ -165,6 +165,19 @@ const RoomPage = () => {
 
   return (
     <div className="w-full flex flex-col items-center justify-center bg-gray-100">
+       {/* SEO */}
+       <Head>
+        <title>Rooms & Suites - Hotel Booking</title>
+        <meta name="description" content="Explore our Deluxe, Super Deluxe, and Family Rooms for your next stay. Find the perfect room with various amenities and options." />
+        <meta name="keywords" content="hotel rooms, deluxe rooms, super deluxe rooms, family rooms, hotel booking, accommodation" />
+        <meta property="og:title" content="Rooms & Suites - Hotel Booking" />
+        <meta property="og:description" content="Explore our Deluxe, Super Deluxe, and Family Rooms for your next stay." />
+        <meta property="og:image" content="/images/img2.jpg" />
+        <meta property="og:url" content="https://www.hotelsudarshan.com/rooms" />
+        <meta name="twitter:title" content="Rooms & Suites - Hotel Booking" />
+        <meta name="twitter:description" content="Explore our Deluxe, Super Deluxe, and Family Rooms for your next stay." />
+        <meta name="twitter:image" content="/images/img2.jpg" />
+      </Head>
       {/* Header Banner */}
       <div className="w-full relative">
         <HeaderBanner className="w-full" title="Rooms & Suites" backgroundImage="/images/img2.jpg" />
