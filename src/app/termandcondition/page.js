@@ -38,7 +38,7 @@ const TermsAndConditions = () => {
             <li className="mb-1">Local IDs are not accepted, and unmarried couples are not allowed.</li>
             <li className="mb-1">Non-guaranteed reservations will be released by 18:00 hrs on the arrival date.</li>
             <li className="mb-1">For advance purchase bookings, the full deposit is non-refundable even if the booking is cancelled or modified.</li>
-            <li className="mb-1">A minimum of 48 hours' notice is required for cancellations. Cancellations after this will incur one-night's charge.</li>
+            <li className="mb-1">A minimum of 48 hours&apos; notice is required for cancellations. Cancellations after this will incur one-night&apos;s charge.</li>
           </ol>
         </section>
 
