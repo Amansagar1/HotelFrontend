@@ -347,7 +347,7 @@ const LoginPage = () => {
           Cookies.set("userFullName", loginResult.fullName, { expires: 7 }); // Assuming loginResult contains the user's full name
           Cookies.set("userEmail", loginResult.email, { expires: 7 });
           Cookies.set("token", loginResult.token, { expires: 7 }); // Assuming loginResult contains the token
-
+          window.location.reload()
           router.push("/rooms"); 
         }
       }

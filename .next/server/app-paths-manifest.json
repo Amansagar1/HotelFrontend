@@ -1,7 +1,6 @@
 {
-  "/rooms/page": "app/rooms/page.js",
-  "/aboutus/page": "app/aboutus/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
   "/login/page": "app/login/page.js",
-  "/termandcondition/page": "app/termandcondition/page.js",
-  "/privacypolicy/page": "app/privacypolicy/page.js"
+  "/rooms/page": "app/rooms/page.js"
 }
