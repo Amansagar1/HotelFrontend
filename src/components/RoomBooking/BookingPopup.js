@@ -184,7 +184,7 @@
 //         {/* Header */}
 //         <div className="h-48 bg-cover bg-center relative" style={{ backgroundImage: "url('/images/img4.jpg')" }}>
 //           <div className="bg-black bg-opacity-50 h-full flex items-center justify-center text-white">
-//             <h1 className="text-3xl font-bold">{isBooked ? "Booking Confirmed!" : "Complete Your Booking"}</h1>
+//             <h1 className="text-3xl font-bold">{isBooked ? "Booking Request Confirmed!" : "Complete Your Booking"}</h1>
 //           </div>
 //         </div>
 
@@ -320,7 +320,7 @@ const FORM_FIELDS = [
   { label: "Address", name: "address" },
   { label: "City", name: "city" },
   { label: "Pincode", name: "pincode" },
-  { label: "Phone", name: "phone" },
+  { label: "Phone", name: "phone"  },
   { label: "Email", name: "email" },
   { label: "Check-in Date", name: "checkIn", type: "date" },
   { label: "Check-out Date", name: "checkOut", type: "date" },
@@ -354,16 +354,68 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     }
   }, [roomDetails]);
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setBookingDetails((prev) => ({ ...prev, [name]: value }));
+  //   setErrors((prev) => ({ ...prev, [name]: "" }));
+  // };
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'pincode' && /[^0-9]/.test(value)) {
+      return; 
+    }
+    if (name === 'phone' && /[^0-9+]/.test(value)) {
+      return;
+    }
+  
+    // Phone number validation: Check if it's longer than 10 digits
+    if (name === 'phone' && value.length > 15) {
+      return; // Prevent entering more than 15 characters
+    }
+  
+    // Phone number validation: Check if it's longer than 10 digits and missing country code
+    if (name === 'phone') {
+      const rawPhoneValue = value.replace(/\+/g, ""); // Remove the "+" for length check
+  
+      // Case 1: Phone number exceeds 10 digits and does not start with "+"
+      if (rawPhoneValue.length > 10 && !value.startsWith("+")) {
+        setErrors((prev) => ({
+          ...prev,
+          phone: "Phone number seems too long. Please include a country code.",
+        }));
+      } 
+      // Case 2: Phone number exceeds 10 digits, but starts with "+"
+      else if (rawPhoneValue.length > 10 && value.startsWith("+")) {
+        setErrors((prev) => ({ ...prev, phone: "" }));
+      } 
+      // Case 3: If phone number is less than or equal to 10 digits, clear the warning/error
+      else {
+        setErrors((prev) => ({ ...prev, phone: "" }));
+      }
+    }
+    if (name === 'numberOfAdults') {
+      if (value > 50) {
+        setErrors((prev) => ({
+          ...prev,
+          numberOfAdults: "Number of adults cannot exceed 50.",
+        }));
+        return; // Stop input if it's greater than 50
+      } else {
+        setErrors((prev) => ({ ...prev, numberOfAdults: "" }));
+      }
+    }
+
     setBookingDetails((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
+
   const validateForm = () => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]{10}$/;
+    // const phoneRegex = /^[+]?[0-9]{10,}$/;
 
     Object.entries(bookingDetails).forEach(([key, value]) => {
       if (!value) {
@@ -374,11 +426,14 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
     if (bookingDetails.email && !emailRegex.test(bookingDetails.email)) {
       newErrors.email = "Please enter a valid email address.";
     }
-    if (bookingDetails.phone && !phoneRegex.test(bookingDetails.phone)) {
-      newErrors.phone = "Phone number must be 10 digits.";
-    }
 
-    // Check if check-in or check-out time is provided
+    if (bookingDetails.phone) {
+      const rawPhoneValue = bookingDetails.phone.replace(/\+/g, ""); // Remove "+" for checking length
+      if (rawPhoneValue.length > 10 && !bookingDetails.phone.startsWith("+")) {
+        newErrors.phone = "Phone number seems too long. Please include a country code.";
+      }
+    }
+  
     if (bookingDetails.checkInTime && !bookingDetails.checkOutTime) {
       newErrors.checkOutTime = "Check-out time is required when check-in time is provided.";
     }
@@ -386,9 +441,16 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
       newErrors.checkInTime = "Check-in time is required when check-out time is provided.";
     }
 
+    const checkInDate = new Date(bookingDetails.checkIn);
+    const checkOutDate = new Date(bookingDetails.checkOut);
+    if (checkOutDate < checkInDate) {
+      newErrors.checkOut = "Check-out date must be the same as or later than the check-in date.";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
 
 
   const convertToIndianDate = (date) => {
@@ -405,69 +467,6 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
 
 
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!validateForm() || !paymentOption) {
-  //     alert("Please correct the highlighted errors and select a payment option.");
-  //     return;
-  //   }
-
-  //   const paymentStatus = isPaymentCompleted ? "paid" : "unpaid";
-  //   const contactNumber = "+91 9070755755";
-  //   // Convert dates to ISO format (YYYY-MM-DD) for backend
-  //   const formattedCheckIn = new Date(bookingDetails.checkIn).toISOString().split('T')[0];
-  //   const formattedCheckOut = new Date(bookingDetails.checkOut).toISOString().split('T')[0];
-
-  //   // Convert to Indian Date format (DD/MM/YY)
-  //   const indianCheckInDate = convertToIndianDate(formattedCheckIn);
-  //   const indianCheckOutDate = convertToIndianDate(formattedCheckOut);
-
-  //   // Validate time format (HH:MM)
-  //   const timeRegex = /^([01]?[0-9]|2[0-3]):([0-5][0-9])$/;
-  //   const { checkInTime, checkOutTime } = bookingDetails;
-  //   let newErrors = { ...errors };
-
-  //   if (!timeRegex.test(checkInTime)) {
-  //     newErrors.checkInTime = "Please enter a valid time in HH:MM format.";
-  //   }
-
-  //   if (!timeRegex.test(checkOutTime)) {
-  //     newErrors.checkOutTime = "Please enter a valid time in HH:MM format.";
-  //   }
-
-  //   // If time format is invalid, show errors and return
-  //   if (newErrors.checkInTime || newErrors.checkOutTime) {
-  //     setErrors(newErrors);
-  //     alert("Please enter valid check-in and check-out times.");
-  //     return;
-  //   }
-
-  //   setIsSubmitting(true);
-
-  //   try {
-  //     const bookingPayload = {
-  //       ...bookingDetails,
-  //       checkIn: indianCheckInDate, // Use the Indian formatted date here
-  //       checkOut: indianCheckOutDate, // Use the Indian formatted date here
-  //       payment: paymentStatus,
-  //     };
-
-  //     const response = await postBookingRoom(bookingPayload);
-
-  //     if (response.success) {
-  //       setIsBooked(true);
-  //       alert(`Booking successful! Payment status: ${paymentStatus}. For assistance, contact us at ${contactNumber}`);
-  //     } else {
-  //       throw new Error(response.message);
-  //     }
-  //   } catch (error) {
-  //     console.error("Booking failed:", error);
-  //     alert(`Booking failed: ${error.message}`);
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -515,22 +514,16 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
 
     try {
       setIsSubmitting(true);
-
-      // Send the form data to the backend for email
       const emailResponse = await submitForm(formData);
-
-      // Check emailResponse for success or failure
       if (emailResponse.error) {
         throw new Error(`Email submission failed: ${emailResponse.error}`);
       } else {
         console.log("Email sent successfully:", emailResponse);
       }
-
-      // After submitting the form, send the booking data to the backend for storage or further processing
       const bookingPayload = {
         ...bookingDetails,
-        checkIn: indianCheckInDate, // Use the Indian formatted date here
-        checkOut: indianCheckOutDate, // Use the Indian formatted date here
+        checkIn: indianCheckInDate, 
+        checkOut: indianCheckOutDate, 
         payment: paymentStatus,
       };
 
@@ -563,7 +556,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
         >
           <div className="bg-black bg-opacity-50 h-full flex items-center justify-center text-white">
             <h1 className="text-3xl font-bold">
-              {isBooked ? "Booking Confirmed!" : "Complete Your Booking"}
+              {isBooked ? "Booking Request Confirmed!" : "Complete Your Booking"}
             </h1>
           </div>
         </div>
@@ -583,6 +576,8 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
                     onChange={handleChange}
                     className={`w-full p-2 border rounded-lg ${errors[field.name] ? "border-red-500" : "border-gray-300"
                       }`}
+                      min={field.name === "checkOut" ? bookingDetails.checkIn : undefined}
+                      maxLength={field.name === "phone" ? 20 : undefined} 
                   />
                   {errors[field.name] && (
                     <p className="text-red-500 text-sm">{errors[field.name]}</p>
@@ -602,7 +597,7 @@ const BookingModal = ({ isVisible, onClose, roomDetails }) => {
                   className={` p-2 rounded-lg text-white ${isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
                     }`}
                 >
-                  {isSubmitting ? "Submitting..." : "Confirm Booking"}
+                  {isSubmitting ? "Submitting..." : "Request Booking"}
                 </button>
                 <button
                   type="button"

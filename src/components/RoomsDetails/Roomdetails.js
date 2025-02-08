@@ -32,7 +32,7 @@
 
 //             const data = await response.json();
 //             if (data.success) {
-//                 console.log("Booking confirmed:", data);
+//                 console.log("Booking Request Confirmed:", data);
 
 //                 await fetch("../../../pages/api/sendMail.js", {
 //                     method: "POST",
@@ -291,7 +291,7 @@
 
 //             const data = await response.json();
 //             if (data.success) {
-//                 console.log("Booking confirmed:", data);
+//                 console.log("Booking Request Confirmed:", data);
 
 //                 await fetch("../../../pages/api/sendMail.js", {
 //                     method: "POST",
@@ -592,7 +592,7 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
 
             const data = await response.json();
             if (data.success) {
-                console.log("Booking confirmed:", data);
+                console.log("Booking Request Confirmed:", data);
 
                 await fetch("../../../pages/api/sendMail.js", {
                     method: "POST",
