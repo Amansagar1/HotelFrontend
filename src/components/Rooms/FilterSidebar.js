@@ -21,8 +21,7 @@ const FilterSidebar = ({ filters, toggleFilter }) => {
           isOpen ? "translate-x-0 mt-[120px] z-50 " : "translate-x-full "
         } transition-transform duration-300 ease-in-out shadow-lg sm:relative sm:translate-x-0 sm:w-full sm:max-w-none`}
       >
-        <div className="p-4 w-64
-         text-gray-100 ">
+        <div className="p-4 w-64 text-gray-100">
           <h2 className="text-xl font-semibold mb-4">Filter by</h2>
           {Object.keys(filters).map((category) => (
             <div key={category} className="mb-6">
@@ -35,7 +34,7 @@ const FilterSidebar = ({ filters, toggleFilter }) => {
                         type="checkbox"
                         checked={filters[category][filter]}
                         onChange={() => toggleFilter(category, filter)}
-                        className="form-checkbox  "
+                        className="form-checkbox"
                       />
                       <span className="capitalize">
                         {filter.replace(/([A-Z])/g, " $1").toLowerCase()}
@@ -51,7 +50,7 @@ const FilterSidebar = ({ filters, toggleFilter }) => {
         {/* Close button */}
         <button
           onClick={toggleDrawer}
-          className="absolute top-4  right-4 text-gray-600 text-2xl sm:hidden  "
+          className="absolute top-4 right-4 text-gray-600 text-2xl sm:hidden"
         >
           ×
         </button>

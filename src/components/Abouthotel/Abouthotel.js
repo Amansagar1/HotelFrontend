@@ -34,7 +34,7 @@ const AboutHotel = () => {
         </p>
 
         <h2 className="text-3xl sm:text-4xl font-semibold text-gray-800 mb-4">
-          Hotel Sudarshan - Best Luxury Stay in Ayodhya, INDIA
+          Hotel Sudarshan - Best Luxury Stay in Ayodhya, India
         </h2>
 
         <p className="text-gray-600 mb-8 text-sm sm:text-base w-full leading-relaxed">

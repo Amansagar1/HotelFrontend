@@ -641,11 +641,11 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
 
     return (
         <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm overflow-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm overflow-auto h-screen"
             role="dialog"
             aria-modal="true"
         >
-            <div className="relative w-[95%] md:w-[90%] lg:w-[80%] bg-white rounded-lg shadow-xl overflow-hidden">
+            <div className="relative w-[95%] md:w-[90%] lg:w-[80%] bg-white rounded-lg shadow-xl overflow-hidden pb-5">
                 {/* Header */}
                 <div
                     className="relative w-full h-[200px] bg-cover bg-center flex items-center justify-center text-white"
@@ -674,13 +674,13 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
                 </div>
 
                 {/* Main Content */}
-                <div className="flex flex-col md:flex-row gap-8 p-6 md:p-10 h-[70vh] overflow-y-auto">
+                <div className="flex flex-col md:flex-row gap-8 p-6 md:p-10 h-[70vh] overflow-y-auto ">
                     {/* Left: Image Carousel */}
                     <div className="relative w-full md:w-1/2 bg-gray-100 rounded-lg ">
                         <Image
                             src={images[currentImageIndex]}
                             alt={`Room Image ${currentImageIndex + 1}`}
-                            className="object-cover w-full h-full"
+                            className="object-cover w-full h-[700px]"
                             width={500}
                             height={500}
                         />

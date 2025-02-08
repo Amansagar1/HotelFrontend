@@ -23,8 +23,8 @@ const RoomPage = () => {
     amenities: {
       airConditioning: false,
       wifi: false,
-      geyser: false,
-      breakfast: false,
+      "Geyser/Water Heater": false,
+      "Coffee table": false,
     },
   });
   const [error, setError] = useState(null);

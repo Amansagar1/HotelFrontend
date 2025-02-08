@@ -98,6 +98,7 @@ const BookingForm = ({
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Validation checks
         if (!paymentOption) {
             setPaymentHint("Please choose a payment option before submitting.");
             return;
@@ -110,6 +111,24 @@ const BookingForm = ({
 
         if (!validateForm(bookingDetails, setErrors)) {
             setPaymentHint("Please correct the highlighted errors.");
+            return;
+        }
+
+        // Checkout date should be the same or greater than check-in date
+        if (new Date(bookingDetails.checkOut) < new Date(bookingDetails.checkIn)) {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                checkOut: "Checkout date must be the same or later than the check-in date."
+            }));
+            return;
+        }
+
+        // Number of adults cannot be more than 50
+        if (bookingDetails.numberOfAdults > 50) {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                numberOfAdults: "Number of adults cannot be more than 50."
+            }));
             return;
         }
 
@@ -141,6 +160,39 @@ const BookingForm = ({
         }
     };
 
+    const handlePincodeChange = (e) => {
+        const value = e.target.value;
+        if (/^\d*$/.test(value)) {
+            handleChange(e);
+        }
+    };
+
+    const handlePhoneChange = (e) => {
+        const value = e.target.value;
+        handleChange({
+            target: {
+                name: "phone",
+                value
+            }
+        });
+    };
+
+    const handleCheckInTimeChange = (e) => {
+        const { name, value } = e.target;
+        setBookingDetails((prevDetails) => ({
+            ...prevDetails,
+            [name]: value,
+        }));
+    };
+
+    const handleCheckOutTimeChange = (e) => {
+        const { name, value } = e.target;
+        setBookingDetails((prevDetails) => ({
+            ...prevDetails,
+            [name]: value,
+        }));
+    };
+
     return (
         <form onSubmit={handleSubmit} className="space-y-4 overflow-scroll h-[500px] mt-4">
             {/* Input Fields */}
@@ -149,13 +201,13 @@ const BookingForm = ({
                 { label: "Last Name", name: "lastName" },
                 { label: "Address", name: "address" },
                 { label: "City", name: "city" },
-                { label: "Pincode", name: "pincode" },
-                { label: "Phone", name: "phone" },
+                { label: "Pincode", name: "pincode", onChange: handlePincodeChange },
+                { label: "Phone", name: "phone", onChange: handlePhoneChange },
                 { label: "Email", name: "email" },
                 { label: "Check-in Date", name: "checkIn", type: "date" },
                 { label: "Check-out Date", name: "checkOut", type: "date" },
-                { label: "Check-in Time", name: "checkInTime", type: "time" },
-                { label: "Check-out Time", name: "checkOutTime", type: "time" },
+                { label: "Check-in Time", name: "checkInTime", type: "time", onChange: handleCheckInTimeChange },
+                { label: "Check-out Time", name: "checkOutTime", type: "time", onChange: handleCheckOutTimeChange },
                 { label: "Number of Adults", name: "numberOfAdults" },
             ].map((field) => (
                 <div key={field.name}>
@@ -164,7 +216,7 @@ const BookingForm = ({
                         type={field.type || "text"}
                         name={field.name}
                         value={bookingDetails[field.name] || ""}
-                        onChange={handleChange}
+                        onChange={field.onChange || handleChange}
                         className={`w-full p-2 border rounded-lg ${errors[field.name] ? "border-red-500" : "border-gray-300"}`}
                     />
                     {errors[field.name] && <p className="text-red-500 text-sm">{errors[field.name]}</p>}
