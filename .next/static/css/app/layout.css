@@ -951,6 +951,9 @@ video {
 .list-disc {
   list-style-type: disc;
 }
+.list-decimal {
+  list-style-type: decimal;
+}
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }

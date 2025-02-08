@@ -37,10 +37,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/login/page.js"
     ],
-    "/_not-found/page": [
+    "/termandcondition/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/termandcondition/page.js"
+    ],
+    "/privacypolicy/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/privacypolicy/page.js"
     ]
   }
 }
