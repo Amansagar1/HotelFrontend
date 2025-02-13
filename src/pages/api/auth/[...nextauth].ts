@@ -158,15 +158,13 @@ export default NextAuth({
     },
 
     async session({ session, token }) {
-      // Ensure that `id` is added to the session if it's available
       if (session?.user) {
-        session.user.id = token.id as string; // Cast token.id to string
+        session.user.id = token.id as string;
       }
       return session;
     },
 
     async jwt({ token, user }) {
-      // Add `id` to the JWT token if the user is available
       if (user) {
         token.id = user.id;
       }
@@ -179,11 +177,11 @@ export default NextAuth({
       options: {
         path: '/',
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production', // Ensure HTTPS is being used
         sameSite: 'lax',
-        domain: process.env.NODE_ENV === 'production' ? '.hotelsudarshan.com' : undefined,
+        domain: process.env.NODE_ENV === 'production' ? '.hotelsudarshan.com' : undefined, // Ensure domain is correct
       },
     },
   },
-  debug: true,
+  debug: true,  // Debugging enabled to see more detailed errors in the logs
 });

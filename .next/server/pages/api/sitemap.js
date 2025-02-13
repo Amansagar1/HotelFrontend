@@ -1,8 +1,0 @@
-"use strict";(()=>{var e={};e.id=0,e.ids=[0],e.modules={5600:e=>{e.exports=require("next/dist/compiled/next-server/pages-api.runtime.prod.js")},6762:(e,t)=>{Object.defineProperty(t,"M",{enumerable:!0,get:function(){return function e(t,n){return n in t?t[n]:"then"in t&&"function"==typeof t.then?t.then(t=>e(t,n)):"function"==typeof t&&"default"===n?t:void 0}}})},4487:(e,t,n)=>{n.r(t),n.d(t,{config:()=>p,default:()=>s,routeModule:()=>d});var i={};n.r(i),n.d(i,{default:()=>u});var r=n(9947),o=n(325),a=n(6762);function u(e,t){let n=`<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${["/","/aboutus","/rooms","/amenities","/aboutus","/contact","/privacypolicy","/termandcondition"].map(e=>`
-          <url>
-            <loc>https://www.hotelsudarshan.com${e}</loc>
-          </url>
-        `).join("")}
-    </urlset>`;t.setHeader("Content-Type","application/xml"),t.status(200).end(n)}let s=(0,a.M)(i,"default"),p=(0,a.M)(i,"config"),d=new r.PagesAPIRouteModule({definition:{kind:o.A.PAGES_API,page:"/api/sitemap",pathname:"/api/sitemap",bundlePath:"",filename:""},userland:i})},325:(e,t)=>{var n;Object.defineProperty(t,"A",{enumerable:!0,get:function(){return n}}),function(e){e.PAGES="PAGES",e.PAGES_API="PAGES_API",e.APP_PAGE="APP_PAGE",e.APP_ROUTE="APP_ROUTE",e.IMAGE="IMAGE"}(n||(n={}))},9947:(e,t,n)=>{e.exports=n(5600)}};var t=require("../../webpack-api-runtime.js");t.C(e);var n=t(t.s=4487);module.exports=n})();
