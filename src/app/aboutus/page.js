@@ -46,7 +46,7 @@ const Aboutus = () => {
       </div>
 
       {/* Hotel Introduction Section */}
-      <div className="flex flex-col md:flex-row items-center justify-center py-16 bg-white gap-8 md:gap-16 border-b-2 m-5">
+      <div className="flex flex-col md:flex-row items-center justify-center py-16 bg-white gap-8 md:gap-16 border-b-2 m-5 text-black">
         {/* Image Section */}
         <div className="relative flex items-center justify-center mb-8 md:mb-0 w-full md:w-[550px]">
           <Image
@@ -59,7 +59,7 @@ const Aboutus = () => {
         </div>
 
         {/* Text Section */}
-        <div className="text-center md:text-left w-full md:w-[550px]">
+        <div className="text-center md:text-left w-full md:w-[550px] text-black">
           <p className="text-sm text-gray-500 uppercase tracking-wider mb-2">
             Luxury Hotel and Resort
           </p>
@@ -67,7 +67,7 @@ const Aboutus = () => {
             {hotelData.hotelIntroduction.title}
           </h2>
           <p className="text-gray-600 mb-8">{hotelData.hotelIntroduction.description}</p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-8">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-8 text-black">
             <div className="text-center">
               <span className="text-4xl font-semibold text-yellow-600">{hotelData.hotelIntroduction.luxuryRooms}+</span>
               <p className="text-gray-500">Luxury Rooms</p>
@@ -84,7 +84,7 @@ const Aboutus = () => {
       </div>
 
       {/* Room Information Section */}
-      <div className="bg-gray-100 py-16">
+      <div className="bg-gray-100 py-16 text-black ">
         <h3 className="text-3xl font-semibold text-center mb-6">Room Types & Details</h3>
         <div className="flex flex-wrap justify-center gap-8">
           {hotelData.roomDetails.map((room, index) => (
@@ -100,12 +100,12 @@ const Aboutus = () => {
       </div>
 
       {/* Meet the Expert Members Section */}
-      <div className="py-16">
+      <div className="py-16 text-black">
         <h3 className="text-3xl font-semibold text-center mb-6">Meet the Expert Members</h3>
         <p className="text-center text-gray-600 mb-12">
           Our dedicated team ensures every guest has a memorable stay.
         </p>
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="flex flex-wrap justify-center gap-8 text-black">
   {hotelData.teamMembers.map((member, index) => (
     <div key={index} className="text-center">
       <div className="w-[150px] h-[150px] overflow-hidden rounded-full mx-auto">
@@ -128,7 +128,7 @@ const Aboutus = () => {
       </div>
 
       {/* Client Feedback Section */}
-      <div className="bg-gray-100 py-16">
+      <div className="bg-gray-100 py-16 text-black">
         <h3 className="text-3xl font-semibold text-center mb-6">Client Feedback</h3>
         <div className="flex flex-wrap justify-center gap-8">
           {hotelData.clientFeedback.map((feedback, index) => (

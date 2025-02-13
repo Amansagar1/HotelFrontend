@@ -45,7 +45,7 @@ const Amenities = () => {
   const { heroSection, diningOptionsSection, amenitiesSection, roomTypes } = amenitiesPageData;
 
   return (
-    <div className="font-sans bg-gray-50">
+    <div className="font-sans bg-gray-50 text-black">
       {/* Hero Section */}
       <div
         className="relative bg-cover bg-center h-[400px] flex items-center justify-center text-center text-white"
@@ -70,9 +70,9 @@ const Amenities = () => {
       </div>
 
       {/* Dining Options Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-semibold text-center mb-8">{diningOptionsSection.title}</h2>
+      <section className="py-16 bg-white text-black">
+        <div className="max-w-6xl mx-auto px-4 text-black">
+          <h2 className="text-3xl font-semibold text-center mb-8 text-black ">{diningOptionsSection.title}</h2>
           <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {diningOptionsSection.diningOptions.map((option) => (
               <div
