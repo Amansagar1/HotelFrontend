@@ -133,7 +133,7 @@ const RoomCard = ({ room }) => {
         </div>
 
         {/* Room Details */}
-        <div className="text-sm flex flex-col gap-2 mt-4">
+        <div className="text-sm flex flex-col gap-2 mt-4 text-black">
           <DetailRow label="Room Number" value={room.roomnumber} />
           <DetailRow label="Size" value={room.size ? `${room.size}` : null} />
           <DetailRow label="Max Occupancy" value={room.maxOccupancy} />
@@ -182,7 +182,7 @@ const RoomCard = ({ room }) => {
 
 // Helper component for detail rows
 const DetailRow = ({ label, value, fallback = "Not specified" }) => (
-  <div className="flex gap-2 items-start">
+  <div className="flex gap-2 items-start ">
     <span className="font-semibold min-w-[130px]">{label}:</span>
     <span className="text-gray-700">{value || fallback}</span>
   </div>

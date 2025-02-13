@@ -674,7 +674,7 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
                 </div>
 
                 {/* Main Content */}
-                <div className="flex flex-col md:flex-row gap-8 p-6 md:p-10 h-[70vh] overflow-y-auto ">
+                <div className="flex flex-col md:flex-row gap-8 p-6 md:p-10 h-[70vh] overflow-y-auto text-black ">
                     {/* Left: Image Carousel */}
                     <div className="relative w-full md:w-1/2 bg-gray-100 rounded-lg ">
                         <Image
