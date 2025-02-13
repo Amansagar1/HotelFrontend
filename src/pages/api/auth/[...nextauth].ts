@@ -1,3 +1,4 @@
+
 // /* eslint-disable @typescript-eslint/no-unused-vars */
 // import NextAuth from 'next-auth';
 // import CredentialsProvider from 'next-auth/providers/credentials';
@@ -158,13 +159,15 @@ export default NextAuth({
     },
 
     async session({ session, token }) {
+      // Ensure that `id` is added to the session if it's available
       if (session?.user) {
-        session.user.id = token.id as string;
+        session.user.id = token.id as string; // Cast token.id to string
       }
       return session;
     },
 
     async jwt({ token, user }) {
+      // Add `id` to the JWT token if the user is available
       if (user) {
         token.id = user.id;
       }
@@ -177,11 +180,11 @@ export default NextAuth({
       options: {
         path: '/',
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Ensure HTTPS is being used
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        domain: process.env.NODE_ENV === 'production' ? '.hotelsudarshan.com' : undefined, // Ensure domain is correct
+        domain: process.env.NODE_ENV === 'production' ? '.hotelsudarshan.com' : undefined,
       },
     },
   },
-  debug: true,  // Debugging enabled to see more detailed errors in the logs
+  debug: true,
 });

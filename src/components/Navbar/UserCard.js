@@ -34,12 +34,15 @@ const UserCard = ({ isOpen }) => {
     }
   }, [session]);
 
-  // Handle sign out
-  const handleSignOut = () => {
+  // Handle sign out with refresh
+  const handleSignOut = async () => {
     // Clear user-related cookies when signing out
     Cookies.remove('userFullName');
     Cookies.remove('userEmail');
-    signOut(); // Proceed with sign out
+    
+    // Sign out the user and refresh the page
+    await signOut({ redirect: false }); // Do not automatically redirect
+    window.location.reload(); // Manually trigger page refresh
   };
 
   if (!userInfo) {
