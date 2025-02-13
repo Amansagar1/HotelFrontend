@@ -2062,6 +2062,11 @@ input[type="time"] {
     padding-right: 2.5rem;
   }
 
+  .md\:py-1 {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
   .md\:pl-14 {
     padding-left: 3.5rem;
   }
