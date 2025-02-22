@@ -47,7 +47,10 @@ const EndPoints = {
     GET_FOOTER: () => BASE_URL + `/footer`,
     GET_AMENITIES_PAGE: () => BASE_URL + `/hotel`,
     GET_ABOUT_US: () => BASE_URL + `/aboutus`,
-
+//signin
+GET_GOOGLE_Auth: () => BASE_URL + `/auth/google`,
+GET_CALLBACK: () => BASE_URL + `/auth/google/callback`
+  
    
 };
 

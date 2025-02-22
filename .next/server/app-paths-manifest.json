@@ -1,8 +1,6 @@
 {
-  "/login/page": "app/login/page.js",
-  "/aboutus/page": "app/aboutus/page.js",
-  "/amenities/page": "app/amenities/page.js",
-  "/rooms/page": "app/rooms/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
-  "/contact/page": "app/contact/page.js"
+  "/login/page": "app/login/page.js",
+  "/rooms/page": "app/rooms/page.js"
 }

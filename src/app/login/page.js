@@ -52,45 +52,49 @@ const LoginPage = () => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-
+  
     // Basic validation for empty fields
     if (!email || !password) {
       setError("Email and Password are required.");
       setIsLoading(false);
       return;
     }
-
+  
     if (isSignUp && password !== confirmPassword) {
       setError("Passwords do not match.");
       setIsLoading(false);
       return;
     }
-
+  
     try {
       if (isSignUp) {
         const userData = { fullName, email, mobileNumber, password, confirmPassword };
         const registrationResult = await registerUser(userData);
-
+  
         if (registrationResult) {
           // Save credentials in cookies
-          Cookies.set("userFullName", fullName, { expires: 7 }); // expires in 7 days
+          Cookies.set("userFullName", fullName, { expires: 7 }); 
           Cookies.set("userEmail", email, { expires: 7 });
-          Cookies.set("token", registrationResult.token, { expires: 7 }); // Assuming the API returns a token
-
+          Cookies.set("token", registrationResult.token, { expires: 7 });
+  
+          // Redirect and reload the page
           router.push("/rooms"); 
+          window.location.href = "/rooms"; // Forces a full page reload
         }
       } else {
         // Login user
         const loginData = { email, password };
         const loginResult = await loginUser(loginData);
-
+  
         if (loginResult) {
           // Save credentials in cookies
-          Cookies.set("userFullName", loginResult.fullName, { expires: 7 }); // Assuming loginResult contains the user's full name
+          Cookies.set("userFullName", loginResult.fullName, { expires: 7 });
           Cookies.set("userEmail", loginResult.email, { expires: 7 });
-          Cookies.set("token", loginResult.token, { expires: 7 }); // Assuming loginResult contains the token
-
+          Cookies.set("token", loginResult.token, { expires: 7 });
+  
+          // Redirect and reload the page
           router.push("/rooms"); 
+          window.location.href = "/rooms"; // Forces a full page reload
         }
       }
     } catch (err) {
@@ -99,6 +103,7 @@ const LoginPage = () => {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <section className="min-h-screen flex justify-center items-center w-full bg-yellow-600">

@@ -1,16 +1,14 @@
-"use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import Cookies from 'js-cookie';
-import { signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
+import Cookies from "js-cookie";
 import navLinks from "./Navbar.json"; // Import nav links
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false); // Mobile menu toggle
   const [navbarBg, setNavbarBg] = useState("bg-transparent"); // Navbar background on scroll
-  const [userCardOpen, setUserCardOpen] = useState(false); 
+  const [userCardOpen, setUserCardOpen] = useState(false);
   const [user, setUser] = useState({
     name: "Guest User",
     email: "guest@example.com",
@@ -41,7 +39,12 @@ const Navbar = () => {
   // Close user card if click is outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (userCardOpen && userCardRef.current && !userCardRef.current.contains(event.target) && !navbarRef.current.contains(event.target)) {
+      if (
+        userCardOpen &&
+        userCardRef.current &&
+        !userCardRef.current.contains(event.target) &&
+        !navbarRef.current.contains(event.target)
+      ) {
         setUserCardOpen(false);
       }
     };
@@ -60,8 +63,8 @@ const Navbar = () => {
   // Function to fetch user data from cookies or session
   useEffect(() => {
     // Sync user data with session and cookies
-    const userFullName = Cookies.get('userFullName');
-    const userEmail = Cookies.get('userEmail');
+    const userFullName = Cookies.get("userFullName");
+    const userEmail = Cookies.get("userEmail");
 
     if (session && session.user) {
       setUser({
@@ -81,22 +84,20 @@ const Navbar = () => {
     }
   }, [session]);
 
-
   // Handle user card toggle
   const toggleUserCard = () => {
     setUserCardOpen((prev) => !prev);
   };
 
   // Handle sign out
-  const handleSignOut = () => {
-    Cookies.remove('userFullName');
-    Cookies.remove('userEmail');
-    signOut(); // Proceed with sign out
-  
-    // After sign out, refresh the page
+  const handleSignOut = async () => {
+    // Clear user-related cookies
+    Cookies.remove("userFullName");
+    Cookies.remove("userEmail");
+    Cookies.remove("token");
+    await signOut({ redirect: false });
     window.location.reload();
   };
-  
 
   // Function to generate initials from user name
   const getInitials = (name, email) => {
@@ -117,7 +118,9 @@ const Navbar = () => {
         <div className="flex items-center justify-between w-[95%] relative">
           {/* Logo Section */}
           <div className="flex items-center md:pl-14">
-         <Link href="/">   <Image src="/images/logo.png" width={110} height={110} alt="hotellogo" /></Link>
+            <Link href="/">
+              <Image src="/images/logo.png" width={110} height={110} alt="hotellogo" />
+            </Link>
           </div>
 
           {/* Links Section (Desktop) */}
@@ -153,7 +156,7 @@ const Navbar = () => {
               >
                 <div className="flex justify-between mb-4">
                   <button
-                    onClick={handleSignOut} 
+                    onClick={handleSignOut}
                     className="text-sm text-white hover:text-red-600"
                   >
                     Sign Out
@@ -203,7 +206,6 @@ const Navbar = () => {
                     </Link>
                   )}
                 </div>
-
               </div>
             )}
           </div>
@@ -219,64 +221,58 @@ const Navbar = () => {
 
       {/* Mobile Menu (Dropdown on Mobile) */}
       {menuOpen && (
-  <div
-    className="md:hidden bg-gray-900 text-white p-6 transition-all duration-300 fixed top-0 right-0 h-full w-64 transform ease-in-out z-50 flex flex-col   shadow-lg"
-    style={{ transform: menuOpen ? 'translateX(0)' : 'translateX(-100%)' }}
-  >
-    <div className="w-full flex items-center justify-between ">
-        {/* User Profile Section for Mobile */}
-    <div
-      onClick={toggleUserCard}
-      className="cursor-pointer flex items-center justify-center w-16 h-12 rounded-full border-2 border-gray-600 bg-gray-800 hover:bg-gray-700 transition-all duration-200 "
-    >
-      {user?.image ? (
-        <Image className="w-full h-full object-cover rounded-full" src={user.image} alt="user" />
-      ) : (
-        <span className="text-white  font-semibold">{getInitials(user?.name, user?.email)}</span>
-      )}
-    </div>
-      <button  onClick={toggleMenu} className="w-full flex items-center justify-end">x</button>
-    </div>
-    {/* Mobile Navigation Links */}
-    <div className="flex flex-col w-full  items-center justify-center text-sm ">
-      {navLinks.map((link) => (
-        <Link
-          key={link.label}
-          href={link.href}
-          onClick={toggleMenu}
-          className="w-full p-2 font-medium text-white bg-transparent rounded-lg transition-all duration-200 transform hover:bg-yellow-600 hover:text-gray-900 shadow-lg hover:scale-105"
+        <div
+          className="md:hidden bg-gray-900 text-white p-6 transition-all duration-300 fixed top-0 right-0 h-full w-64 transform ease-in-out z-50 flex flex-col   shadow-lg"
+          style={{ transform: menuOpen ? "translateX(0)" : "translateX(-100%)" }}
         >
-          {link.label}
-        </Link>
-      ))}
-    </div>
+          <div className="w-full flex items-center justify-between ">
+            {/* User Profile Section for Mobile */}
+            <div
+              onClick={toggleUserCard}
+              className="cursor-pointer flex items-center justify-center w-16 h-12 rounded-full border-2 border-gray-600 bg-gray-800 hover:bg-gray-700 transition-all duration-200 "
+            >
+              {user?.image ? (
+                <Image className="w-full h-full object-cover rounded-full" src={user.image} alt="user" />
+              ) : (
+                <span className="text-white  font-semibold">{getInitials(user?.name, user?.email)}</span>
+              )}
+            </div>
+            <button onClick={toggleMenu} className="w-full flex items-center justify-end">
+              x
+            </button>
+          </div>
+          {/* Mobile Navigation Links */}
+          <div className="flex flex-col w-full  items-center justify-center text-sm ">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={toggleMenu}
+                className="w-full p-2 font-medium text-white bg-transparent rounded-lg transition-all duration-200 transform hover:bg-yellow-600 hover:text-gray-900 shadow-lg hover:scale-105"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
-  
-
-    {/* Conditional Mobile Button: Book Now or Login */}
-    <div className="mt-2 flex flex-col space-y-4 w-full">
-      {session || (user?.name !== "Guest User" && user?.email !== "guest@example.com") ? (
-        <Link href="/rooms" passHref>
-          <button className="w-full px-6 py-3 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-lg hover:bg-blue-700 hover:shadow-xl transition duration-200">
-            Book Now
-          </button>
-        </Link>
-      ) : (
-        <Link href="/login" passHref>
-          <button className="w-full px-6 py-3 bg-green-600 text-white text-sm font-medium rounded-lg shadow-lg hover:bg-green-700 hover:shadow-xl transition duration-200">
-            Login
-          </button>
-        </Link>
+          {/* Conditional Mobile Button: Book Now or Login */}
+          <div className="mt-2 flex flex-col space-y-4 w-full">
+            {session || (user?.name !== "Guest User" && user?.email !== "guest@example.com") ? (
+              <Link href="/rooms" passHref>
+                <button className="w-full px-6 py-3 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-lg hover:bg-blue-700 hover:shadow-xl transition duration-200">
+                  Book Now
+                </button>
+              </Link>
+            ) : (
+              <Link href="/login" passHref>
+                <button className="w-full px-6 py-3 bg-green-600 text-white text-sm font-medium rounded-lg shadow-lg hover:bg-green-700 hover:shadow-xl transition duration-200">
+                  Login
+                </button>
+              </Link>
+            )}
+          </div>
+        </div>
       )}
-    </div>
-  </div>
-)}
-
-
-
-
- 
- 
     </div>
   );
 };

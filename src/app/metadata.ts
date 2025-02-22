@@ -8,7 +8,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hotel Sudarshan | Luxury Rooms & Suites in Ayodhya ",
-  description: "Experience unparalleled luxury at Hotel Sudarshan. Book deluxe rooms, family suites, and enjoy world-class amenities in Ayodhya . Your comfort is our priority!",
+  description: "Experience unparalleled luxury at Hotel Sudarshan. Book deluxe rooms, family suites, and enjoy world-class amenities in Ayodhya . Your comfort is our priority! This WEBPAGE Genrated By Sagar Sharma",
   openGraph: {
     title: "Hotel Sudarshan | Luxury Rooms & Suites in Ayodhya",
     description: "Stay at Hotel Sudarshan for exceptional hospitality, stunning rooms, and top-notch services in Ayodhya. Perfect for vacations or business trips.",
