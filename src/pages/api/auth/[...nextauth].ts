@@ -182,10 +182,14 @@ export default NextAuth({
       if (account?.provider === 'google') {
         // You can save the user to your database here if needed
         console.log('Google User:', user);
+        console.log('Google Account:', account);
+        console.log('Google Profile:', profile);
       }
       return true;
     },
     async redirect({ url, baseUrl }) {
+      console.log('Redirect URL:', url);
+      console.log('Redirect Base URL:', baseUrl);
       return url.startsWith(baseUrl) ? url : baseUrl + `/rooms`;
     },
     async session({ session, token }) {

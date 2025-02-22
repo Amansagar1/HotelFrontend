@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Cookies from 'js-cookie';
 import Image from "next/image";
 
@@ -40,7 +40,7 @@ const UserCard = ({ isOpen }) => {
     Cookies.remove("userFullName");
     Cookies.remove("userEmail");
     Cookies.remove("token");
-    await signOut({ redirect: false });
+ 
     window.location.reload();
   };
 
