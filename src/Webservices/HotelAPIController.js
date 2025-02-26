@@ -342,90 +342,129 @@ export const getAllBookingRooms = () => {
 
 
 //---login--//
-export const loginUser = (loginData) => {
-  return fetch(EndPoints.LOGIN_USER(), {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(loginData),
-  })
+// export const loginUser = (loginData) => {
+//   return fetch(EndPoints.LOGIN_USER(), {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(loginData),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         return Promise.reject('Failed to login');
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       // Store token and user data in localStorage
+//       localStorage.setItem('token', data.token);
+//       localStorage.setItem('user', JSON.stringify(data.user)); // Save user data
+//       console.log('Login Successful:', data);
+//       return data.user; // Return user data
+//     })
+//     .catch((error) => {
+//       console.error('Login Error:', error);
+//       throw error;
+//     });
+// };
+
+
+// export function registerUser(userData) {
+//   return fetch(EndPoints.REGISTER_USER(), {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(userData),
+//   })
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error('Failed to register user');
+//       }
+//       return response.json(); // Return the response data as JSON
+//     })
+//     .then((data) => {
+//       console.log('User registered successfully', data);
+//       return data; // Return the success data
+//     })
+//     .catch((error) => {
+//       console.error('Error registering user:', error);
+//       throw error; // Throw error to be handled by the caller
+//     });
+// }
+
+/// Exported loginUser function that sends JSON data in the body of the request
+// Example of loginUser function in HotelAPIController.js
+// Login User
+// Login User
+export const loginUser = (email, password) => {
+  console.log('Logging in with email:', email); // Log email being used
+  return axios
+    .post(EndPoints.LOGIN_USER(), { email, password })
     .then((response) => {
-      if (!response.ok) {
-        return Promise.reject('Failed to login');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      // Store token and user data in localStorage
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user)); // Save user data
-      console.log('Login Successful:', data);
-      return data.user; // Return user data
+      console.log('Login successful, response:', response.data); // Log the response data
+      return response.data; // Returns { token, user }
     })
     .catch((error) => {
-      console.error('Login Error:', error);
-      throw error;
+      console.error('Login failed, error:', error.response?.data || error.message); // Log error details
+      throw error.response?.data || error.message;
+    });
+};
+
+// Register User
+export const registerUser = (username, email, mobileNumber, password, confirmPassword) => {
+  console.log('Registering user with email:', email, 'and username:', username); // Log email and username
+  return axios
+    .post(EndPoints.REGISTER_USER(), {
+      username,
+      email,
+      mobileNumber,
+      password,
+      confirmPassword,
+    })
+    .then((response) => {
+      console.log('Registration successful, response:', response.data); // Log the response data
+      return response.data; // Returns { message: 'User registered successfully' }
+    })
+    .catch((error) => {
+      console.error('Registration failed, error:', error.response?.data || error.message); // Log error details
+      throw error.response?.data || error.message;
     });
 };
 
 
-export function registerUser(userData) {
-  return fetch(EndPoints.REGISTER_USER(), {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Failed to register user');
-      }
-      return response.json(); // Return the response data as JSON
-    })
-    .then((data) => {
-      console.log('User registered successfully', data);
-      return data; // Return the success data
-    })
-    .catch((error) => {
-      console.error('Error registering user:', error);
-      throw error; // Throw error to be handled by the caller
-    });
-}
+// Google Auth
+// export const getGoogleAuth = () => {
+//   window.location.href = EndPoints.GET_GOOGLE_AUTH();
+// };
 
-
-// Function to send booking emails
-export const sendBookingEmails = async (bookingDetails) => {
-  const apiUrl = EndPoints.MAIL_URL; // Ensure EndPoints.MAIL_URL is defined properly
-  try {
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bookingDetails), // Removed extra nesting around `bookingDetails`
-    });
-
-    // Parse the response
-    const data = await response.json();
-
-    if (!response.ok) {
-      // Log the error response
-      console.error("Failed to send emails:", data);
-      throw new Error(data.message || "Error sending emails");
-    }
-
-    console.log("Emails sent successfully:", data);
-    return data;
-  } catch (error) {
-    // Catch and log any other errors
-    console.error("Error in sendBookingEmails:", error);
-    throw error;
-  }
+// // Google Callback
+// export const handleGoogleCallback = () => {
+//   return axios
+//     .get(EndPoints.GET_CALLBACK())
+//     .then((response) => {
+//       return response.data; // Returns { token, user }
+//     })
+//     .catch((error) => {
+//       throw error.response?.data || error.message;
+//     });
+// };
+export const getGoogleAuth = () => {
+  window.location.href = EndPoints.GET_GOOGLE_AUTH(); // This will redirect the user to Google OAuth
 };
 
-
+// Handle Google Callback
+export const handleGoogleCallback = () => {
+  return axios
+    .get(EndPoints.GET_CALLBACK()) // Assuming the backend will handle the Google callback and return user data
+    .then((response) => {
+      return response.data; // Returns { token, user }
+    })
+    .catch((error) => {
+      throw error.response?.data || error.message; // Handle any errors from the backend
+    });
+};
 //-get all rooms
 export const getAllRooms = () => {
   return axios

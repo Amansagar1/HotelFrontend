@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Cookies from 'js-cookie';
 import Image from "next/image";
 
@@ -23,8 +23,8 @@ const UserCard = ({ isOpen }) => {
 
   // Effect to check session or cookies for user data
   useEffect(() => {
-    const userFullName = Cookies.get('userFullName');
-    const userEmail = Cookies.get('userEmail');
+    const userFullName = Cookies.get('username');
+    const userEmail = Cookies.get('email');
 
     // If cookies exist, use cookies, otherwise fallback to session
     if (userFullName && userEmail) {
@@ -35,13 +35,11 @@ const UserCard = ({ isOpen }) => {
   }, [session]);
 
   // Handle sign out
-  const handleSignOut = async () => {
-    // Clear user-related cookies
-    Cookies.remove("userFullName");
-    Cookies.remove("userEmail");
-    Cookies.remove("token");
- 
-    window.location.reload();
+  const handleSignOut = () => {
+    // Clear user-related cookies when signing out
+    Cookies.remove('username');
+    Cookies.remove('email');
+    signOut(); // Proceed with sign out
   };
 
   if (!userInfo) {

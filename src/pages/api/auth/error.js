@@ -24,15 +24,15 @@
 // };
 
 // export default ErrorPage;
-export default function ErrorPage({ error }) {
-  return (
-    <div style={{ textAlign: 'center', marginTop: '100px' }}>
-      <h1>Authentication Error</h1>
-      <p>{error || 'An unknown error occurred.'}</p>
-    </div>
-  );
-}
+// export default function ErrorPage({ error }) {
+//   return (
+//     <div style={{ textAlign: 'center', marginTop: '100px' }}>
+//       <h1>Authentication Error</h1>
+//       <p>{error || 'An unknown error occurred.'}</p>
+//     </div>
+//   );
+// }
 
-ErrorPage.getInitialProps = ({ query }) => {
-  return { error: query.error };
-};
+// ErrorPage.getInitialProps = ({ query }) => {
+//   return { error: query.error };
+// };

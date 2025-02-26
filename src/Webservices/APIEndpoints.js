@@ -1,6 +1,7 @@
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const MAIL_URL = process.env.NEXT_PUBLIC_MAIL_URL;
+const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL;
 
 
 const EndPoints = {
@@ -33,10 +34,6 @@ const EndPoints = {
 
     PUT_SUPERDELUXE_ROOM: () => BASE_URL + `/super-deluxe-rooms/${id}`,
 
-    LOGIN_USER: () => BASE_URL + `/auth/login`,
-
-    REGISTER_USER: () => BASE_URL + `/auth/register`,
-
    MAIL_URL: () => MAIL_URL + `/send-email`,
 
    
@@ -47,10 +44,15 @@ const EndPoints = {
     GET_FOOTER: () => BASE_URL + `/footer`,
     GET_AMENITIES_PAGE: () => BASE_URL + `/hotel`,
     GET_ABOUT_US: () => BASE_URL + `/aboutus`,
+
+
+
 //signin
-GET_GOOGLE_Auth: () => BASE_URL + `/auth/google`,
-GET_CALLBACK: () => BASE_URL + `/auth/google/callback`
-  
+GET_GOOGLE_AUTH: () => AUTH_URL + `/auth/google`,
+GET_CALLBACK: () => AUTH_URL+ `/auth/google/callback`,
+LOGIN_USER: () => AUTH_URL + `/auth/login`,
+
+REGISTER_USER: () => AUTH_URL + `/auth/register`,
    
 };
 

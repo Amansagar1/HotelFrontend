@@ -1,24 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-"use client";
 import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
-import { loginUser, registerUser } from "../../Webservices/HotelAPIController"; // Import the API functions
-import Cookies from "js-cookie"; 
-import { signIn } from "next-auth/react";
+import Cookies from "js-cookie";
+import { loginUser, registerUser, getGoogleAuth, handleGoogleCallback } from '../../Webservices/HotelAPIController'; // Import necessary functions
+
 const LoginPage = () => {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   // State for form fields
-  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
@@ -27,16 +26,7 @@ const LoginPage = () => {
   // Debug logging
   useEffect(() => {
     console.log("Auth Status:", status);
-    console.log("Session:", session);
-  }, [status, session]);
-
-  // Handle session state changes
-  useEffect(() => {
-    if (status === 'authenticated' && session) {
-      console.log("Authenticated, redirecting to rooms...");
-      router.push('/rooms');
-    }
-  }, [status, session, router]);
+  }, [status]);
 
   // Loading state
   if (status === "loading") {
@@ -52,57 +42,76 @@ const LoginPage = () => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-  
+
     // Basic validation for empty fields
     if (!email || !password) {
       setError("Email and Password are required.");
       setIsLoading(false);
       return;
     }
-  
+
     if (isSignUp && password !== confirmPassword) {
       setError("Passwords do not match.");
       setIsLoading(false);
       return;
     }
-  
+
     try {
       if (isSignUp) {
-        const userData = { fullName, email, mobileNumber, password, confirmPassword };
-        const registrationResult = await registerUser(userData);
-  
-        if (registrationResult) {
-          // Save credentials in cookies
-          Cookies.set("userFullName", fullName, { expires: 7 }); 
-          Cookies.set("userEmail", email, { expires: 7 });
-          Cookies.set("token", registrationResult.token, { expires: 7 });
-  
-          // Redirect and reload the page
-          router.push("/rooms"); 
-          window.location.href = "/rooms"; // Forces a full page reload
-        }
+        // Register the user
+        const response = await registerUser(username, email, mobileNumber, password, confirmPassword);
+        console.log("Registration successful:", response);
+
+        // After successful registration, redirect to the login page
+        router.push("/login"); // Redirect to login page
       } else {
-        // Login user
-        const loginData = { email, password };
-        const loginResult = await loginUser(loginData);
-  
-        if (loginResult) {
-          // Save credentials in cookies
-          Cookies.set("userFullName", loginResult.fullName, { expires: 7 });
-          Cookies.set("userEmail", loginResult.email, { expires: 7 });
-          Cookies.set("token", loginResult.token, { expires: 7 });
-  
-          // Redirect and reload the page
-          router.push("/rooms"); 
-          window.location.href = "/rooms"; // Forces a full page reload
-        }
+        // Log in the user
+        const response = await loginUser(email, password);
+        console.log("Login successful:", response);
+
+        // Save login details in cookies
+        Cookies.set("token", response.token); // Save the token
+        Cookies.set("username", response.user.username); // Save the username
+        Cookies.set("email", response.user.email); // Save the email
+
+        // Handle successful login (e.g., redirect to dashboard)
+        router.push("/rooms"); // Redirect to rooms page after login
       }
     } catch (err) {
-      setError("An error occurred. Please try again.");
+      setError(err.message || "An error occurred");
     } finally {
       setIsLoading(false);
     }
   };
+
+  // Handle Google Sign-In
+  const handleGoogleSignIn = async () => {
+    try {
+      // Start Google OAuth flow
+      await getGoogleAuth(); // This initiates the OAuth flow
+  
+      // Handle the callback after Google login
+      const response = await handleGoogleCallback(); // Process the callback
+  
+      // Log and check the response format
+      console.log("Google login response:", response);
+      if (!response || !response.token || !response.user) {
+        throw new Error("Invalid response format from Google login");
+      }
+  
+      // Save the token and user information in cookies
+      Cookies.set("token", response.token); 
+      Cookies.set("username", response.user.username); 
+      Cookies.set("email", response.user.email); 
+  
+      // Redirect to rooms page
+      router.push("/rooms");
+    } catch (error) {
+      console.error("Google login error:", error);
+      setError("Google login failed, please try again.");
+    }
+  };
+  
   
 
   return (
@@ -125,10 +134,10 @@ const LoginPage = () => {
               <input
                 className="p-2 mt-2 rounded-xl border"
                 type="text"
-                name="fullName"
+                name="username"
                 placeholder="Full Name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             )}
             <input
@@ -187,7 +196,7 @@ const LoginPage = () => {
 
           <button
             disabled={isLoading}
-            onClick={() => signIn('google')} 
+            onClick={handleGoogleSignIn} // Trigger Google Sign-In when clicked
             className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-gray-50 font-medium disabled:opacity-70 disabled:hover:scale-100"
           >
             {isLoading ? (
