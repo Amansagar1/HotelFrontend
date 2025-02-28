@@ -403,7 +403,8 @@ export const loginUser = (email, password) => {
   return axios
     .post(EndPoints.LOGIN_USER(), { email, password })
     .then((response) => {
-      console.log('Login successful, response:', response.data); // Log the response data
+      console.log('Login successful, response:', response.data); 
+      window.location.reload();// Log the response data
       return response.data; // Returns { token, user }
     })
     .catch((error) => {

@@ -629,8 +629,8 @@ const RoomDetailsPopup = ({ isVisible, onClose, room }) => {
 
     const handleBookNow = () => {
         // Check if user data is in cookies
-        const userFullName = Cookies.get('userFullName');
-        const userEmail = Cookies.get('userEmail');
+        const userFullName = Cookies.get('username');
+        const userEmail = Cookies.get('email');
 
         if (userFullName && userEmail) {
             setShowModal(true); // Show booking form

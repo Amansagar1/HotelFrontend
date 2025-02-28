@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import Cookies from "js-cookie";
 import { loginUser, registerUser, getGoogleAuth, handleGoogleCallback } from '../../Webservices/HotelAPIController'; // Import necessary functions
-
+import toast, { Toaster } from 'react-hot-toast';
 const LoginPage = () => {
   const router = useRouter();
   const { status } = useSession();
@@ -22,6 +22,15 @@ const LoginPage = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
+
+  useEffect(() => {
+    if (registrationSuccess) {
+      router.push("/login");
+    }
+  }, [registrationSuccess, router]);
+
 
   // Debug logging
   useEffect(() => {
@@ -38,84 +47,90 @@ const LoginPage = () => {
   }
 
   // Handle form submit (for login and sign up)
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
 
-    // Basic validation for empty fields
-    if (!email || !password) {
-      setError("Email and Password are required.");
-      setIsLoading(false);
-      return;
-    }
 
-    if (isSignUp && password !== confirmPassword) {
-      setError("Passwords do not match.");
-      setIsLoading(false);
-      return;
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setError("");
 
-    try {
-      if (isSignUp) {
-        // Register the user
-        const response = await registerUser(username, email, mobileNumber, password, confirmPassword);
-        console.log("Registration successful:", response);
+  if (!email || !password) {
+    setError("Email and Password are required.");
+    setIsLoading(false);
+    return;
+  }
 
-        // After successful registration, redirect to the login page
-        router.push("/login"); // Redirect to login page
+  if (isSignUp && password !== confirmPassword) {
+    setError("Passwords do not match.");
+    setIsLoading(false);
+    return;
+  }
+
+  try {
+    if (isSignUp) {
+      const response = await registerUser(username, email, mobileNumber, password, confirmPassword);
+      toast.success("Registration successful:", response);
+
+      if (response?.message === "User registered successfully") {
+        setRegistrationSuccess(true); // Set success flag
       } else {
-        // Log in the user
-        const response = await loginUser(email, password);
-        console.log("Login successful:", response);
-
-        // Save login details in cookies
-        Cookies.set("token", response.token); // Save the token
-        Cookies.set("username", response.user.username); // Save the username
-        Cookies.set("email", response.user.email); // Save the email
-
-        // Handle successful login (e.g., redirect to dashboard)
-        router.push("/rooms"); // Redirect to rooms page after login
+        setError("Registration failed. Please try again.");
       }
-    } catch (err) {
-      setError(err.message || "An error occurred");
-    } finally {
-      setIsLoading(false);
+    } else {
+      const response = await loginUser(email, password);
+      toast.success("Login successful:", response);
+
+      Cookies.set("token", response.token);
+      Cookies.set("username", response.user.username);
+      Cookies.set("email", response.user.email);
+
+      router.push("/rooms");
     }
-  };
+  } catch (err) {
+    setError(err.message || "An error occurred");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+  
 
   // Handle Google Sign-In
   const handleGoogleSignIn = async () => {
     try {
       // Start Google OAuth flow
       await getGoogleAuth(); // This initiates the OAuth flow
-  
+
       // Handle the callback after Google login
       const response = await handleGoogleCallback(); // Process the callback
-  
+
       // Log and check the response format
       console.log("Google login response:", response);
       if (!response || !response.token || !response.user) {
         throw new Error("Invalid response format from Google login");
       }
-  
+
       // Save the token and user information in cookies
-      Cookies.set("token", response.token); 
-      Cookies.set("username", response.user.username); 
-      Cookies.set("email", response.user.email); 
-  
+      Cookies.set("token", response.token);
+      Cookies.set("username", response.user.username);
+      Cookies.set("email", response.user.email);
+
       // Redirect to rooms page
       router.push("/rooms");
     } catch (error) {
-      console.error("Google login error:", error);
+      toast.error("Google login error:", error);
       setError("Google login failed, please try again.");
     }
   };
-  
-  
+
+
 
   return (
     <section className="min-h-screen flex justify-center items-center w-full bg-yellow-600">
+      <Toaster
+  position="bottom-right"
+  reverseOrder={false}
+/>
       <div className="bg-[#dfa674] rounded-2xl flex max-w-3xl p-5 items-center">
         <div className="md:w-1/2 px-8">
           <h2 className="font-bold text-3xl text-[#002D74]">{isSignUp ? "Sign Up" : "Login"}</h2>
@@ -197,7 +212,7 @@ const LoginPage = () => {
           <button
             disabled={isLoading}
             onClick={handleGoogleSignIn} // Trigger Google Sign-In when clicked
-            className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-gray-50 font-medium disabled:opacity-70 disabled:hover:scale-100"
+            className="  py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 font-medium disabled:opacity-70 disabled:hover:scale-100"
           >
             {isLoading ? (
               <>
@@ -206,8 +221,8 @@ const LoginPage = () => {
               </>
             ) : (
               <>
-                <FcGoogle className="mr-3 h-6 w-6" />
-                Sign in with Google
+                {/* <FcGoogle className="mr-3 h-6 w-6" />
+                Sign in with Google */}
               </>
             )}
           </button>

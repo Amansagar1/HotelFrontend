@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import Cookies from "js-cookie";
 import navLinks from "./Navbar.json"; // Import nav links
-
+// import toast, { Toaster } from 'react-hot-toast';
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false); // Mobile menu toggle
   const [navbarBg, setNavbarBg] = useState("bg-transparent"); // Navbar background on scroll
@@ -14,7 +14,7 @@ const Navbar = () => {
     email: "guest@example.com",
   });
 
-  const { data: session } = useSession(); // Get session data
+  const { data: session } = useSession();
 
   const userCardRef = useRef(null); // Reference to the user card element
   const navbarRef = useRef(null); // Reference to the whole navbar container
@@ -63,12 +63,12 @@ const Navbar = () => {
   // Function to fetch user data from cookies or session
   useEffect(() => {
     // Sync user data with session and cookies
-    const userFullName = Cookies.get("userFullName");
-    const userEmail = Cookies.get("userEmail");
+    const userFullName = Cookies.get("username");
+    const userEmail = Cookies.get("email");
 
     if (session && session.user) {
       setUser({
-        name: session.user.name,
+        name: session.user.username,
         email: session.user.email,
       });
     } else if (userFullName && userEmail) {
@@ -90,13 +90,12 @@ const Navbar = () => {
   };
 
   // Handle sign out
-  const handleSignOut = async () => {
-    // Clear user-related cookies
-    Cookies.remove("userFullName");
-    Cookies.remove("userEmail");
-    Cookies.remove("token");
-    await signOut({ redirect: false });
-    window.location.reload();
+  const handleSignOut = () => {
+    Cookies.remove('username');
+    Cookies.remove('email');
+    signOut(); 
+      // toast.success("You have signed out successfully!");
+    window.location.href = '/';
   };
 
   // Function to generate initials from user name
@@ -114,6 +113,10 @@ const Navbar = () => {
 
   return (
     <div ref={navbarRef} className={`fixed top-0 w-full z-50 transition-all duration-300 ${navbarBg}`}>
+      {/* <Toaster
+  position="bottom-right"
+  reverseOrder={false}
+/> */}
       <div className="w-full py-2 md:py-1">
         <div className="flex items-center justify-between w-[95%] relative">
           {/* Logo Section */}
@@ -160,6 +163,7 @@ const Navbar = () => {
                     className="text-sm text-white hover:text-red-600"
                   >
                     Sign Out
+               
                   </button>
                 </div>
 
